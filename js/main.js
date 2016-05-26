@@ -61,10 +61,10 @@ function drawGap(units, config){
 			return scaleDollars(resp.total_development_cost) - scaleDollars(resp.gap)
 		})
 		.style("margin-top", function(){
-			return max_pixels - scaleDollars(resp.total_development_cost) + scaleDollars(resp.gap)
+			return max_pixels - (scaleDollars(resp.total_development_cost))
 		})
-		.style("border-bottom-width", function(){
-			return scaleDollars(resp.total_development_cost)-scaleDollars(resp.gap)
+		.style("border-top-width", function(){
+			return scaleDollars(resp.gap)
 		})
 	console.log(scaleDollars(resp.total_development_cost), scaleDollars(resp.gap))
 }
