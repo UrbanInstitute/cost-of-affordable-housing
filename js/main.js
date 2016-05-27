@@ -1,5 +1,5 @@
 var DEFAULT_CONFIG = {
-		"vacancy_rate" : 0.07,
+		"vacancy_rate" : .07,
 		"replacement_reserve_rate" : 300.0,
 		"debt_service_coverage" : 1.15,
 		"interest_rate" : 0.05,
@@ -25,7 +25,7 @@ var DEFAULT_CONFIG = {
 			}
 		},
 		"100" : {
-			"average_monthly_rent" : 489.35 ,
+			"average_monthly_rent" : 489.35,
 			"admin_expenses" :  240083.0,
 			"operating_expenses" :  131906.0,
 			"maintenance_expenses" :  125421.0,
@@ -45,6 +45,8 @@ var DEFAULT_CONFIG = {
 			}
 		}
 	}
+var DOLLARS = d3.format("$,.0f")
+var PERCENT = d3.format(".2%")
 
 function drawGap(units, config){
 	var max_dollars =  20024637;
@@ -57,6 +59,7 @@ function drawGap(units, config){
 	// 	.html(resp.total_development_cost + " - " + resp.total_sources + " = <strong>" + resp.gap + "</strong>")
 
 	d3.select("#test_building_" + units)
+		.transition()
 		.style("height", function(){
 			return scaleDollars(resp.total_development_cost) - scaleDollars(resp.gap)
 		})
@@ -66,6 +69,7 @@ function drawGap(units, config){
 		.style("border-top-width", function(){
 			return scaleDollars(resp.gap)
 		})
+		.text(DOLLARS(resp.gap))
 	console.log(scaleDollars(resp.total_development_cost), scaleDollars(resp.gap))
 }
 function update(units, config){
@@ -131,12 +135,37 @@ function getTotalSources(sources, max_loan){
 	return total_sources;
 }
 
-
 function restoreDefaults(config){
 	return config;
+}
+
+function updateDefaultsFromDashboard(){
+	var config = DEFAULT_CONFIG;
+	d3.selectAll("#debt_sizing .range.control")
+		.each(function(){
+			config[this.id.split("range_")[1]] = parseFloat(this.value)
+		})
+	return config
 }
 
 function init(){
 	drawGap("50", DEFAULT_CONFIG)
 	drawGap("100", DEFAULT_CONFIG)
 }
+
+d3.selectAll(".control")
+	.on("input",function(){
+		var config = updateDefaultsFromDashboard()
+		// console.log(config)
+		if(d3.select(this).classed("range")){
+			var val = (d3.select(this).classed("percent")) ? PERCENT(this.value) : this.value
+			d3.select("." + this.id.split("range_")[1] + ".text")
+				.attr("value", val)
+		}
+		else if(d3.select(this).classed("text")){
+			d3.select("." + this.id.split("text_")[1] + ".range")
+				.attr("value", this.value)
+		}
+		drawGap("50", config)
+		drawGap("100", config)
+	})

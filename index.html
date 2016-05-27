@@ -46,6 +46,36 @@
 </head>
 
 <body>
+
+	<div id = "full_controls">
+		<div id = "debt_sizing">
+			<div class = "control_container">
+				<label for="debt_service_coverage">Debt Service Coverage</label>
+				<input type = "range" class = "control debt_sizing debt_service_coverage range" id="range_debt_service_coverage" min="1" max = "1.35" step=".01" value="1.15"></input>
+				<input class = "control debt_sizing debt_service_coverage text" value="1.35"></input>
+			</div>
+
+			<div class = "control_container">
+				<label for="interest_rate">Interest Rate</label>
+				<input type = "range" class = "control percent debt_sizing interest_rate range" id="range_interest_rate"  min="0.03" max = ".12" step=".0005" value=".05"></input>
+				<input class = "control percent debt_sizing interest_rate text" id="text_interest_rate" value="5%"></input>
+			</div>
+			
+			<div class = "control_container">
+				<label for="capitalization_rate">Capitalization Rate</label>
+				<input type = "range" class = "control percent debt_sizing capitalization_rate range" id="range_capitalization_rate" min="0.04" max = ".1" step=".0005" value=".0575"></input>
+				<input class = "control percent debt_sizing capitalization_rate text" value = "5.75%"></input>
+			</div>
+
+			<div class = "control_container">
+				<label for="loan_to_value">Loan to Value</label>
+				<input type = "range" class = "control percent debt_sizing loan_to_value range" id="range_loan_to_value" min="0.75" max = ".90" step=".001" value=".87"></input>
+				<input class = "control percent debt_sizing loan_to_value text" value="87%"></input>
+			</div>
+		</div>
+	</div>
+
+
 	<div id = "test_building_50" class = "building"></div>
 	<div id = "test_building_100" class = "building"></div>
 	<script src = "js/vendor/d3.v3.min.js"></script>
