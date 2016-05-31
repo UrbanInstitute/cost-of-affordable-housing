@@ -47,10 +47,11 @@ var DEFAULT_CONFIG = {
 	}
 var DOLLARS = d3.format("$,.0f")
 var PERCENT = d3.format(".2%")
+var PERCENT_SMALL = d3.format(".1%")
 
 function drawGap(units, config){
 	var max_dollars =  20024637;
-	var max_pixels = 500;
+	var max_pixels = 300;
 	function scaleDollars(dollars){
 		return (dollars/max_dollars) * max_pixels
 	}
@@ -70,14 +71,22 @@ function drawGap(units, config){
 			return scaleDollars(resp.gap)
 		})
 		.text(DOLLARS(resp.gap))
-	console.log(scaleDollars(resp.total_development_cost), scaleDollars(resp.gap))
+	// console.log(scaleDollars(resp.total_development_cost), scaleDollars(resp.gap))
 }
 function update(units, config){
 	var effective_gross_income = getEffectiveGrossIncome(units, config.vacancy_rate, config[units]["average_monthly_rent"])
 	var noi = getNOI(units, config[units]["admin_expenses"], config[units]["operating_expenses"], config[units]["maintenance_expenses"], config.replacement_reserve_rate, effective_gross_income)
+
+	d3.select("#s" + units + "_noi").text(DOLLARS(noi))	
+
 	var max_loan_income = getMaxLoanIncome(noi, config.debt_service_coverage, config.interest_rate)
 	var max_loan_value = getMaxLoanValue(noi, config.capitalization_rate, config.loan_to_value)
 	var max_loan = Math.min(max_loan_value, max_loan_income)
+
+	d3.select("#s" + units + "_debt").text(DOLLARS(max_loan))
+	var text = (max_loan_value > max_loan_income) ? "Income" : "Value";
+	d3.select("#loan_label").text(text)
+	
 	var total_development_cost = getTotalDevelopmentCost(config[units]["uses"])
 	var total_sources = getTotalSources(config[units]["sources"], max_loan)
 	var gap = total_development_cost - total_sources;
@@ -140,11 +149,58 @@ function restoreDefaults(config){
 }
 
 function updateDefaultsFromDashboard(){
-	var config = DEFAULT_CONFIG;
+	var config = jQuery.extend(true, {}, DEFAULT_CONFIG);
+	var original = jQuery.extend(true, {}, DEFAULT_CONFIG);
 	d3.selectAll("#debt_sizing .range.control")
 		.each(function(){
 			config[this.id.split("range_")[1]] = parseFloat(this.value)
 		})
+	d3.selectAll("#sources .range.control")
+		.each(function(){
+			var control = this.id.split("range_")[1];
+			var sizes = ["50","100"]
+			for (var i = 0; i<sizes.length; i++){
+				size = sizes[i]
+				var amt = parseFloat(this.value)*original[size]["sources"][control]
+				if(!isNaN(amt)){
+					config[size]["sources"][control] = amt
+					d3.select("#s" + size +"_" + control).text(DOLLARS(amt))
+				}
+
+			}
+		})
+	d3.selectAll("#uses .range.control")
+		.each(function(){
+			var control = this.id.split("range_")[1];
+			var sizes = ["50","100"]
+			for (var i = 0; i<sizes.length; i++){
+				size = sizes[i]
+				var amt = parseFloat(this.value)*original[size]["uses"][control]
+				if(!isNaN(amt)){
+					config[size]["uses"][control] = amt
+					d3.select("#s" + size +"_" + control).text(DOLLARS(amt))
+				}
+
+			}
+		})
+	d3.selectAll("#noi .range.control")
+		.each(function(){
+			var control = this.id.split("range_")[1];
+			if(control == "vacancy_rate" || control == "replacement_reserve_rate"){
+				config[this.id.split("range_")[1]] = parseFloat(this.value)	
+			}
+			var sizes = ["50","100"]
+			for (var i = 0; i<sizes.length; i++){
+				size = sizes[i]
+				var amt = parseFloat(this.value)*original[size][control]
+				if(!isNaN(amt)){
+					config[size][control] = amt
+					d3.select("#s" + size +"_" + control).text(DOLLARS(amt))
+				}
+
+			}
+		})
+	// console.log(config)
 	return config
 }
 
@@ -155,17 +211,42 @@ function init(){
 
 d3.selectAll(".control")
 	.on("input",function(){
-		var config = updateDefaultsFromDashboard()
-		// console.log(config)
-		if(d3.select(this).classed("range")){
-			var val = (d3.select(this).classed("percent")) ? PERCENT(this.value) : this.value
+		if(this.type == "text"){
+			// var config = updateDefaultsFromDashboard()
+			var val;
+			// console.log(d3.select("." + this.id.split("text_")[1] + ".range"))
+			if(d3.select(this).classed("percent") || d3.select(this).classed("percent_small")){
+				val = parseFloat(this.value)/100
+			}else val = parseFloat(this.value)
+			var range = d3.select("." + this.id.split("text_")[1] + ".range")
+			if(val >= parseFloat(range.attr("min")) && val <= parseFloat(range.attr("max"))){
+				d3.select(this).classed("invalid",false)
+				range.attr("value", val)
+				range.node().value = val
+				var config = updateDefaultsFromDashboard()
+				drawGap("50", config)
+				drawGap("100", config)
+
+			}else{
+				d3.select(this).classed("invalid",true)
+			}
+			// d3.select("." + this.id.split("text_")[1] + ".range")
+				// .attr("value", val)
+
+		}else{
+			var config = updateDefaultsFromDashboard()
+			var val;
+			if(d3.select(this).classed("percent")) val = PERCENT(this.value);
+			else if(d3.select(this).classed("percent_small")) val = PERCENT_SMALL(this.value);
+			else val = this.value;
+
 			d3.select("." + this.id.split("range_")[1] + ".text")
 				.attr("value", val)
+				.classed("invalid",false)
+			d3.select("." + this.id.split("range_")[1] + ".text")
+				.node().value = val
+			
+			drawGap("50", config)
+			drawGap("100", config)
 		}
-		else if(d3.select(this).classed("text")){
-			d3.select("." + this.id.split("text_")[1] + ".range")
-				.attr("value", this.value)
-		}
-		drawGap("50", config)
-		drawGap("100", config)
 	})

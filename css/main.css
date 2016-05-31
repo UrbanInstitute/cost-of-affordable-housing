@@ -2,18 +2,53 @@ body{
 	background-color: #aaa;
 	font-family: Lato;
 }
+*:focus{
+	outline: none;
+}
+/***************************************************************************/
+/*************************** TEMP CONTROLS ***************************/
+/***************************************************************************/
+#debt_sizing, #sources{
+	display: block;
+	float: left;
+	margin-bottom: 20px;
+}
+#sources{
+	margin-left: 2px;
+}
+#uses{
+	clear: both;
+	margin-bottom: 20px;
+}
 .building{
+	position: fixed;
+	bottom: 10px;
+	right: 10;
 	font-family: Lato;
 	color: white;
 	vertical-align: middle;
 	text-align: center;
 	background-color: #1696d2;
-	width: 150px;
+	width: 100px;
 	border: 2px solid #ccc;
-	float: left;
+	float: right;
 	margin-left: 10px;
 }
-
+#test_building_50{
+	clear: both;
+	right: 130px;
+}
+#arrow{
+    display: block;
+    float: left;
+    font-size: 50px;
+    margin-top: 40px;
+}
+#junk_bracket{
+	display: block;
+    float: left;
+    margin-top: 40px;
+}
 
 /***************************************************************************/
 /*************************** DASHBOARD CONTROLS ***************************/
@@ -24,11 +59,28 @@ body{
 }
 .control_container label{
 	display: inline-block;
-	width: 170px;
+	width: 270px;
 }
 .control_container .control.range{
 	width: 80px;
 }
 .control_container .control.text{
 	width: 50px;
+}
+
+.s50_label, .s100_label, .s50_noi_label, .s100_noi_label{
+	display: inline-block;
+	margin-left: 20px;
+	width: 84px;
+    text-align: right;
+}
+.control_container.debt, .control_container.noi{
+	font-style: italic;
+}
+#debt_label, #noi_label{
+	width: 412px;
+	float: left;
+}
+input.text.invalid{
+	border-color: red;
 }
