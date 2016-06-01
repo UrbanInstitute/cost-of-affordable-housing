@@ -200,6 +200,19 @@ function updateDefaultsFromDashboard(){
 
 			}
 		})
+	d3.selectAll("#sources .other_source.other")
+		.each(function(){
+			var components = this.id.split("_")
+			var size = components[1].replace("s","")
+			var ind = components[4]
+
+			var amt = parseFloat(this.value.replace("$","").replace(/,/g,""))
+			console.log(amt, size, ind)
+			if(!isNaN(amt)){
+				config[size]["sources"]["other_source_" + ind] = amt
+			}
+			// text_s50_other_source_
+		})
 	// console.log(config)
 	return config
 }
@@ -250,3 +263,47 @@ d3.selectAll(".control")
 			drawGap("100", config)
 		}
 	})
+
+d3.select("#sources")
+			.datum({"count":0})
+
+d3.select(".control_container.new_source")
+	.on("click", function(){
+		var new_source = d3.select("#sources")
+			.append("div")
+			.attr("class", "control_container new_source")
+		new_source.append("div")
+			.attr("class", "new_source_label")
+			.text("Other Source")
+		new_source.append("input")
+			.attr("class","control sources other_source other")
+			.attr("id",function(d){
+				var c = d.count
+				d.count += 1
+				return "text_s50_other_source_" + (c+1)
+			})
+			.attr("value","$0")
+			.on("input", function(d){
+				var config = updateDefaultsFromDashboard();
+				// config["50"]["sources"]["other_source_" + d.count] = this.value
+				console.log(config)
+				drawGap("50",config)
+			})
+		new_source.append("input")
+			.attr("class","control sources other_source other")
+			.attr("id",function(d){
+				var c = d.count
+				return "text_s100_other_source_" + (c+1)
+			})
+			.attr("value","$0")
+			.on("input", function(d){
+				var config = updateDefaultsFromDashboard();
+				// config["50"]["sources"]["other_source_" + d.count] = this.value
+				console.log(config)
+				drawGap("100",config)
+			})
+
+	})
+
+
+

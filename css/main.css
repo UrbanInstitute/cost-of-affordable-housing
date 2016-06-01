@@ -67,17 +67,31 @@ body{
 .control_container .control.text{
 	width: 50px;
 }
-
-.s50_label, .s100_label, .s50_noi_label, .s100_noi_label{
+.control_container.new_source{
+	margin: 3px 0 3px 0px;
+}
+#click_to_add_sources{
+	text-transform: uppercase;
+	color: white;
+	background-color: #1696d2;
+	font-style: normal;
+	cursor: pointer;
+}
+.s50_label, .s100_label, .s50_noi_label, .s100_noi_label, .s50_blank_label, .s100_blank_label{
 	display: inline-block;
 	margin-left: 20px;
 	width: 84px;
     text-align: right;
 }
-.control_container.debt, .control_container.noi{
+.other_source.other{
+	display: inline-block;
+	margin-left: 20px;
+	width: 84px !important;
+}
+.control_container.debt, .control_container.noi, .control_container.new_source{
 	font-style: italic;
 }
-#debt_label, #noi_label{
+#debt_label, #noi_label, .new_source_label{
 	width: 412px;
 	float: left;
 }
