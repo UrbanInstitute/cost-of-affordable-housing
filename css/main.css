@@ -1,5 +1,5 @@
 body{
-	background-color: #aaa;
+	background-color: #cbeaf5;
 	font-family: Lato;
 }
 *:focus{
@@ -23,20 +23,87 @@ body{
 .building{
 	position: fixed;
 	bottom: 10px;
-	right: 10;
+	right: 30;
 	font-family: Lato;
 	color: white;
 	vertical-align: middle;
 	text-align: center;
-	background-color: #1696d2;
-	width: 100px;
-	border: 2px solid #ccc;
-	float: right;
+	/*background-color: #1696d2;*/
+	width: 176px;
+	/*border: 2px solid #ccc;*/
+	/*float: right;*/
 	margin-left: 10px;
 }
-#test_building_50{
+.total_building, .built_building{
+	position: absolute;
+	bottom: 0px;
+}
+.total_building{
+	width: 176px;
+	border: 1px solid #73bfe2;
+	z-index: 2;
+}
+.built_building{
+	width: 178px;
+	background-color: #1696d2;
+	z-index: 1;
+}
+.roof_img{
+	position: absolute;
+    bottom: 0px;
+    left: -21px;
+    z-index: 2;
+}
+#roof_100, #roof_50 {
+	position: absolute;
+	z-index: 1;
+	background-color: #1696d2;
+/*    border-top: 67px solid transparent;
+    border-bottom: 0px solid #1696d2;
+    border-left: 35px solid transparent;
+    border-right: 42px solid transparent;*/
+    height: 0px;
+    width: 222px;
+    left: -20px;
+}
+
+.i_bar_top, .i_bar_bottom{
+	background-color: #000;
+	height: 3px;
+	width: 19px;
+	position: absolute;
+	z-index: 3;
+}
+.i_bar_container{
+	margin-left: 15px;
+}
+.i_bar{
+	position: absolute;
+	width: 3px;
+	margin-left: 6.5px;
+	background-color: #000;
+	z-index: 5;
+}
+.balcony{
+	position: absolute;
+	left: -25px;
+}
+
+.windows{
+	position: absolute;
+	z-index: 5;
+}
+.windows_bottom{
+	bottom: -2;
+}
+.windows_roof{
+	margin-left: -22px;
+}
+
+
+#building_container_50{
 	clear: both;
-	right: 130px;
+	right: 256px;
 }
 #arrow{
     display: block;

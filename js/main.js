@@ -50,28 +50,156 @@ var PERCENT = d3.format(".2%")
 var PERCENT_SMALL = d3.format(".1%")
 
 function drawGap(units, config){
+	var roof_height = 67;
 	var max_dollars =  20024637;
-	var max_pixels = 300;
+	var max_pixels = 400;
+	var break1 = 156;
+	var break2 = 113;
+	var break3 = 61;
+	var break4 = -7;
+
 	function scaleDollars(dollars){
 		return (dollars/max_dollars) * max_pixels
 	}
 	var resp = update(units, config)
-	// d3.select("#building_" + units)
-	// 	.html(resp.total_development_cost + " - " + resp.total_sources + " = <strong>" + resp.gap + "</strong>")
-
-	d3.select("#test_building_" + units)
+	var total_development_cost = resp.total_development_cost
+	var gap = resp.gap
+	if(total_development_cost-gap <0){
+		gap = total_development_cost;
+	}else if(gap < 0){
+		gap = 0;
+	}
+	console.log(scaleDollars(total_development_cost) - roof_height)
+	d3.selectAll(".roofs_" + units)
+		.style("bottom", function(){
+			return (scaleDollars(total_development_cost) - roof_height) + "px"
+		})
 		.transition()
+		.duration(100)
+		.style("opacity",function(){
+			if(units == 50 && scaleDollars(total_development_cost) - roof_height < break3){
+				return 0;
+			}else return 1
+		})
+
+	d3.select("#total_building_"+units)
 		.style("height", function(){
-			return scaleDollars(resp.total_development_cost) - scaleDollars(resp.gap)
+			if(units == 50 && scaleDollars(total_development_cost) - roof_height < break3){
+				return scaleDollars(total_development_cost)
+			}else return scaleDollars(total_development_cost) - roof_height - 2 -5
 		})
-		.style("margin-top", function(){
-			return max_pixels - (scaleDollars(resp.total_development_cost))
+	d3.select("#built_building_"+units)
+		.style("height", function(){
+			if(scaleDollars(total_development_cost) - scaleDollars(gap) > scaleDollars(total_development_cost) -roof_height){
+				drawRoof(units, -scaleDollars(gap) + roof_height)
+				return(scaleDollars(total_development_cost) - roof_height)
+			}else{
+				drawRoof(units, 0)
+				return scaleDollars(total_development_cost) - scaleDollars(gap)
+			}
 		})
-		.style("border-top-width", function(){
-			return scaleDollars(resp.gap)
+	d3.select("#i_bar_top_"+units)
+		.style("bottom", function(){
+			return scaleDollars(total_development_cost)
 		})
-		.text(DOLLARS(resp.gap))
-	// console.log(scaleDollars(resp.total_development_cost), scaleDollars(resp.gap))
+	d3.select("#i_bar_bottom_"+units)
+		.style("bottom", function(){
+			return scaleDollars(total_development_cost) - scaleDollars(gap)
+		})
+	d3.select("#i_bar_"+units)
+		.style("bottom", function(){
+			return (scaleDollars(total_development_cost) - scaleDollars(gap)) + "px"
+		})
+		.style("height", function(){
+			return scaleDollars(gap)
+		})
+
+	d3.select("#balcony_top_" + units)
+		.style("bottom", function(){
+			return scaleDollars(total_development_cost) - roof_height - 45
+		})
+		.transition()
+		.duration(100)
+		.style("opacity",function(){
+			if(units == 50 && scaleDollars(total_development_cost) - roof_height < break2){
+				return 0;
+			}else return 1
+		})
+	d3.select("#balcony_bottom_" + units)
+		.style("bottom", function(){
+			return (scaleDollars(total_development_cost) - roof_height - 2)/2 - 25
+		})
+		.transition()
+		.duration(100)
+		.style("opacity",function(){
+			if(units == 50 && scaleDollars(total_development_cost) - roof_height < break1){
+				return 0;
+			}else return 1
+		})
+	d3.select("#windows_bottom_" + units)
+		.transition()
+		.duration(100)
+		.style("opacity",function(){
+			if(scaleDollars(total_development_cost) - roof_height < break4){
+				return 0;
+			}else return 1
+		})
+	d3.select("#windows_middle_" + units)
+		.style("bottom", function(){
+			return (scaleDollars(total_development_cost) - roof_height - 2)/2 - 30
+		})
+		.transition()
+		.duration(100)
+		.style("opacity",function(){
+			if(units == 50 && scaleDollars(total_development_cost) - roof_height < break1){
+				return 0;
+			}else return 1
+		})
+	d3.select("#windows_middle1_" + units)
+		.style("bottom", function(){
+			return (scaleDollars(total_development_cost) - roof_height - 2)/2 - 30
+		})
+	d3.select("#windows_middle2_" + units)
+		.style("bottom", function(){
+			return (scaleDollars(total_development_cost) - roof_height - 2)/4 - 10
+		})
+	d3.select("#windows_middle3_" + units)
+		.style("bottom", function(){
+			return 3*(scaleDollars(total_development_cost) - roof_height - 2)/4 - 50
+		})
+	d3.select("#windows_top_" + units)
+		.style("bottom", function(){
+			return scaleDollars(total_development_cost) - roof_height - 70
+		})
+		.transition()
+		.duration(100)
+		.style("opacity",function(){
+			if(units == 50 && scaleDollars(total_development_cost) - roof_height < break2){
+				return 0;
+			}else return 1
+		})
+	d3.select("#windows_roof_" + units)
+		.style("bottom", function(){
+			return (scaleDollars(total_development_cost) - roof_height) + "px"
+		})
+		.transition()
+		.duration(100)
+		.style("opacity",function(){
+			if(units == 50 && scaleDollars(total_development_cost) - roof_height < break3){
+				return 0;
+			}else return 1
+		})
+}
+function drawRoof(units, pixels){
+
+	pixels = parseFloat(pixels)
+	var roof = d3.select("#roof_" + units)
+	if(units == 0){
+		roof.style("height",pixels)
+	}else{
+		roof
+			.style("height",pixels)
+	}
 }
 function update(units, config){
 	var effective_gross_income = getEffectiveGrossIncome(units, config.vacancy_rate, config[units]["average_monthly_rent"])
@@ -207,13 +335,10 @@ function updateDefaultsFromDashboard(){
 			var ind = components[4]
 
 			var amt = parseFloat(this.value.replace("$","").replace(/,/g,""))
-			console.log(amt, size, ind)
 			if(!isNaN(amt)){
 				config[size]["sources"]["other_source_" + ind] = amt
 			}
-			// text_s50_other_source_
 		})
-	// console.log(config)
 	return config
 }
 
@@ -225,9 +350,7 @@ function init(){
 d3.selectAll(".control")
 	.on("input",function(){
 		if(this.type == "text"){
-			// var config = updateDefaultsFromDashboard()
 			var val;
-			// console.log(d3.select("." + this.id.split("text_")[1] + ".range"))
 			if(d3.select(this).classed("percent") || d3.select(this).classed("percent_small")){
 				val = parseFloat(this.value)/100
 			}else val = parseFloat(this.value)
@@ -286,7 +409,6 @@ d3.select(".control_container.new_source")
 			.on("input", function(d){
 				var config = updateDefaultsFromDashboard();
 				// config["50"]["sources"]["other_source_" + d.count] = this.value
-				console.log(config)
 				drawGap("50",config)
 			})
 		new_source.append("input")
@@ -299,11 +421,16 @@ d3.select(".control_container.new_source")
 			.on("input", function(d){
 				var config = updateDefaultsFromDashboard();
 				// config["50"]["sources"]["other_source_" + d.count] = this.value
-				console.log(config)
 				drawGap("100",config)
 			})
 
 	})
+
+
+
+
+
+
 
 
 
