@@ -1,6 +1,7 @@
 body{
 	background-color: #cbeaf5;
 	font-family: Lato;
+	margin: 0;
 }
 *:focus{
 	outline: none;
@@ -8,6 +9,14 @@ body{
 /***************************************************************************/
 /*************************** TEMP CONTROLS ***************************/
 /***************************************************************************/
+p{
+	width: 60%;
+	line-height: 2;
+	margin-left: 10px;
+}
+#pbottom{
+	margin-bottom: 100px;
+}
 #debt_sizing, #sources{
 	display: block;
 	float: left;
@@ -20,6 +29,27 @@ body{
 	clear: both;
 	margin-bottom: 20px;
 }
+
+#arrow{
+    display: block;
+    float: left;
+    font-size: 50px;
+    margin-top: 40px;
+}
+#junk_bracket{
+	display: block;
+    float: left;
+    margin-top: 40px;
+}
+#noi, #debt_sizing, #uses{
+	margin-left: 10px;
+}
+
+
+/***************************************************************************/
+/******************************** BUILDINGS ********************************/
+/***************************************************************************/
+
 .building{
 	position: fixed;
 	bottom: 30px;
@@ -33,6 +63,7 @@ body{
 	/*border: 2px solid #ccc;*/
 	/*float: right;*/
 	margin-left: 10px;
+	z-index: 9;
 }
 .shadow_gap{
 	position: absolute;
@@ -41,7 +72,7 @@ body{
 	border: none;
 	background-color: rgba(0,0,0,.1);
 	width: 178px;
-	z-index: 10;
+	z-index: 20;
 }
 .total_building, .built_building{
 	position: absolute;
@@ -50,18 +81,18 @@ body{
 .total_building{
 	width: 176px;
 	border: 1px solid #73bfe2;
-	z-index: 2;
+	z-index: 12;
 }
 .built_building{
 	width: 178px;
 	background-color: #1696d2;
-	z-index: 1;
+	z-index: 11;
 }
 .roof_img{
 	position: absolute;
     bottom: 0px;
     left: -21px;
-    z-index: 2;
+    z-index: 12;
 }
 #roof_100, #roof_50 {
 	position: absolute;
@@ -81,7 +112,7 @@ body{
 	height: 3px;
 	width: 19px;
 	position: absolute;
-	z-index: 3;
+	z-index: 13;
 }
 .i_bar_container{
 	margin-left: 9px;
@@ -91,7 +122,7 @@ body{
 	width: 3px;
 	margin-left: 6.5px;
 	background-color: #000;
-	z-index: 5;
+	z-index: 15;
 }
 .gap_container{
 	position: absolute;
@@ -100,6 +131,7 @@ body{
 	left: 16px;
 	color: #fff;
 	background-color: #000;
+	z-index: 109;
 }
 .gap_label{
 	font-size: 16px;
@@ -123,7 +155,7 @@ body{
 
 .windows{
 	position: absolute;
-	z-index: 5;
+	z-index: 15;
 }
 .windows_bottom{
 	bottom: -2;
@@ -132,21 +164,46 @@ body{
 	margin-left: -22px;
 }
 
-
 #building_container_50{
 	clear: both;
 	right: 256px;
 }
-#arrow{
-    display: block;
-    float: left;
-    font-size: 50px;
-    margin-top: 40px;
+
+/***************************************************************************/
+/******************************** BACKGROUND *******************************/
+/***************************************************************************/
+#ground_container div{
+	position: fixed;
+	left: 0;
+	width: 100%;
+	background-repeat: repeat-x;
+	opacity: 0;
 }
-#junk_bracket{
-	display: block;
-    float: left;
-    margin-top: 40px;
+#dirt{
+	background-image: url('../images/dirt.jpg');
+	height: 79;
+	bottom: 0;
+	z-index: 2;
+}
+#road{
+	background-image: url('../images/road.jpg');
+	height: 37;
+	bottom: 0;
+	z-index: 2;
+	z-index: 4;
+}
+#sidewalk{
+	background-image: url('../images/sidewalk.png');
+	height: 37;
+	bottom: 35;
+	z-index: 4;
+}
+#grass{
+	background-image: url('../images/grass.jpg');
+	height: 37;
+	z-index: 2;
+	bottom: 30;
+	z-index: 3;
 }
 
 /***************************************************************************/

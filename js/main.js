@@ -61,6 +61,11 @@ function drawGap(units, config, transition){
 	var break_100_bottom_balcony = 160;
 	var break_100_top_balcony = 100;
 
+	var bg_break_50_dirt = 0.3
+	var bg_break_50_road = 0.2
+	var bg_break_50_sidewalk = 0.4
+	var bg_break_50_grass = 0.3
+
 	function scaleDollars(dollars){
 		return (dollars/max_dollars) * max_pixels
 	}
@@ -72,6 +77,33 @@ function drawGap(units, config, transition){
 	}else if(gap < 0){
 		gap = 0;
 	}
+	if(units==50){
+		d3.selectAll("#dirt")
+			.transition()
+			.style("opacity", function(){
+				if(1-(gap/total_development_cost) > bg_break_50_dirt){ return 0;}
+				else{ return 1;}
+			})
+		d3.select("#road")
+			.transition()
+			.style("opacity", function(){
+				if(1-(gap/total_development_cost) > bg_break_50_road){ return 1;}
+				else{ return 0;}
+			})
+		d3.select("#sidewalk")
+			.transition()
+			.style("opacity", function(){
+				if(1-(gap/total_development_cost) > bg_break_50_sidewalk){ return 1;}
+				else{ return 0;}
+			})
+		d3.select("#grass")
+			.transition()
+			.style("opacity", function(){
+				if(1-(gap/total_development_cost) > bg_break_50_grass){ return 1;}
+				else{ return 0;}
+			})
+	}
+
 	if(transition){
 		d3.select("#roof_img_" + units)
 			.transition()
@@ -182,23 +214,12 @@ function drawGap(units, config, transition){
 		d3.select("#gap_container_"+units)
 			.transition()
 			.style("bottom", function(){
-				return scaleDollars(total_development_cost) + 20
+				if(window.innerHeight - (scaleDollars(total_development_cost) + 20) < 90){
+					return window.innerHeight-90
+				}else{
+					return scaleDollars(total_development_cost) + 20
+				}
 			})
-		// d3.select("#gap_amount_"+units)
-		// 	.text(function(){
-		// 		return DOLLARS(resp.gap)
-		// 	})
-			// var current_val = parseFloat(d3.select("#gap_amount_"+units).text().replace("$","").replace(/\,/g,""))
-			// var countup_options = {
-			// 	useEasing : true, 
-			// 	useGrouping : true,
-			// 	separator : ',', 
-			// 	decimal : '.', 
-			// 	prefix : '$', 
-			// 	suffix : '' 
-			// };
-			// var amount_countup = new CountUp("gap_amount_"+units, current_val, resp.gap, 0, .5, countup_options);
-			// amount_countup.start();
 			countup_val("gap_amount_"+units, resp.gap)
 
 		d3.select("#balcony_top_" + units)
@@ -322,7 +343,11 @@ function drawGap(units, config, transition){
 			})
 		d3.select("#gap_container_"+units)
 			.style("bottom", function(){
-				return scaleDollars(total_development_cost) + 20
+				if(window.innerHeight - (scaleDollars(total_development_cost) + 20) < 90){
+					return window.innerHeight-90
+				}else{
+					return scaleDollars(total_development_cost) + 20
+				}
 			})
 		countup_val("gap_amount_"+units, resp.gap)
 
