@@ -22,7 +22,7 @@ body{
 }
 .building{
 	position: fixed;
-	bottom: 10px;
+	bottom: 30px;
 	right: 30;
 	font-family: Lato;
 	color: white;
@@ -33,6 +33,15 @@ body{
 	/*border: 2px solid #ccc;*/
 	/*float: right;*/
 	margin-left: 10px;
+}
+.shadow_gap{
+	position: absolute;
+	max-height: 5px;
+	min-height: 0px;
+	border: none;
+	background-color: rgba(0,0,0,.1);
+	width: 178px;
+	z-index: 10;
 }
 .total_building, .built_building{
 	position: absolute;
@@ -63,8 +72,8 @@ body{
     border-left: 35px solid transparent;
     border-right: 42px solid transparent;*/
     height: 0px;
-    width: 222px;
-    left: -20px;
+    width: 220px;
+    left: -19px;
 }
 
 .i_bar_top, .i_bar_bottom{
@@ -75,7 +84,7 @@ body{
 	z-index: 3;
 }
 .i_bar_container{
-	margin-left: 15px;
+	margin-left: 9px;
 }
 .i_bar{
 	position: absolute;
@@ -83,6 +92,29 @@ body{
 	margin-left: 6.5px;
 	background-color: #000;
 	z-index: 5;
+}
+.gap_container{
+	position: absolute;
+	width: 144px;
+	height: 64px;
+	left: 16px;
+	color: #fff;
+	background-color: #000;
+}
+.gap_label{
+	font-size: 16px;
+	font-weight: normal;
+    float: left;
+    margin-left: 10px;
+    margin-top: 8px;
+}
+.gap_amount{
+	font-size: 19px;
+    font-weight: bold;
+    float: left;
+    clear: both;
+    margin-left: 9px;
+    margin-top: 2px;
 }
 .balcony{
 	position: absolute;

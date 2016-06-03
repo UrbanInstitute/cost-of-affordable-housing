@@ -49,14 +49,17 @@ var DOLLARS = d3.format("$,.0f")
 var PERCENT = d3.format(".2%")
 var PERCENT_SMALL = d3.format(".1%")
 
-function drawGap(units, config){
+function drawGap(units, config, transition){
 	var roof_height = 67;
 	var max_dollars =  20024637;
 	var max_pixels = 400;
-	var break1 = 156;
-	var break2 = 113;
-	var break3 = 61;
-	var break4 = -7;
+	var break_50_middle_windows = 166;
+	var break_50_top_windows = 113;
+	var break_50_roof = 61;
+	var break_50_door = -7;
+	var break_100_middle_windows = 250;
+	var break_100_bottom_balcony = 160;
+	var break_100_top_balcony = 100;
 
 	function scaleDollars(dollars){
 		return (dollars/max_dollars) * max_pixels
@@ -69,126 +72,337 @@ function drawGap(units, config){
 	}else if(gap < 0){
 		gap = 0;
 	}
-	console.log(scaleDollars(total_development_cost) - roof_height)
-	d3.selectAll(".roofs_" + units)
-		.style("bottom", function(){
-			return (scaleDollars(total_development_cost) - roof_height) + "px"
-		})
-		.transition()
-		.duration(100)
-		.style("opacity",function(){
-			if(units == 50 && scaleDollars(total_development_cost) - roof_height < break3){
-				return 0;
-			}else return 1
-		})
-
-	d3.select("#total_building_"+units)
-		.style("height", function(){
-			if(units == 50 && scaleDollars(total_development_cost) - roof_height < break3){
+	if(transition){
+		d3.selectAll(".roofs_" + units)
+			.transition()
+			.style("bottom", function(){
+				return (scaleDollars(total_development_cost) - roof_height) + "px"
+			})
+			.style("opacity",function(){
+				if(scaleDollars(total_development_cost) - roof_height < break_50_roof){
+					return 0;
+				}else return 1
+			})
+	}else{
+		d3.selectAll(".roofs_" + units)
+			.style("bottom", function(){
+				return (scaleDollars(total_development_cost) - roof_height) + "px"
+			})
+			.style("opacity",function(){
+				if(scaleDollars(total_development_cost) - roof_height < break_50_roof){
+					return 0;
+				}else return 1
+			})
+	}
+	if(transition){
+		d3.select("#total_building_"+units)
+			.transition()
+			.style("height", function(){
+				if(scaleDollars(total_development_cost) - roof_height < break_50_roof){
+					return scaleDollars(total_development_cost)-2
+				}else return scaleDollars(total_development_cost) - roof_height - 2 -5
+			})
+	}else{
+		d3.select("#total_building_"+units)
+			.style("height", function(){
+				if(scaleDollars(total_development_cost) - roof_height < break_50_roof){
+					return scaleDollars(total_development_cost)-2
+				}else return scaleDollars(total_development_cost) - roof_height - 2 -5
+			})
+	}
+	if(transition){
+		d3.select("#built_building_"+units)
+			.transition()
+			.style("height", function(){
+				if(scaleDollars(total_development_cost) - scaleDollars(gap) > scaleDollars(total_development_cost) -roof_height && scaleDollars(total_development_cost) - roof_height > break_50_roof){
+					drawRoof(units, -scaleDollars(gap) + roof_height)
+					return(scaleDollars(total_development_cost) - roof_height)
+				}else{
+					drawRoof(units, 0)
+					return scaleDollars(total_development_cost) - scaleDollars(gap)
+				}
+			})
+	}else{
+		d3.select("#built_building_"+units)
+			.style("height", function(){
+				if(scaleDollars(total_development_cost) - scaleDollars(gap) > scaleDollars(total_development_cost) -roof_height && scaleDollars(total_development_cost) - roof_height > break_50_roof){
+					drawRoof(units, -scaleDollars(gap) + roof_height)
+					return(scaleDollars(total_development_cost) - roof_height)
+				}else{
+					drawRoof(units, 0)
+					return scaleDollars(total_development_cost) - scaleDollars(gap)
+				}
+			})
+	}
+	if(transition){
+		d3.select("#shadow_gap_"+units)
+			.transition()
+			.style("bottom", function(){
+				return scaleDollars(total_development_cost) - roof_height -5
+			})
+			.style("height", function(){
+				return scaleDollars(total_development_cost) - scaleDollars(gap) - (scaleDollars(total_development_cost) - roof_height - 2 -5)-1
+			})
+			.style("opacity", function(){
+				if(scaleDollars(total_development_cost) - scaleDollars(gap) > scaleDollars(total_development_cost) -roof_height-5 && scaleDollars(total_development_cost) - roof_height > break_50_roof){
+					return 1
+				}else return 0
+			})
+		d3.select("#i_bar_top_"+units)
+			.transition()
+			.style("bottom", function(){
 				return scaleDollars(total_development_cost)
-			}else return scaleDollars(total_development_cost) - roof_height - 2 -5
-		})
-	d3.select("#built_building_"+units)
-		.style("height", function(){
-			if(scaleDollars(total_development_cost) - scaleDollars(gap) > scaleDollars(total_development_cost) -roof_height){
-				drawRoof(units, -scaleDollars(gap) + roof_height)
-				return(scaleDollars(total_development_cost) - roof_height)
-			}else{
-				drawRoof(units, 0)
+			})
+		d3.select("#i_bar_bottom_"+units)
+			.transition()
+			.style("bottom", function(){
 				return scaleDollars(total_development_cost) - scaleDollars(gap)
-			}
-		})
-	d3.select("#i_bar_top_"+units)
-		.style("bottom", function(){
-			return scaleDollars(total_development_cost)
-		})
-	d3.select("#i_bar_bottom_"+units)
-		.style("bottom", function(){
-			return scaleDollars(total_development_cost) - scaleDollars(gap)
-		})
-	d3.select("#i_bar_"+units)
-		.style("bottom", function(){
-			return (scaleDollars(total_development_cost) - scaleDollars(gap)) + "px"
-		})
-		.style("height", function(){
-			return scaleDollars(gap)
-		})
+			})
+		d3.select("#i_bar_"+units)
+			.transition()
+			.style("bottom", function(){
+				return (scaleDollars(total_development_cost) - scaleDollars(gap)) + "px"
+			})
+			.style("height", function(){
+				return scaleDollars(gap)
+			})
+		d3.select("#gap_container_"+units)
+			.transition()
+			.style("bottom", function(){
+				return scaleDollars(total_development_cost) + 20
+			})
+		d3.select("#gap_amount_"+units)
+			.text(function(){
+				return DOLLARS(resp.gap)
+			})
 
-	d3.select("#balcony_top_" + units)
-		.style("bottom", function(){
-			return scaleDollars(total_development_cost) - roof_height - 45
-		})
-		.transition()
-		.duration(100)
-		.style("opacity",function(){
-			if(units == 50 && scaleDollars(total_development_cost) - roof_height < break2){
-				return 0;
-			}else return 1
-		})
-	d3.select("#balcony_bottom_" + units)
-		.style("bottom", function(){
-			return (scaleDollars(total_development_cost) - roof_height - 2)/2 - 25
-		})
-		.transition()
-		.duration(100)
-		.style("opacity",function(){
-			if(units == 50 && scaleDollars(total_development_cost) - roof_height < break1){
-				return 0;
-			}else return 1
-		})
-	d3.select("#windows_bottom_" + units)
-		.transition()
-		.duration(100)
-		.style("opacity",function(){
-			if(scaleDollars(total_development_cost) - roof_height < break4){
-				return 0;
-			}else return 1
-		})
-	d3.select("#windows_middle_" + units)
-		.style("bottom", function(){
-			return (scaleDollars(total_development_cost) - roof_height - 2)/2 - 30
-		})
-		.transition()
-		.duration(100)
-		.style("opacity",function(){
-			if(units == 50 && scaleDollars(total_development_cost) - roof_height < break1){
-				return 0;
-			}else return 1
-		})
-	d3.select("#windows_middle1_" + units)
-		.style("bottom", function(){
-			return (scaleDollars(total_development_cost) - roof_height - 2)/2 - 30
-		})
-	d3.select("#windows_middle2_" + units)
-		.style("bottom", function(){
-			return (scaleDollars(total_development_cost) - roof_height - 2)/4 - 10
-		})
-	d3.select("#windows_middle3_" + units)
-		.style("bottom", function(){
-			return 3*(scaleDollars(total_development_cost) - roof_height - 2)/4 - 50
-		})
-	d3.select("#windows_top_" + units)
-		.style("bottom", function(){
-			return scaleDollars(total_development_cost) - roof_height - 70
-		})
-		.transition()
-		.duration(100)
-		.style("opacity",function(){
-			if(units == 50 && scaleDollars(total_development_cost) - roof_height < break2){
-				return 0;
-			}else return 1
-		})
-	d3.select("#windows_roof_" + units)
-		.style("bottom", function(){
-			return (scaleDollars(total_development_cost) - roof_height) + "px"
-		})
-		.transition()
-		.duration(100)
-		.style("opacity",function(){
-			if(units == 50 && scaleDollars(total_development_cost) - roof_height < break3){
-				return 0;
-			}else return 1
-		})
+		d3.select("#balcony_top_" + units)
+			.transition()
+			.style("bottom", function(){
+				return scaleDollars(total_development_cost) - roof_height - 45
+			})
+			.style("opacity",function(){
+				if(units == 50 && scaleDollars(total_development_cost) - roof_height < break_50_top_windows || units == 100 && scaleDollars(total_development_cost) - roof_height < break_100_top_balcony){
+					return 0;
+				}else return 1
+			})
+		d3.select("#balcony_bottom_" + units)
+			.transition()
+			.style("bottom", function(){
+				return (scaleDollars(total_development_cost) - roof_height - 2)/2 - 25
+			})
+			.style("opacity",function(){
+				if(units == 50 && scaleDollars(total_development_cost) - roof_height < break_50_middle_windows || units == 100 && scaleDollars(total_development_cost) - roof_height < break_100_bottom_balcony){
+					return 0;
+				}
+				else return 1
+			})
+		d3.select("#windows_bottom_" + units)
+			.transition()
+			.style("opacity",function(){
+				if(scaleDollars(total_development_cost) - roof_height < break_50_door){
+					return 0;
+				}else return 1
+			})
+		d3.select("#windows_middle_" + units)
+			.transition()
+			.style("bottom", function(){
+				return (scaleDollars(total_development_cost) - roof_height - 2)/2 - 30
+			})
+			.style("opacity",function(){
+				if(units == 50 && scaleDollars(total_development_cost) - roof_height < break_50_middle_windows){
+					return 0;
+				}else return 1
+			})
+		d3.select("#windows_middle1_" + units)
+			.transition()
+			.style("bottom", function(){
+				return (scaleDollars(total_development_cost) - roof_height - 2)/2 - 30
+			})
+			.style("opacity",function(){
+				if(units == 100 && scaleDollars(total_development_cost) - roof_height < break_100_bottom_balcony){
+					return 0;
+				}else return 1
+			})
+
+		d3.select("#windows_middle2_" + units)
+			.transition()
+			.style("bottom", function(){
+				return (scaleDollars(total_development_cost) - roof_height - 2)/4 - 10
+			})
+			.style("opacity",function(){
+				if(units == 100 && scaleDollars(total_development_cost) - roof_height < break_100_middle_windows){
+					return 0;
+				}else return 1
+			})
+		d3.select("#windows_middle3_" + units)
+			.transition()
+			.style("bottom", function(){
+				return 3*(scaleDollars(total_development_cost) - roof_height - 2)/4 - 50
+			})
+			.style("opacity",function(){
+				if(units == 100 && scaleDollars(total_development_cost) - roof_height < break_100_middle_windows){
+					return 0;
+				}else return 1
+			})
+		d3.select("#windows_top_" + units)
+			.transition()
+			.style("bottom", function(){
+				return scaleDollars(total_development_cost) - roof_height - 70
+			})
+			.style("opacity",function(){
+				if(units == 50 && scaleDollars(total_development_cost) - roof_height < break_50_top_windows || units == 100 && scaleDollars(total_development_cost) - roof_height < break_100_top_balcony){
+					return 0;
+				}else return 1
+			})
+		d3.select("#windows_roof_" + units)
+			.transition()
+			.style("bottom", function(){
+				return (scaleDollars(total_development_cost) - roof_height) + "px"
+			})
+			.style("opacity",function(){
+				if(scaleDollars(total_development_cost) - roof_height < break_50_roof){
+					return 0;
+				}else return 1
+			})
+	}else{
+		d3.select("#shadow_gap_"+units)
+			.style("bottom", function(){
+				return scaleDollars(total_development_cost) - roof_height -5
+			})
+			.style("height", function(){
+				return scaleDollars(total_development_cost) - scaleDollars(gap) - (scaleDollars(total_development_cost) - roof_height - 2 -5)-1
+			})
+			.transition()
+			.duration(100)
+			.style("opacity", function(){
+				if(scaleDollars(total_development_cost) - scaleDollars(gap) > scaleDollars(total_development_cost) -roof_height-5 && scaleDollars(total_development_cost) - roof_height > break_50_roof){
+					return 1
+				}else return 0
+			})
+		d3.select("#i_bar_top_"+units)
+			.style("bottom", function(){
+				return scaleDollars(total_development_cost)
+			})
+		d3.select("#i_bar_bottom_"+units)
+			.style("bottom", function(){
+				return scaleDollars(total_development_cost) - scaleDollars(gap)
+			})
+		d3.select("#i_bar_"+units)
+			.style("bottom", function(){
+				return (scaleDollars(total_development_cost) - scaleDollars(gap)) + "px"
+			})
+			.style("height", function(){
+				return scaleDollars(gap)
+			})
+		d3.select("#gap_container_"+units)
+			.style("bottom", function(){
+				return scaleDollars(total_development_cost) + 20
+			})
+		d3.select("#gap_amount_"+units)
+			.text(function(){
+				return DOLLARS(resp.gap)
+			})
+
+		d3.select("#balcony_top_" + units)
+			.style("bottom", function(){
+				return scaleDollars(total_development_cost) - roof_height - 45
+			})
+			.transition()
+			.duration(100)
+			.style("opacity",function(){
+				if(units == 50 && scaleDollars(total_development_cost) - roof_height < break_50_top_windows || units == 100 && scaleDollars(total_development_cost) - roof_height < break_100_top_balcony){
+					return 0;
+				}else return 1
+			})
+		d3.select("#balcony_bottom_" + units)
+			.style("bottom", function(){
+				return (scaleDollars(total_development_cost) - roof_height - 2)/2 - 25
+			})
+			.transition()
+			.duration(100)
+			.style("opacity",function(){
+				if(units == 50 && scaleDollars(total_development_cost) - roof_height < break_50_middle_windows || units == 100 && scaleDollars(total_development_cost) - roof_height < break_100_bottom_balcony){
+					return 0;
+				}
+				else return 1
+			})
+		d3.select("#windows_bottom_" + units)
+			.transition()
+			.duration(100)
+			.style("opacity",function(){
+				if(scaleDollars(total_development_cost) - roof_height < break_50_door){
+					return 0;
+				}else return 1
+			})
+		d3.select("#windows_middle_" + units)
+			.style("bottom", function(){
+				return (scaleDollars(total_development_cost) - roof_height - 2)/2 - 30
+			})
+			.transition()
+			.duration(100)
+			.style("opacity",function(){
+				if(units == 50 && scaleDollars(total_development_cost) - roof_height < break_50_middle_windows){
+					return 0;
+				}else return 1
+			})
+		d3.select("#windows_middle1_" + units)
+			.style("bottom", function(){
+				return (scaleDollars(total_development_cost) - roof_height - 2)/2 - 30
+			})
+			.transition()
+			.duration(100)
+			.style("opacity",function(){
+				if(units == 100 && scaleDollars(total_development_cost) - roof_height < break_100_bottom_balcony){
+					return 0;
+				}else return 1
+			})
+
+		d3.select("#windows_middle2_" + units)
+			.style("bottom", function(){
+				return (scaleDollars(total_development_cost) - roof_height - 2)/4 - 10
+			})
+			.transition()
+			.duration(100)
+			.style("opacity",function(){
+				if(units == 100 && scaleDollars(total_development_cost) - roof_height < break_100_middle_windows){
+					return 0;
+				}else return 1
+			})
+		d3.select("#windows_middle3_" + units)
+			.style("bottom", function(){
+				return 3*(scaleDollars(total_development_cost) - roof_height - 2)/4 - 50
+			})
+			.transition()
+			.duration(100)
+			.style("opacity",function(){
+				if(units == 100 && scaleDollars(total_development_cost) - roof_height < break_100_middle_windows){
+					return 0;
+				}else return 1
+			})
+		d3.select("#windows_top_" + units)
+			.style("bottom", function(){
+				return scaleDollars(total_development_cost) - roof_height - 70
+			})
+			.transition()
+			.duration(100)
+			.style("opacity",function(){
+				if(units == 50 && scaleDollars(total_development_cost) - roof_height < break_50_top_windows || units == 100 && scaleDollars(total_development_cost) - roof_height < break_100_top_balcony){
+					return 0;
+				}else return 1
+			})
+		d3.select("#windows_roof_" + units)
+			.style("bottom", function(){
+				return (scaleDollars(total_development_cost) - roof_height) + "px"
+			})
+			.transition()
+			.duration(100)
+			.style("opacity",function(){
+				if(scaleDollars(total_development_cost) - roof_height < break_50_roof){
+					return 0;
+				}else return 1
+			})
+	}
 }
 function drawRoof(units, pixels){
 
@@ -343,8 +557,8 @@ function updateDefaultsFromDashboard(){
 }
 
 function init(){
-	drawGap("50", DEFAULT_CONFIG)
-	drawGap("100", DEFAULT_CONFIG)
+	drawGap("50", DEFAULT_CONFIG, true)
+	drawGap("100", DEFAULT_CONFIG, true)
 }
 
 d3.selectAll(".control")
@@ -360,8 +574,8 @@ d3.selectAll(".control")
 				range.attr("value", val)
 				range.node().value = val
 				var config = updateDefaultsFromDashboard()
-				drawGap("50", config)
-				drawGap("100", config)
+				drawGap("50", config, true)
+				drawGap("100", config, true)
 
 			}else{
 				d3.select(this).classed("invalid",true)
@@ -382,8 +596,8 @@ d3.selectAll(".control")
 			d3.select("." + this.id.split("range_")[1] + ".text")
 				.node().value = val
 			
-			drawGap("50", config)
-			drawGap("100", config)
+			drawGap("50", config, false)
+			drawGap("100", config, false)
 		}
 	})
 
@@ -409,7 +623,7 @@ d3.select(".control_container.new_source")
 			.on("input", function(d){
 				var config = updateDefaultsFromDashboard();
 				// config["50"]["sources"]["other_source_" + d.count] = this.value
-				drawGap("50",config)
+				drawGap("50",config, true)
 			})
 		new_source.append("input")
 			.attr("class","control sources other_source other")
@@ -421,7 +635,7 @@ d3.select(".control_container.new_source")
 			.on("input", function(d){
 				var config = updateDefaultsFromDashboard();
 				// config["50"]["sources"]["other_source_" + d.count] = this.value
-				drawGap("100",config)
+				drawGap("100",config, true)
 			})
 
 	})
