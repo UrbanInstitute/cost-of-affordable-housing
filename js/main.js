@@ -64,7 +64,7 @@ function drawGap(units, config, transition){
 	function scaleDollars(dollars){
 		return (dollars/max_dollars) * max_pixels
 	}
-	var resp = update(units, config)
+	var resp = update(units, config, transition)
 	var total_development_cost = resp.total_development_cost
 	var gap = resp.gap
 	if(total_development_cost-gap <0){
@@ -73,7 +73,7 @@ function drawGap(units, config, transition){
 		gap = 0;
 	}
 	if(transition){
-		d3.selectAll(".roofs_" + units)
+		d3.select("#roof_img_" + units)
 			.transition()
 			.style("bottom", function(){
 				return (scaleDollars(total_development_cost) - roof_height) + "px"
@@ -83,6 +83,19 @@ function drawGap(units, config, transition){
 					return 0;
 				}else return 1
 			})
+		d3.select("#roof_" + units)
+			.style("opacity",function(){
+				if(scaleDollars(total_development_cost) - roof_height < break_50_roof){
+					return 0;
+				}else return 1
+			})
+			.transition()
+			.style("height", Math.max(0,parseFloat(-scaleDollars(gap) + roof_height)) + "px")
+			.style("bottom", function(){
+				return (scaleDollars(total_development_cost) - roof_height) + "px"
+			})
+
+
 	}else{
 		d3.selectAll(".roofs_" + units)
 			.style("bottom", function(){
@@ -115,21 +128,21 @@ function drawGap(units, config, transition){
 			.transition()
 			.style("height", function(){
 				if(scaleDollars(total_development_cost) - scaleDollars(gap) > scaleDollars(total_development_cost) -roof_height && scaleDollars(total_development_cost) - roof_height > break_50_roof){
-					drawRoof(units, -scaleDollars(gap) + roof_height)
+					// drawRoof(units, -scaleDollars(gap) + roof_height, transition)
 					return(scaleDollars(total_development_cost) - roof_height)
 				}else{
-					drawRoof(units, 0)
-					return scaleDollars(total_development_cost) - scaleDollars(gap)
+					// drawRoof(units, 0, transition)
+					return Math.max(0,scaleDollars(total_development_cost) - scaleDollars(gap))
 				}
 			})
 	}else{
 		d3.select("#built_building_"+units)
 			.style("height", function(){
 				if(scaleDollars(total_development_cost) - scaleDollars(gap) > scaleDollars(total_development_cost) -roof_height && scaleDollars(total_development_cost) - roof_height > break_50_roof){
-					drawRoof(units, -scaleDollars(gap) + roof_height)
+					drawRoof(units, -scaleDollars(gap) + roof_height, transition)
 					return(scaleDollars(total_development_cost) - roof_height)
 				}else{
-					drawRoof(units, 0)
+					drawRoof(units, 0, transition)
 					return scaleDollars(total_development_cost) - scaleDollars(gap)
 				}
 			})
@@ -171,10 +184,22 @@ function drawGap(units, config, transition){
 			.style("bottom", function(){
 				return scaleDollars(total_development_cost) + 20
 			})
-		d3.select("#gap_amount_"+units)
-			.text(function(){
-				return DOLLARS(resp.gap)
-			})
+		// d3.select("#gap_amount_"+units)
+		// 	.text(function(){
+		// 		return DOLLARS(resp.gap)
+		// 	})
+			// var current_val = parseFloat(d3.select("#gap_amount_"+units).text().replace("$","").replace(/\,/g,""))
+			// var countup_options = {
+			// 	useEasing : true, 
+			// 	useGrouping : true,
+			// 	separator : ',', 
+			// 	decimal : '.', 
+			// 	prefix : '$', 
+			// 	suffix : '' 
+			// };
+			// var amount_countup = new CountUp("gap_amount_"+units, current_val, resp.gap, 0, .5, countup_options);
+			// amount_countup.start();
+			countup_val("gap_amount_"+units, resp.gap)
 
 		d3.select("#balcony_top_" + units)
 			.transition()
@@ -299,10 +324,7 @@ function drawGap(units, config, transition){
 			.style("bottom", function(){
 				return scaleDollars(total_development_cost) + 20
 			})
-		d3.select("#gap_amount_"+units)
-			.text(function(){
-				return DOLLARS(resp.gap)
-			})
+		countup_val("gap_amount_"+units, resp.gap)
 
 		d3.select("#balcony_top_" + units)
 			.style("bottom", function(){
@@ -404,28 +426,35 @@ function drawGap(units, config, transition){
 			})
 	}
 }
-function drawRoof(units, pixels){
-
+function countup_val(val_id, new_val){
+	var current_val = parseFloat(d3.select("#" + val_id).text().replace("$","").replace(/\,/g,""))
+	var countup_options = {
+		useEasing : true, 
+		useGrouping : true,
+		separator : ',', 
+		decimal : '.', 
+		prefix : '$', 
+		suffix : '' 
+	};
+	var amount_countup = new CountUp(val_id, current_val, new_val, 0, .5, countup_options);
+	amount_countup.start();
+}
+function drawRoof(units, pixels, transition){
 	pixels = parseFloat(pixels)
 	var roof = d3.select("#roof_" + units)
-	if(units == 0){
-		roof.style("height",pixels)
-	}else{
-		roof
-			.style("height",pixels)
-	}
+	roof.style("height",pixels)
 }
-function update(units, config){
+function update(units, config, transition){
 	var effective_gross_income = getEffectiveGrossIncome(units, config.vacancy_rate, config[units]["average_monthly_rent"])
 	var noi = getNOI(units, config[units]["admin_expenses"], config[units]["operating_expenses"], config[units]["maintenance_expenses"], config.replacement_reserve_rate, effective_gross_income)
 
-	d3.select("#s" + units + "_noi").text(DOLLARS(noi))	
+	countup_val("s" + units + "_noi", noi)
 
 	var max_loan_income = getMaxLoanIncome(noi, config.debt_service_coverage, config.interest_rate)
 	var max_loan_value = getMaxLoanValue(noi, config.capitalization_rate, config.loan_to_value)
 	var max_loan = Math.min(max_loan_value, max_loan_income)
 
-	d3.select("#s" + units + "_debt").text(DOLLARS(max_loan))
+	countup_val("s" + units + "_debt", max_loan)
 	var text = (max_loan_value > max_loan_income) ? "Income" : "Value";
 	d3.select("#loan_label").text(text)
 	
@@ -490,7 +519,7 @@ function restoreDefaults(config){
 	return config;
 }
 
-function updateDefaultsFromDashboard(){
+function updateDefaultsFromDashboard(transition){
 	var config = jQuery.extend(true, {}, DEFAULT_CONFIG);
 	var original = jQuery.extend(true, {}, DEFAULT_CONFIG);
 	d3.selectAll("#debt_sizing .range.control")
@@ -506,7 +535,7 @@ function updateDefaultsFromDashboard(){
 				var amt = parseFloat(this.value)*original[size]["sources"][control]
 				if(!isNaN(amt)){
 					config[size]["sources"][control] = amt
-					d3.select("#s" + size +"_" + control).text(DOLLARS(amt))
+					countup_val("s" + size + "_" + control, amt)
 				}
 
 			}
@@ -520,7 +549,7 @@ function updateDefaultsFromDashboard(){
 				var amt = parseFloat(this.value)*original[size]["uses"][control]
 				if(!isNaN(amt)){
 					config[size]["uses"][control] = amt
-					d3.select("#s" + size +"_" + control).text(DOLLARS(amt))
+					countup_val("s" + size +"_" + control, amt)
 				}
 
 			}
@@ -537,7 +566,7 @@ function updateDefaultsFromDashboard(){
 				var amt = parseFloat(this.value)*original[size][control]
 				if(!isNaN(amt)){
 					config[size][control] = amt
-					d3.select("#s" + size +"_" + control).text(DOLLARS(amt))
+					countup_val("s" + size +"_" + control, amt)
 				}
 
 			}
@@ -573,7 +602,7 @@ d3.selectAll(".control")
 				d3.select(this).classed("invalid",false)
 				range.attr("value", val)
 				range.node().value = val
-				var config = updateDefaultsFromDashboard()
+				var config = updateDefaultsFromDashboard(true)
 				drawGap("50", config, true)
 				drawGap("100", config, true)
 
@@ -584,7 +613,7 @@ d3.selectAll(".control")
 				// .attr("value", val)
 
 		}else{
-			var config = updateDefaultsFromDashboard()
+			var config = updateDefaultsFromDashboard(false)
 			var val;
 			if(d3.select(this).classed("percent")) val = PERCENT(this.value);
 			else if(d3.select(this).classed("percent_small")) val = PERCENT_SMALL(this.value);
@@ -621,7 +650,7 @@ d3.select(".control_container.new_source")
 			})
 			.attr("value","$0")
 			.on("input", function(d){
-				var config = updateDefaultsFromDashboard();
+				var config = updateDefaultsFromDashboard(true);
 				// config["50"]["sources"]["other_source_" + d.count] = this.value
 				drawGap("50",config, true)
 			})
@@ -633,7 +662,7 @@ d3.select(".control_container.new_source")
 			})
 			.attr("value","$0")
 			.on("input", function(d){
-				var config = updateDefaultsFromDashboard();
+				var config = updateDefaultsFromDashboard(true);
 				// config["50"]["sources"]["other_source_" + d.count] = this.value
 				drawGap("100",config, true)
 			})
