@@ -20,28 +20,19 @@ p{
 #debt_sizing, #sources{
 	display: block;
 	float: left;
+	clear: both;
 	margin-bottom: 20px;
 }
-#sources{
+/*#sources{
 	margin-left: 2px;
-}
+}*/
 #uses{
 	clear: both;
 	margin-bottom: 20px;
 }
 
-#arrow{
-    display: block;
-    float: left;
-    font-size: 50px;
-    margin-top: 40px;
-}
-#junk_bracket{
-	display: block;
-    float: left;
-    margin-top: 40px;
-}
-#noi, #debt_sizing, #uses{
+
+#noi, #debt_sizing, #uses, #sources{
 	margin-left: 10px;
 }
 
@@ -227,17 +218,23 @@ p{
 	margin: 3px 0 3px 0px;
 }
 #click_to_add_sources{
-	text-transform: uppercase;
-	color: white;
-	background-color: #1696d2;
-	font-style: normal;
-	cursor: pointer;
+    text-transform: uppercase;
+    color: white;
+    background-color: #1696d2;
+    font-style: normal;
+    cursor: pointer;
+    width: 200px;
+    padding: 13px;
+    margin-top: 10px;
 }
 .s50_label, .s100_label, .s50_noi_label, .s100_noi_label, .s50_blank_label, .s100_blank_label{
 	display: inline-block;
 	margin-left: 20px;
 	width: 84px;
     text-align: right;
+}
+.s100_blank_label{
+	width: 100%;
 }
 .other_source.other{
 	display: inline-block;
@@ -251,6 +248,143 @@ p{
 	width: 412px;
 	float: left;
 }
+.control_container.noi, .control_container.debt{
+	margin-bottom: 5px;
+}
+#noi_label{
+	text-indent: 383px;
+}
+#bracket_noi{
+	position: relative;
+    margin-left: 160px
+}
+#debt_sizing{
+	margin-top: -56px;
+}
+
+#debt_label{
+	text-indent: 151px;
+}
+#bracket_debt{
+	position: relative;
+    margin-left: 160px
+}
+#sources{
+	margin-top: -75px;
+}
+
+
+/***************************************************************************/
+/************************ CROSS BROWSER RANGE INPUT ************************/
+/***************************************************************************/
+/*modified from http://brennaobrien.com/blog/2014/05/style-input-type-range-in-every-browser.html*/
+
+input[type=range] {
+    /*removes default webkit styles*/
+    -webkit-appearance: none;
+    
+    /*fix for FF unable to apply focus style bug */
+    border: 1px solid #cbeaf5;
+    
+    /*required for proper track sizing in FF*/
+    width: 300px;
+}
+input[type=range]::-webkit-slider-runnable-track {
+    width: 300px;
+    height: 5px;
+    background: #9d9d9d;
+    border: none;
+    border-radius: 3px;
+}
+input[type=range]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    border: none;
+    height: 16px;
+    width: 16px;
+    border-radius: 50%;
+    background: #1696d2;
+    margin-top: -4px;
+    cursor: pointer;
+}
+input[type=range]:focus {
+    outline: none;
+}
+input[type=range]:focus::-webkit-slider-runnable-track {
+    background: #353535;
+}
+
+input[type=range]::-moz-range-track {
+    width: 300px;
+    height: 5px;
+    background: #9d9d9d;
+    border: none;
+    border-radius: 3px;
+}
+input[type=range]::-moz-range-thumb {
+    border: none;
+    height: 16px;
+    width: 16px;
+    border-radius: 50%;
+    background: #1696d2;
+    cursor: pointer;
+}
+
+/*hide the outline behind the border*/
+input[type=range]:-moz-focusring{
+    outline: 1px solid #cbeaf5;
+    outline-offset: -1px;
+}
+
+input[type=range]::-ms-track {
+    width: 300px;
+    height: 5px;
+    
+    /*remove bg colour from the track, we'll use ms-fill-lower and ms-fill-upper instead */
+    background: transparent;
+    
+    /*leave room for the larger thumb to overflow with a transparent border */
+    border-color: transparent;
+    border-width: 6px 0;
+
+    /*remove default tick marks*/
+    color: transparent;
+}
+input[type=range]::-ms-fill-lower {
+    background: #9d9d9d;
+    border-radius: 10px;
+}
+input[type=range]::-ms-fill-upper {
+    background: #9d9d9d;
+    border-radius: 10px;
+}
+input[type=range]::-ms-thumb {
+    border: none;
+    height: 16px;
+    width: 16px;
+    border-radius: 50%;
+    background: #1696d2;
+    cursor: pointer;
+}
+input[type=range]:focus::-ms-fill-lower {
+    background: #353535;
+}
+input[type=range]:focus::-ms-fill-upper {
+    background: #353535;
+}
+
+/***************************************************************************/
+/********************************* TEXT INPUT ******************************/
+/***************************************************************************/
+input[type=text]{
+	font-family: Lato;
+	font-family: Lato;
+    border: none;
+    height: 20px;
+    text-align: center;
+    vertical-align: middle;
+    font-size: 13px;
+    background-color: #f5f5f5
+}
 input.text.invalid{
-	border-color: red;
+	color: #db2b27;
 }

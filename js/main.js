@@ -481,7 +481,9 @@ function update(units, config, transition){
 
 	countup_val("s" + units + "_debt", max_loan)
 	var text = (max_loan_value > max_loan_income) ? "Income" : "Value";
+	var text_indent = (max_loan_value > max_loan_income) ? 151 : 163;
 	d3.select("#loan_label").text(text)
+	d3.select("#debt_label").style("text-indent", text_indent)
 	
 	var total_development_cost = getTotalDevelopmentCost(config[units]["uses"])
 	var total_sources = getTotalSources(config[units]["sources"], max_loan)
@@ -667,6 +669,7 @@ d3.select(".control_container.new_source")
 			.attr("class", "new_source_label")
 			.text("Other Source")
 		new_source.append("input")
+			.attr("type","text")
 			.attr("class","control sources other_source other")
 			.attr("id",function(d){
 				var c = d.count
@@ -680,6 +683,7 @@ d3.select(".control_container.new_source")
 				drawGap("50",config, true)
 			})
 		new_source.append("input")
+			.attr("type","text")
 			.attr("class","control sources other_source other")
 			.attr("id",function(d){
 				var c = d.count
