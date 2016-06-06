@@ -214,8 +214,9 @@ function drawGap(units, config, transition){
 		d3.select("#gap_container_"+units)
 			.transition()
 			.style("bottom", function(){
-				if(window.innerHeight - (scaleDollars(total_development_cost) + 20) < 90){
-					return window.innerHeight-90
+				console.log(window.innerHeight)- (scaleDollars(total_development_cost))
+				if(window.innerHeight - (scaleDollars(total_development_cost) + 20) < 190){
+					return window.innerHeight-190
 				}else{
 					return scaleDollars(total_development_cost) + 20
 				}
@@ -343,8 +344,8 @@ function drawGap(units, config, transition){
 			})
 		d3.select("#gap_container_"+units)
 			.style("bottom", function(){
-				if(window.innerHeight - (scaleDollars(total_development_cost) + 20) < 90){
-					return window.innerHeight-90
+				if(window.innerHeight - (scaleDollars(total_development_cost) + 20) < 190){
+					return window.innerHeight-190
 				}else{
 					return scaleDollars(total_development_cost) + 20
 				}
@@ -451,6 +452,10 @@ function drawGap(units, config, transition){
 			})
 	}
 }
+function drawGaps(config, transition){
+	drawGap("50", config, transition);
+	drawGap("100", config, transition);
+}
 function countup_val(val_id, new_val){
 	var current_val = parseFloat(d3.select("#" + val_id).text().replace("$","").replace(/\,/g,""))
 	var countup_options = {
@@ -470,6 +475,7 @@ function drawRoof(units, pixels, transition){
 	roof.style("height",pixels)
 }
 function update(units, config, transition){
+	// console.log(config, units)
 	var effective_gross_income = getEffectiveGrossIncome(units, config.vacancy_rate, config[units]["average_monthly_rent"])
 	var noi = getNOI(units, config[units]["admin_expenses"], config[units]["operating_expenses"], config[units]["maintenance_expenses"], config.replacement_reserve_rate, effective_gross_income)
 
@@ -612,9 +618,169 @@ function updateDefaultsFromDashboard(transition){
 	return config
 }
 
+
+
+var scrollVis = function() {
+  // When scrolling to a new section
+  // the activation function for that
+  // section is called.
+  var activateFunctions = [];
+  // If a section has an update function
+  // then it is called while scrolling
+  // through the section with the current
+  // progress through the section.
+  var updateFunctions = [];
+  var lastIndex = -1;
+  var activeIndex = 0;
+  /**
+   * chart
+   *
+   * @param selection - the current d3 selection(s)
+   *  to draw the visualization in. For this
+   *  example, we will be drawing it in #vis
+   */
+  var chart = function() {
+
+      setupSections();
+
+  };
+
+
+  setupSections = function() {
+    // activateFunctions are called each
+    // time the active section changes
+    console.log("foo")
+    activateFunctions[0] = dummy1;
+    activateFunctions[1] = dummy2;
+    activateFunctions[2] = dummy3;
+    activateFunctions[3] = dummy4;
+    activateFunctions[4] = dummy4;
+    // activateFunctions[5] = showHistPart;
+    // activateFunctions[6] = showHistAll;
+    // activateFunctions[7] = showCough;
+    // activateFunctions[8] = showHistAll;
+
+    // updateFunctions are called while
+    // in a particular section to update
+    // the scroll progress in that section.
+    // Most sections do not need to be updated
+    // for all scrolling and so are set to
+    // no-op functions.
+    for(var i = 0; i < 9; i++) {
+      updateFunctions[i] = function() {};
+    }
+    updateFunctions[2] = update1;
+  };
+
+function dummy1(){
+	// var config = jQuery.extend(true, {}, DEFAULT_CONFIG);
+	// drawGap("50", config, true)
+	// drawGap("100", config, true)
+
+	console.log("function dummy1")
+	hide100();
+}
+function dummy2(){
+	// console.log("function dummy2")
+
+	// drawGap("100", config, true)
+	show100();
+}
+function dummy3(){
+	d3.select("#range_average_monthly_rent").node().value = 200
+	d3.select("#range_average_monthly_rent").attr("value",200)
+	d3.select("#text_average_monthly_rent").node().value = "200%"
+	d3.select("#text_average_monthly_rent").attr("value","200%")
+	// $("#text_average_monthly_rent").trigger("change")
+	var config = updateDefaultsFromDashboard()
+	drawGaps(config, true)
+	console.log("function dummy3")
+}
+function dummy4(){
+	console.log("function dummy4")
+}
+
+function show100(){
+	d3.select("#building_container_50")
+		.transition()
+		.style("right",256)
+
+	d3.select("#building_container_100")
+		.style("display","block")
+		.transition()
+		.style("right",30)
+}
+function hide100(){
+	d3.select("#building_container_50")
+		.transition()
+		.style("right",30)
+	d3.select("#building_container_100")
+		.transition()
+		.style("right",-350)
+		.each("end", function(){
+			d3.select(this).style("display","none")
+		})
+}
+
+function update1(progress){
+	console.log("function update1", progress)
+}
+  /**
+   * activate -
+   *
+   * @param index - index of the activated section
+   */
+  chart.activate = function(index) {
+  	console.log(activateFunctions)
+    activeIndex = index;
+    var sign = (activeIndex - lastIndex) < 0 ? -1 : 1;
+    var scrolledSections = d3.range(lastIndex + sign, activeIndex + sign, sign);
+    scrolledSections.forEach(function(i) {
+      activateFunctions[i]();
+    });
+    lastIndex = activeIndex;
+  };
+
+  /**
+   * update
+   *
+   * @param index
+   * @param progress
+   */
+  chart.update = function(index, progress) {
+    updateFunctions[index](progress);
+  };
+
+  // return chart function
+  return chart;
+};
+
 function init(){
-	drawGap("50", DEFAULT_CONFIG, true)
-	drawGap("100", DEFAULT_CONFIG, true)
+  drawGaps(DEFAULT_CONFIG, true)
+  var plot = scrollVis();
+  plot.call()
+
+  var scroll = scroller()
+    .container(d3.select('#graphic'));
+
+  // pass in .step selection as the steps
+  scroll(d3.selectAll('.step'));
+
+  // setup event handling
+  scroll.on('active', function(index) {
+    // highlight current step text
+    // d3.selectAll('.step')
+    //   .style('opacity',  function(d,i) { return i == index ? 1 : 0.1; });
+
+    // activate current section
+    plot.activate(index);
+    // console.log("activate", index)
+  });
+
+  scroll.on('progress', function(index, progress){
+    plot.update(index, progress);
+    // console.log("update", index, progress)
+  });
 }
 
 d3.selectAll(".control")
@@ -633,8 +799,7 @@ d3.selectAll(".control")
 				range.attr("value", val)
 				range.node().value = val
 				var config = updateDefaultsFromDashboard(true)
-				drawGap("50", config, true)
-				drawGap("100", config, true)
+				drawGaps(config, true)
 
 			}else{
 				d3.select(this).classed("invalid",true)
@@ -655,8 +820,7 @@ d3.selectAll(".control")
 			d3.select("." + this.id.split("range_")[1] + ".text")
 				.node().value = val
 			
-			drawGap("50", config, false)
-			drawGap("100", config, false)
+			drawGaps(config, false)
 		}
 	})
 
