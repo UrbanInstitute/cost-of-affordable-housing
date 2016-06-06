@@ -620,6 +620,9 @@ function init(){
 d3.selectAll(".control")
 	.on("input",function(){
 		if(this.type == "text"){
+			if(d3.select(this).classed("new_source_label")){
+				return false;
+			}
 			var val;
 			if(d3.select(this).classed("percent") || d3.select(this).classed("percent_small")){
 				val = parseFloat(this.value)/100
@@ -665,7 +668,9 @@ d3.select(".control_container.new_source")
 		var new_source = d3.select("#sources")
 			.append("div")
 			.attr("class", "control_container new_source")
-		new_source.append("div")
+		new_source.append("input")
+			.attr("type","text")
+			.attr("value","Other Source")
 			.attr("class", "new_source_label")
 			.text("Other Source")
 		new_source.append("input")

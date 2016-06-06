@@ -10,9 +10,8 @@ body{
 /*************************** TEMP CONTROLS ***************************/
 /***************************************************************************/
 p{
-	width: 630px;
+	width: 440px;
 	line-height: 2;
-	margin-left: 10px;
 }
 #pbottom{
 	margin-bottom: 100px;
@@ -30,12 +29,56 @@ p{
 	clear: both;
 	margin-bottom: 20px;
 }
-
-
-#noi, #debt_sizing, #uses, #sources{
-	margin-left: 10px;
+/***************************************************************************/
+/*************************** NAV HEADER ************************************/
+/***************************************************************************/
+#subNav{
+    position: fixed;
+    top: 49px;
+    width: 100%;
+    height: 40px;
+    color: #d1d2d4;
+    background: #231f20;
+    z-index: 999;
+}
+.navTab{
+	display: inline-block;
+    width: calc(24% - 1px);
+    text-align: center;
+    vertical-align: middle;
+    height: 29px;
+    padding-top: 11px;
+    font-weight: 500;
+    font-size: 14px;
+    cursor: pointer;
+}
+.navTab:hover{
+	background-color: #1696d2;
+	color: white;
+}
+/***************************************************************************/
+/*************************** TEXT STYLES ***********************************/
+/***************************************************************************/
+h1{
+	color: #1696d2;
+	font-size: 36px;
+	margin-bottom: 0px;
+	margin-top: 150px;
 }
 
+/***************************************************************************/
+/*********************** SPACING AND LAYOUT ********************************/
+/***************************************************************************/
+#noi, #debt_sizing, #uses, #sources, h1, p{
+	margin-left: 60px;
+}
+section.step{
+	margin-bottom: 300px;
+}
+
+/***************************************************************************/
+/*************************** SCROLLING *************************************/
+/***************************************************************************/
 
 /***************************************************************************/
 /******************************** BUILDINGS ********************************/
@@ -53,7 +96,6 @@ p{
 	width: 176px;
 	/*border: 2px solid #ccc;*/
 	/*float: right;*/
-	margin-left: 10px;
 	z-index: 9;
 }
 .shadow_gap{
@@ -258,9 +300,18 @@ p{
 .control_container.debt, .control_container.noi, .control_container.new_source{
 	font-style: italic;
 }
-#debt_label, #noi_label, .new_source_label{
+#debt_label, #noi_label{
 	width: 412px;
 	float: left;
+}
+input.new_source_label{
+	width: 262px;
+    margin-right: 150px;
+    text-align: left !important;
+    font-size: 16px !important;
+    background-color: #cbeaf5 !important;
+    border-bottom: 1px solid #a2d4ec !important; 
+    font-style: italic;
 }
 .control_container.noi, .control_container.debt{
 	margin-bottom: 5px;
