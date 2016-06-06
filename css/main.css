@@ -4,13 +4,13 @@ body{
 	margin: 0;
 }
 *:focus{
-	outline: none;
+	outline: 0;
 }
 /***************************************************************************/
 /*************************** TEMP CONTROLS ***************************/
 /***************************************************************************/
 p{
-	width: 60%;
+	width: 630px;
 	line-height: 2;
 	margin-left: 10px;
 }
@@ -200,7 +200,21 @@ p{
 /***************************************************************************/
 /*************************** DASHBOARD CONTROLS ***************************/
 /***************************************************************************/
-
+.header{
+	display: inline-block;
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 14px;
+    margin-top: 20px;
+}
+#header_50{
+    margin-left: 376px;
+    margin-right: 31px;
+    font-size: 16px;
+}
+#header_100{
+	font-size: 16px;
+}
 .control_container{
 	display: block;
 }
@@ -285,12 +299,14 @@ input[type=range] {
     
     /*fix for FF unable to apply focus style bug */
     border: 1px solid #cbeaf5;
+    height: 18px;
+    background-color: transparent;
     
     /*required for proper track sizing in FF*/
-    width: 300px;
+    /*width: 300px;*/
 }
 input[type=range]::-webkit-slider-runnable-track {
-    width: 300px;
+    /*width: 300px;*/
     height: 5px;
     background: #9d9d9d;
     border: none;
@@ -307,14 +323,21 @@ input[type=range]::-webkit-slider-thumb {
     cursor: pointer;
 }
 input[type=range]:focus {
-    outline: none;
+    outline: 0;
+}
+input::-moz-focus-inner{
+	outline: 0;
+}
+input[type=range]::-moz-focus-outer {
+    border: 0;
 }
 input[type=range]:focus::-webkit-slider-runnable-track {
     background: #353535;
+    outline: none;
 }
 
 input[type=range]::-moz-range-track {
-    width: 300px;
+    /*width: 300px;*/
     height: 5px;
     background: #9d9d9d;
     border: none;
@@ -336,7 +359,7 @@ input[type=range]:-moz-focusring{
 }
 
 input[type=range]::-ms-track {
-    width: 300px;
+    /*width: 300px;*/
     height: 5px;
     
     /*remove bg colour from the track, we'll use ms-fill-lower and ms-fill-upper instead */

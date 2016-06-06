@@ -10,6 +10,8 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <!-- <meta name="viewport" content="width=device-width, initial-scale=1"> -->
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
     <title>Pencilling Out</title> 
      <meta name="twitter:card" content="summary">
     <meta name="twitter:site" content="@urbaninstitute">
@@ -55,7 +57,16 @@ Pork loin sausage kevin, ground round swine porchetta andouille shankle meatball
 </p>
 	<div id = "full_controls">
 		<div id = "noi">
-			<h3>NOI</h3>	
+			<div id ="header_noi" class="header">NOI</div>
+			<div id = "header_50" class="header">50 Apartments</div>
+			<div id = "header_100" class="header">100 Apartments</div>
+			<div class = "control_container">
+				<label for="average_monthly_rent">Average Monthly Rent</label>
+				<input type = "range" class = "control percent_small noi average_monthly_rent range" id="range_average_monthly_rent" min="0" max = "2" step=".01" value="1"></input>
+				<input type="text" class = "control percent_small noi average_monthly_rent text" id = "text_average_monthly_rent" value="100%"></input>
+				<div class = "noi s50_label" id = "s50_average_monthly_rent">$488</div>
+				<div class = "noi s100_label" id ="s100_average_monthly_rent">$489</div>
+			</div>
 			<div class = "control_container">
 				<label for="vacancy_rate">Vacancy Rate</label>
 				<input type = "range" class = "control percent noi vacancy_rate range" id="range_vacancy_rate" min=".03" max = ".1" step=".0005" value=".07"></input>
@@ -66,13 +77,7 @@ Pork loin sausage kevin, ground round swine porchetta andouille shankle meatball
 				<input type = "range" class = "control noi replacement_reserve_rate range" id="range_replacement_reserve_rate" min="100" max = "500" step=".5" value="300"></input>
 				<input type="text" class = "control noi replacement_reserve_rate text" id = "text_replacement_reserve_rate" value="300"></input>
 			</div>
-			<div class = "control_container">
-				<label for="average_monthly_rent">Average Monthly Rent</label>
-				<input type = "range" class = "control percent_small noi average_monthly_rent range" id="range_average_monthly_rent" min="0" max = "2" step=".01" value="1"></input>
-				<input type="text" class = "control percent_small noi average_monthly_rent text" id = "text_average_monthly_rent" value="100%"></input>
-				<div class = "noi s50_label" id = "s50_average_monthly_rent">$488</div>
-				<div class = "noi s100_label" id ="s100_average_monthly_rent">$489</div>
-			</div>
+
 			<div class = "control_container">
 				<label for="admin_expenses">Administrative Expenses</label>
 				<input type = "range" class = "control percent_small noi admin_expenses range" id="range_admin_expenses" min="0" max = "2" step=".01" value="1"></input>
@@ -97,7 +102,7 @@ Pork loin sausage kevin, ground round swine porchetta andouille shankle meatball
 			<img id = "bracket_noi" src="images/bracket.png">
 		</div>
 		<div id = "debt_sizing">
-			<h3>Debt Sizing</h3>
+			<div id ="header_debt_sizing" class="header">Debt Sizing</div>
 			<div class = "control_container noi">
 				<div id ="noi_label">NOI</div>
 				<div class = "noi s50_noi_label" id = "s50_noi">$6,067</div>
@@ -130,7 +135,7 @@ Pork loin sausage kevin, ground round swine porchetta andouille shankle meatball
 
 		</div>
 		<div id = "sources">
-			<h3>Sources</h3>
+			<div id ="header_sources" class="header">Sources</div>
 			<div class = "control_container debt">
 				<div id ="debt_label">Debt (Maximum Loan Based on <span id ="loan_label">Income</span>)</div>
 				<div class = "sources s50_label" id = "s50_debt">$81,894 </div>
@@ -163,7 +168,7 @@ Pork loin sausage kevin, ground round swine porchetta andouille shankle meatball
 			</div> -->
 		</div>
 		<div id = "uses">
-			<h3>Uses</h3>
+			<div id ="header_uses" class="header">Uses</div>
 			<div class = "control_container">
 				<label for="acquisition_costs">Acquisition Costs</label>
 				<input type = "range" class = "control percent_small sources acquisition_costs range" id="range_acquisition_costs" min="0" max = "2" step=".01" value="1"></input>
