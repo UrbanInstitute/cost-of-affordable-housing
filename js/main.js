@@ -312,6 +312,59 @@ function drawGap(units, config, transition){
 					return 0;
 				}else return 1
 			})
+		d3.selectAll(".empty_windows_" + units)
+			.transition()
+			.duration(100)
+			.style("bottom", function(){
+					var h;
+					if(d3.select(this).classed("door")){ h = 61}
+					else if(d3.select(this).classed("roof")){ h = 34}
+					else {h = 44}
+
+					var diff = this.parentNode.getBoundingClientRect().bottom - d3.select("#total_building_" + units).node().getBoundingClientRect().bottom + scaleDollars(total_development_cost) - scaleDollars(gap)
+					console.log(diff)
+					if(diff > h){ return 0}
+					else if(diff < 0){ return 0}
+					else{ return Math.max(0,diff)}
+			})
+			.style("height", function(){
+					// 34, 61, 44
+					var h;
+					if(d3.select(this).classed("door")){ h = 61}
+					else if(d3.select(this).classed("roof")){ h = 34}
+					else {h = 44}
+					var diff = this.parentNode.getBoundingClientRect().bottom - d3.select("#total_building_" + units).node().getBoundingClientRect().bottom + scaleDollars(total_development_cost) - scaleDollars(gap)
+					console.log(diff)
+					if(diff > h){ return 0}
+					else if(diff < 0){ return h}
+					else{ return h-diff}
+			})
+		d3.selectAll(".full_windows_" + units)
+			.transition()
+			.duration(100)
+			.style("height", function(){
+					var h;
+					if(d3.select(this).classed("door")){ h = 61}
+					else if(d3.select(this).classed("roof")){ h = 34}
+					else {h = 44}
+
+				var diff = this.parentNode.getBoundingClientRect().bottom - d3.select("#total_building_" + units).node().getBoundingClientRect().bottom + scaleDollars(total_development_cost) - scaleDollars(gap)
+					if(diff > h){ return h}
+					else if(diff < 0){ return 0}
+					else{ return diff}
+			})
+			.style("top", function(){
+					var h;
+					if(d3.select(this).classed("door")){ h = 61}
+					else if(d3.select(this).classed("roof")){ h = 34}
+					else {h = 44}
+
+					var diff = this.parentNode.getBoundingClientRect().bottom - d3.select("#total_building_" + units).node().getBoundingClientRect().bottom + scaleDollars(total_development_cost) - scaleDollars(gap)
+					console.log(diff)
+					if(diff > h){ return 0}
+					else if(diff < 0){ return -h}
+					else{ return Math.max(0,h-diff)}
+			})
 	}else{
 		d3.select("#shadow_gap_"+units)
 			.style("bottom", function(){
@@ -449,6 +502,55 @@ function drawGap(units, config, transition){
 				if(scaleDollars(total_development_cost) - roof_height < break_50_roof){
 					return 0;
 				}else return 1
+			})
+		d3.selectAll(".empty_windows_" + units)
+			.style("height", function(){
+					// 34, 61, 44
+					var h;
+					if(d3.select(this).classed("door")){ h = 61}
+					else if(d3.select(this).classed("roof")){ h = 34}
+					else {h = 44}
+					var diff = this.parentNode.getBoundingClientRect().bottom - d3.select("#total_building_" + units).node().getBoundingClientRect().bottom + scaleDollars(total_development_cost) - scaleDollars(gap)
+					console.log(diff)
+					if(diff > h){ return 0}
+					else if(diff < 0){ return h}
+					else{ return h-diff}
+			})
+			.style("bottom", function(){
+					var h;
+					if(d3.select(this).classed("door")){ h = 61}
+					else if(d3.select(this).classed("roof")){ h = 34}
+					else {h = 44}
+
+					var diff = this.parentNode.getBoundingClientRect().bottom - d3.select("#total_building_" + units).node().getBoundingClientRect().bottom + scaleDollars(total_development_cost) - scaleDollars(gap)
+					console.log(diff)
+					if(diff > h){ return -h}
+					else if(diff < 0){ return 0}
+					else{ return Math.max(0,diff)}
+			})
+		d3.selectAll(".full_windows_" + units)
+			.style("height", function(){
+					var h;
+					if(d3.select(this).classed("door")){ h = 61}
+					else if(d3.select(this).classed("roof")){ h = 34}
+					else {h = 44}
+
+				var diff = this.parentNode.getBoundingClientRect().bottom - d3.select("#total_building_" + units).node().getBoundingClientRect().bottom + scaleDollars(total_development_cost) - scaleDollars(gap)
+					if(diff > h){ return h}
+					else if(diff < 0){ return 0}
+					else{ return diff}
+			})
+			.style("top", function(){
+					var h;
+					if(d3.select(this).classed("door")){ h = 61}
+					else if(d3.select(this).classed("roof")){ h = 34}
+					else {h = 44}
+
+					var diff = this.parentNode.getBoundingClientRect().bottom - d3.select("#total_building_" + units).node().getBoundingClientRect().bottom + scaleDollars(total_development_cost) - scaleDollars(gap)
+					console.log(diff)
+					if(diff > h){ return 0}
+					else if(diff < 0){ return 0}
+					else{ return Math.max(0,h-diff)}
 			})
 	}
 }
@@ -756,7 +858,7 @@ function update1(progress){
 };
 
 function init(){
-  drawGaps(DEFAULT_CONFIG, true)
+  drawGaps(DEFAULT_CONFIG, false)
   var plot = scrollVis();
   plot.call()
 

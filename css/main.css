@@ -92,7 +92,6 @@ section.step{
 	color: white;
 	vertical-align: middle;
 	text-align: center;
-	/*background-color: #1696d2;*/
 	width: 176px;
 	/*border: 2px solid #ccc;*/
 	/*float: right;*/
@@ -113,7 +112,7 @@ section.step{
 }
 .total_building{
 	width: 176px;
-	border: 1px solid #73bfe2;
+	border: 1px solid #0c94d3;
 	z-index: 12;
 }
 .built_building{
@@ -183,7 +182,7 @@ section.step{
 }
 .balcony{
 	position: absolute;
-	left: -25px;
+	left: -17px;
 }
 
 .windows{
@@ -194,16 +193,41 @@ section.step{
 	bottom: -2;
 }
 .windows_roof{
-	margin-left: -22px;
+	margin-left: 28px;
+	margin-bottom: 14px;
 }
 
 #building_container_50{
+	/*background-color: #cbeaf5;*/
 	clear: both;
 	right: 30px;
 }
 #building_container_100{
 	clear: both;
 	right: -350px;
+}
+.empty_windows_50, .empty_windows_100{
+	position: relative;
+	/*top: -44px;*/
+	overflow: hidden;
+}
+.full_windows_50, .full_windows_100{
+	position: relative;
+	/*bottom: 0px;*/
+	overflow: hidden;
+} 
+.full_windows_50 img, .full_windows_100 img{
+	position: absolute;
+	bottom: 0;
+	left: 0;
+}
+.full_windows_50.door img, .full_windows_100.door img{
+	position: absolute;
+	bottom: 3;
+	left: 24;
+}
+.empty_windows_50.door img, .empty_windows_100.door img{
+	margin-left: 24;
 }
 /***************************************************************************/
 /******************************** BACKGROUND *******************************/
