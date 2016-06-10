@@ -86,7 +86,7 @@ section.step{
 
 .building{
 	position: fixed;
-	bottom: 30px;
+	bottom: 61px;
 	right: 30;
 	font-family: Lato;
 	color: white;
@@ -109,6 +109,7 @@ section.step{
 .total_building, .built_building{
 	position: absolute;
 	bottom: 0px;
+	background-color: #cbeaf5;
 }
 .total_building{
 	width: 176px;
@@ -118,7 +119,7 @@ section.step{
 .built_building{
 	width: 178px;
 	background-color: #1696d2;
-	z-index: 11;
+	z-index: 12;
 }
 .roof_img{
 	position: absolute;
@@ -162,7 +163,8 @@ section.step{
 	height: 64px;
 	left: 16px;
 	color: #fff;
-	background-color: #000;
+	/*background-color: #000;*/
+	background-color: rgba(22,150,210,.2);
 	z-index: 109;
 }
 .gap_label{
@@ -224,15 +226,15 @@ section.step{
 .full_windows_50.door img, .full_windows_100.door img{
 	position: absolute;
 	bottom: 3;
-	left: 24;
+	left: 26;
 }
 .empty_windows_50.door img, .empty_windows_100.door img{
-	margin-left: 24;
+	margin-left: 26;
 }
 /***************************************************************************/
 /******************************** BACKGROUND *******************************/
 /***************************************************************************/
-#ground_container div{
+/*#ground_container div{
 	position: fixed;
 	left: 0;
 	width: 100%;
@@ -264,8 +266,61 @@ section.step{
 	z-index: 2;
 	bottom: 30;
 	z-index: 3;
+}*/
+#ground_container img{
+	position: fixed;
 }
-
+#leftHill{
+	bottom: 0px;
+	left: 0px;
+	z-index: 1;
+}
+#rightHillDirt{
+	bottom: 0px;
+	right: 0px;
+	z-index: 2;
+}
+#rightHill{
+	bottom: 0px;
+	right: 0px;
+	z-index: 3;
+	opacity: 0;
+}
+#road{
+	bottom: 0px;
+	right: 478px;
+	z-index: 4;
+}
+#sidewalk{
+	bottom: 3px;
+	right: -18px;
+	z-index: 4;
+	opacity: 0;
+}
+#path50{
+	bottom: 22px;
+	right: 125px;
+	z-index: 4;
+	opacity: 0;
+}
+#path100{
+	bottom: 22px;
+	right: -225px;
+	z-index: 4;
+	opacity: 0;
+}
+#shrubs50{
+	bottom: 56px;
+	right: 94px;
+	z-index: 999;
+	opacity: 0;
+}
+#shrubs100{
+	bottom: 56px;
+	right: -225px;
+	z-index: 999;
+	opacity: 0;
+}
 /***************************************************************************/
 /*************************** DASHBOARD CONTROLS ***************************/
 /***************************************************************************/
