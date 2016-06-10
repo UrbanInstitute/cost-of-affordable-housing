@@ -36,7 +36,6 @@ body{
     font-weight: 300;
     text-decoration: none;
 }
-
 #header-pinned .site-logo {
     display: block;
     width: 34px;
@@ -46,6 +45,18 @@ body{
     top: 8px;
     background: url(http://www.urban.org/sites/all/themes/urban/images/logo-mini-dark.png) no-repeat;
     background-size: 34px 34px;
+}
+/*h/w 0.31860003885366 = 34/106.7*/
+
+#header-pinned .nhc-logo {
+    display: block;
+    width:106.7px;
+    height: 34px;
+    position: absolute;
+    right: 70px;
+    top: 8px;
+    background: url(../images/nhc_logo.jpg) no-repeat;
+    background-size: 106.7px 34px;
 }
 
 #header-pinned .title {
