@@ -109,7 +109,7 @@ section.step{
 .total_building, .built_building{
 	position: absolute;
 	bottom: 0px;
-	background-color: #cbeaf5;
+	background-color: rgba(205,230,241,.8);
 }
 .total_building{
 	width: 176px;
@@ -145,7 +145,7 @@ section.step{
 	height: 3px;
 	width: 19px;
 	position: absolute;
-	z-index: 13;
+	z-index: 16;
 }
 .i_bar_container{
 	margin-left: 9px;
@@ -155,7 +155,7 @@ section.step{
 	width: 3px;
 	margin-left: 6.5px;
 	background-color: #000;
-	z-index: 15;
+	z-index: 16;
 }
 .gap_container{
 	position: absolute;
@@ -195,8 +195,8 @@ section.step{
 	bottom: -2;
 }
 .windows_roof{
-	margin-left: 28px;
-	margin-bottom: 14px;
+	margin-left: -22px;
+    margin-bottom: -1px;
 }
 
 #building_container_50{
@@ -234,39 +234,7 @@ section.step{
 /***************************************************************************/
 /******************************** BACKGROUND *******************************/
 /***************************************************************************/
-/*#ground_container div{
-	position: fixed;
-	left: 0;
-	width: 100%;
-	background-repeat: repeat-x;
-	opacity: 0;
-}
-#dirt{
-	background-image: url('../images/dirt.jpg');
-	height: 79;
-	bottom: 0;
-	z-index: 2;
-}
-#road{
-	background-image: url('../images/road.jpg');
-	height: 37;
-	bottom: 0;
-	z-index: 2;
-	z-index: 4;
-}
-#sidewalk{
-	background-image: url('../images/sidewalk.png');
-	height: 37;
-	bottom: 35;
-	z-index: 4;
-}
-#grass{
-	background-image: url('../images/grass.jpg');
-	height: 37;
-	z-index: 2;
-	bottom: 30;
-	z-index: 3;
-}*/
+
 #ground_container img{
 	position: fixed;
 }
@@ -326,6 +294,65 @@ section.step{
     right: 570px;
     z-index: 99;
 }
+#crane{
+	top: -20;
+    right: -130px;
+    z-index: -1;
+}
+#cloud1{
+	pointer-events: none;
+	z-index: -2;
+	opacity: .54;
+	top: 90px;
+    -webkit-animation: backandforth_A 2000s ease 0s;
+    -webkit-animation-iteration-count:infinite;
+    animation: backandforth_A 2000s ease 0s;
+    animation-iteration-count:infinite;
+}
+#cloud2{
+	pointer-events: none;
+	z-index: -2;
+	opacity: .57;
+    top: 124px;
+    -webkit-animation: backandforth_B 1700s ease 0s;
+    -webkit-animation-iteration-count:infinite;
+    animation: backandforth_B 1700s ease 0s;
+    animation-iteration-count:infinite;
+
+}
+#cloud3{
+	pointer-events: none;
+	z-index: -2;
+	opacity: .54;
+    top: 80px;
+    -webkit-animation: backandforth_C 2100s ease 0s;
+    -webkit-animation-iteration-count:infinite;
+    animation: backandforth_C 2100s ease 0s;
+    animation-iteration-count:infinite;
+}
+#cloud4{
+	pointer-events: none;
+	z-index: -2;
+	opacity: .57;
+    top: 216px;
+    -webkit-animation: backandforth_D 1200s ease 0s;
+    -webkit-animation-iteration-count:infinite;
+    animation: backandforth_D 1200s ease 0s;
+    animation-iteration-count:infinite;
+}
+@-webkit-keyframes backandforth_A {0%{left:20%;} 50%{left:100%;} 100%{left:20%;}}
+@keyframes backandforth_A {0%{left:20%;} 50%{left:100%;} 100%{left:20%;}}
+
+@-webkit-keyframes backandforth_B {0%{left:42%;} 50%{left:90%;} 75%{left:-10%;} 100%{left:42%;}}
+@keyframes backandforth_B {0%{left:42%;} 50%{left:90%;} 75%{left:-10%;} 100%{left:42%;}}
+
+@-webkit-keyframes backandforth_C {0%{left:62%;} 30%{left:99%;} 75%{left:10%;} 100%{left:62%;}}
+@keyframes backandforth_C {0%{left:62%;} 30%{left:99%;} 75%{left:10%;} 100%{left:62%;}}
+
+@-webkit-keyframes backandforth_D {0%{left:82%;} 20%{left:110%;} 75%{left:8%;} 100%{left:82%;}}
+@keyframes backandforth_D {0%{left:82%;} 20%{left:110%;} 75%{left:8%;} 100%{left:82%;}}
+
+
 /***************************************************************************/
 /*************************** DASHBOARD CONTROLS ***************************/
 /***************************************************************************/
@@ -337,8 +364,8 @@ section.step{
     margin-top: 20px;
 }
 #header_50{
-    margin-left: 376px;
-    margin-right: 31px;
+	margin-left: 322px;
+    margin-right: 28px;
     font-size: 16px;
 }
 #header_100{
@@ -349,7 +376,8 @@ section.step{
 }
 .control_container label{
 	display: inline-block;
-	width: 270px;
+    width: 192px;
+    margin-right: 24px;
 }
 .control_container .control.range{
 	width: 80px;
@@ -376,6 +404,12 @@ section.step{
 	width: 84px;
     text-align: right;
 }
+.s50_label.replacement_reserve_rate{
+	width: 86px;
+    margin-left: 0px;
+    font-size: 12px;
+    font-style: italic;
+}
 .s100_blank_label{
 	width: 100%;
 }
@@ -388,7 +422,7 @@ section.step{
 	font-style: italic;
 }
 #debt_label, #noi_label{
-	width: 412px;
+	width: 358px;
 	float: left;
 }
 input.new_source_label{
@@ -404,22 +438,22 @@ input.new_source_label{
 	margin-bottom: 5px;
 }
 #noi_label{
-	text-indent: 383px;
+	text-indent: 326px;
 }
 #bracket_noi{
 	position: relative;
-    margin-left: 160px
+    margin-left: 105px
 }
 #debt_sizing{
 	margin-top: -56px;
 }
 
 #debt_label{
-	text-indent: 151px;
+	text-indent: 97px;
 }
 #bracket_debt{
 	position: relative;
-    margin-left: 160px
+    margin-left: 105px
 }
 #sources{
 	margin-top: -75px;
@@ -427,11 +461,57 @@ input.new_source_label{
 
 
 /***************************************************************************/
+/****************************** HELP TEXT **********************************/
+/***************************************************************************/
+
+.help-button {
+    margin-top: 9.5px;
+    background: url('../images/help-button.png');
+    width: 15px;
+    height: 15px;
+    top: -3px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    position: relative;
+    cursor: pointer;
+    z-index: 1;
+	display: inline-block;
+    margin-left: -20px;
+    margin-right: 2px;
+    top: 1px;
+}
+.help-button:hover {
+    background: url('../images/help-button_hover.png');
+    width: 15px;
+    height: 15px;
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+
+
+/***************************************************************************/
+/***************************** TWO LINE INPUT ******************************/
+/***************************************************************************/
+input[type=text].operating_and_debt_service_reserves{
+	position: relative;
+	top: -7px;
+}
+input[type=range].operating_and_debt_service_reserves{
+	top: -3px;
+}
+#s50_operating_and_debt_service_reserves, #s100_operating_and_debt_service_reserves{
+    top: -6px;
+    position: relative;
+}
+
+/***************************************************************************/
 /************************ CROSS BROWSER RANGE INPUT ************************/
 /***************************************************************************/
 /*modified from http://brennaobrien.com/blog/2014/05/style-input-type-range-in-every-browser.html*/
 
 input[type=range] {
+	position: relative;
+	top: 4px;
     /*removes default webkit styles*/
     -webkit-appearance: none;
     

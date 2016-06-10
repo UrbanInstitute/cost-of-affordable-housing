@@ -110,6 +110,7 @@
 					<div id = "header_50" class="header">50 Apartments</div>
 					<div id = "header_100" class="header">100 Apartments</div>
 					<div class = "control_container">
+						<div class="help-button"></div>
 						<label for="average_monthly_rent">Average Monthly Rent</label>
 						<input type = "range" class = "control percent_small noi average_monthly_rent range" id="range_average_monthly_rent" min="0" max = "2" step=".01" value="1"></input>
 						<input type="text" class = "control percent_small noi average_monthly_rent text" id = "text_average_monthly_rent" value="100%"></input>
@@ -123,8 +124,9 @@
 					</div>
 					<div class = "control_container">
 						<label for="replacement_reserve_rate">Replacement Reserve Rate</label>
-						<input type = "range" class = "control noi replacement_reserve_rate range" id="range_replacement_reserve_rate" min="100" max = "500" step=".5" value="300"></input>
-						<input type="text" class = "control noi replacement_reserve_rate text" id = "text_replacement_reserve_rate" value="300"></input>
+						<input type = "range" class = "control dollar noi replacement_reserve_rate range" id="range_replacement_reserve_rate" min="100" max = "500" step=".5" value="300"></input>
+						<input type="text" class = "control dollar noi replacement_reserve_rate text" id = "text_replacement_reserve_rate" value="$300"></input>
+						<div class = "s50_label replacement_reserve_rate">per unit per year</div>
 					</div>
 
 					<div class = "control_container">
@@ -302,6 +304,11 @@
 
 
 			<img id = "contractor" src = "images/contractor.png">
+			<img id = "crane" src = "images/crane_bc.png">
+			<img id = "cloud1" src = "images/cloud1.png">
+			<img id = "cloud2" src = "images/cloud2.png">
+			<img id = "cloud3" src = "images/cloud3.png">
+			<img id = "cloud4" src = "images/cloud4.png">
 
 <!-- 			<div id = "road"></div>
 			<div id = "grass"></div>
@@ -312,10 +319,10 @@
 		</div> -->
 		<div id = "building_container_50" class = "building">
 
-			<div id = "roof_img_50" class="roof_img roofs_50">
+<!-- 			<div id = "roof_img_50" class="roof_img roofs_50">
 				<img src = "images/roof2.png"/>
 			</div>
-			<div id = "roof_50" class="roof roofs_50"></div>
+			<div id = "roof_50" class="roof roofs_50"></div> -->
 			<div id = "shadow_gap_50" class = "shadow_gap"></div>
 			<div id = "total_building_50" class="total_building"></div>
 			<div id = "built_building_50" class="built_building"></div>
@@ -368,9 +375,9 @@
 			</div>
 		</div>
 		<div id = "building_container_100" class = "building">
-			<div id = "roof_img_100" class="roof_img roofs_100">
+<!-- 			<div id = "roof_img_100" class="roof_img roofs_100">
 				<img src = "images/roof2.png"/>
-			</div>
+			</div> -->
 			<div id = "roof_100" class="roof roofs_100"></div>
 			<div id = "shadow_gap_100" class = "shadow_gap"></div>
 			<div id = "total_building_100" class="total_building"></div>

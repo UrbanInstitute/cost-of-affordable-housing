@@ -65,6 +65,8 @@ function drawGap(units, config, transition){
 	var bg_break_50_sidewalk = 0.3
 	var bg_break_50_paths = 0.5
 	var bg_break_50_shrubs = 0.8
+	var bg_break_50_crane = .99999
+
 
 	function scaleDollars(dollars){
 		return (dollars/max_dollars) * max_pixels
@@ -77,6 +79,9 @@ function drawGap(units, config, transition){
 	}else if(gap < 0){
 		gap = 0;
 	}
+	if(units==100){
+	}
+
 	if(units==50){
 		d3.select("#rightHill")
 			.transition()
@@ -99,7 +104,7 @@ function drawGap(units, config, transition){
 				if(1-(gap/total_development_cost) < bg_break_50_sidewalk){ return 0;}
 				else{ return 1;}
 			})
-		d3.selectAll(".paths")
+		d3.select("#path50")
 			.transition()
 			.duration(1000)
 			.style("opacity", function(){
@@ -133,6 +138,23 @@ function drawGap(units, config, transition){
 					return "94px"
 				}
 			})
+		d3.select("#crane")
+			.transition()
+			.duration(1500)
+			.style("right", function(){
+				d3.select(this).style("display","block")
+				if(1-(gap/total_development_cost) < bg_break_50_crane){
+					return -130;
+				}
+				else{
+					return -800
+				}
+			})
+			.each("end", function(){
+				if(1-(gap/total_development_cost) >= bg_break_50_crane){
+					d3.select(this).style("display","none")
+				}
+			})
 			
 		// d3.select("#road")
 		// 	.transition()
@@ -154,41 +176,41 @@ function drawGap(units, config, transition){
 		// 	})
 	}
 
-	if(transition){
-		d3.select("#roof_img_" + units)
-			.transition()
-			.style("bottom", function(){
-				return (scaleDollars(total_development_cost) - roof_height) + "px"
-			})
-			.style("opacity",function(){
-				if(scaleDollars(total_development_cost) - roof_height < break_50_roof){
-					return 0;
-				}else return 1
-			})
-		d3.select("#roof_" + units)
-			.style("opacity",function(){
-				if(scaleDollars(total_development_cost) - roof_height < break_50_roof){
-					return 0;
-				}else return 1
-			})
-			.transition()
-			.style("height", Math.max(0,parseFloat(-scaleDollars(gap) + roof_height)) + "px")
-			.style("bottom", function(){
-				return (scaleDollars(total_development_cost) - roof_height) + "px"
-			})
+	// if(transition){
+	// 	d3.select("#roof_img_" + units)
+	// 		.transition()
+	// 		.style("bottom", function(){
+	// 			return (scaleDollars(total_development_cost) - roof_height) + "px"
+	// 		})
+	// 		.style("opacity",function(){
+	// 			if(scaleDollars(total_development_cost) - roof_height < break_50_roof){
+	// 				return 0;
+	// 			}else return 1
+	// 		})
+	// 	d3.select("#roof_" + units)
+	// 		.style("opacity",function(){
+	// 			if(scaleDollars(total_development_cost) - roof_height < break_50_roof){
+	// 				return 0;
+	// 			}else return 1
+	// 		})
+	// 		.transition()
+	// 		.style("height", Math.max(0,parseFloat(-scaleDollars(gap) + roof_height)) + "px")
+	// 		.style("bottom", function(){
+	// 			return (scaleDollars(total_development_cost) - roof_height) + "px"
+	// 		})
 
 
-	}else{
-		d3.selectAll(".roofs_" + units)
-			.style("bottom", function(){
-				return (scaleDollars(total_development_cost) - roof_height) + "px"
-			})
-			.style("opacity",function(){
-				if(scaleDollars(total_development_cost) - roof_height < break_50_roof){
-					return 0;
-				}else return 1
-			})
-	}
+	// }else{
+	// 	d3.selectAll(".roofs_" + units)
+	// 		.style("bottom", function(){
+	// 			return (scaleDollars(total_development_cost) - roof_height) + "px"
+	// 		})
+	// 		.style("opacity",function(){
+	// 			if(scaleDollars(total_development_cost) - roof_height < break_50_roof){
+	// 				return 0;
+	// 			}else return 1
+	// 		})
+	// }
 	if(transition){
 		d3.select("#total_building_"+units)
 			.transition()
@@ -221,10 +243,10 @@ function drawGap(units, config, transition){
 		d3.select("#built_building_"+units)
 			.style("height", function(){
 				if(scaleDollars(total_development_cost) - scaleDollars(gap) > scaleDollars(total_development_cost) -roof_height && scaleDollars(total_development_cost) - roof_height > break_50_roof){
-					drawRoof(units, -scaleDollars(gap) + roof_height, transition)
+					// drawRoof(units, -scaleDollars(gap) + roof_height, transition)
 					return(scaleDollars(total_development_cost) - roof_height)
 				}else{
-					drawRoof(units, 0, transition)
+					// drawRoof(units, 0, transition)
 					return scaleDollars(total_development_cost) - scaleDollars(gap)
 				}
 			})
@@ -370,15 +392,14 @@ function drawGap(units, config, transition){
 			})
 		d3.selectAll(".empty_windows_" + units)
 			.transition()
-			// .duration(100)
+			.duration(100)
 			.style("bottom", function(){
 					var h;
 					if(d3.select(this).classed("door")){ h = 61}
-					else if(d3.select(this).classed("roof")){ h = 34}
+					else if(d3.select(this).classed("roof")){ h = 68}
 					else {h = 44}
 
 					var diff = this.parentNode.getBoundingClientRect().bottom - d3.select("#total_building_" + units).node().getBoundingClientRect().bottom + scaleDollars(total_development_cost) - scaleDollars(gap)
-					console.log(diff)
 					if(diff > h){ return h}
 					else if(diff < 0){ return 0}
 					else{ return Math.max(0,diff)}
@@ -387,21 +408,20 @@ function drawGap(units, config, transition){
 					// 34, 61, 44
 					var h;
 					if(d3.select(this).classed("door")){ h = 61}
-					else if(d3.select(this).classed("roof")){ h = 34}
+					else if(d3.select(this).classed("roof")){ h = 68}
 					else {h = 44}
 					var diff = this.parentNode.getBoundingClientRect().bottom - d3.select("#total_building_" + units).node().getBoundingClientRect().bottom + scaleDollars(total_development_cost) - scaleDollars(gap)
-					console.log(diff)
 					if(diff > h){ return 0}
 					else if(diff < 0){ return h}
 					else{ return h-diff}
 			})
 		d3.selectAll(".full_windows_" + units)
 			.transition()
-			// .duration(100)
+			.duration(100)
 			.style("height", function(){
 					var h;
 					if(d3.select(this).classed("door")){ h = 61}
-					else if(d3.select(this).classed("roof")){ h = 34}
+					else if(d3.select(this).classed("roof")){ h = 68}
 					else {h = 44}
 
 				var diff = this.parentNode.getBoundingClientRect().bottom - d3.select("#total_building_" + units).node().getBoundingClientRect().bottom + scaleDollars(total_development_cost) - scaleDollars(gap)
@@ -412,11 +432,10 @@ function drawGap(units, config, transition){
 			.style("top", function(){
 					var h;
 					if(d3.select(this).classed("door")){ h = 61}
-					else if(d3.select(this).classed("roof")){ h = 34}
+					else if(d3.select(this).classed("roof")){ h = 68}
 					else {h = 44}
 
 					var diff = this.parentNode.getBoundingClientRect().bottom - d3.select("#total_building_" + units).node().getBoundingClientRect().bottom + scaleDollars(total_development_cost) - scaleDollars(gap)
-					console.log(diff)
 					if(diff > h){ return 0}
 					else if(diff < 0){ return h}
 					else{ return Math.max(0,h-diff)}
@@ -571,10 +590,9 @@ function drawGap(units, config, transition){
 					// 34, 61, 44
 					var h;
 					if(d3.select(this).classed("door")){ h = 61}
-					else if(d3.select(this).classed("roof")){ h = 34}
+					else if(d3.select(this).classed("roof")){ h = 68}
 					else {h = 44}
 					var diff = this.parentNode.getBoundingClientRect().bottom - d3.select("#total_building_" + units).node().getBoundingClientRect().bottom + scaleDollars(total_development_cost) - scaleDollars(gap)
-					console.log(diff)
 					if(diff > h){ return 0}
 					else if(diff < 0){ return h}
 					else{ return h-diff}
@@ -582,11 +600,10 @@ function drawGap(units, config, transition){
 			.style("bottom", function(){
 					var h;
 					if(d3.select(this).classed("door")){ h = 61}
-					else if(d3.select(this).classed("roof")){ h = 34}
+					else if(d3.select(this).classed("roof")){ h = 68}
 					else {h = 44}
 
 					var diff = this.parentNode.getBoundingClientRect().bottom - d3.select("#total_building_" + units).node().getBoundingClientRect().bottom + scaleDollars(total_development_cost) - scaleDollars(gap)
-					console.log(diff)
 					if(diff > h){ return -h}
 					else if(diff < 0){ return 0}
 					else{ return Math.max(0,diff)}
@@ -595,7 +612,7 @@ function drawGap(units, config, transition){
 			.style("height", function(){
 					var h;
 					if(d3.select(this).classed("door")){ h = 61}
-					else if(d3.select(this).classed("roof")){ h = 34}
+					else if(d3.select(this).classed("roof")){ h = 68}
 					else {h = 44}
 
 				var diff = this.parentNode.getBoundingClientRect().bottom - d3.select("#total_building_" + units).node().getBoundingClientRect().bottom + scaleDollars(total_development_cost) - scaleDollars(gap)
@@ -606,11 +623,10 @@ function drawGap(units, config, transition){
 			.style("top", function(){
 					var h;
 					if(d3.select(this).classed("door")){ h = 61}
-					else if(d3.select(this).classed("roof")){ h = 34}
+					else if(d3.select(this).classed("roof")){ h = 68}
 					else {h = 44}
 
 					var diff = this.parentNode.getBoundingClientRect().bottom - d3.select("#total_building_" + units).node().getBoundingClientRect().bottom + scaleDollars(total_development_cost) - scaleDollars(gap)
-					console.log(diff)
 					if(diff > h){ return 0}
 					else if(diff < 0){ return 0}
 					else{ return Math.max(0,h-diff)}
@@ -640,7 +656,6 @@ function drawRoof(units, pixels, transition){
 	roof.style("height",pixels)
 }
 function update(units, config, transition){
-	// console.log(config, units)
 	var effective_gross_income = getEffectiveGrossIncome(units, config.vacancy_rate, config[units]["average_monthly_rent"])
 	var noi = getNOI(units, config[units]["admin_expenses"], config[units]["operating_expenses"], config[units]["maintenance_expenses"], config.replacement_reserve_rate, effective_gross_income)
 
@@ -652,7 +667,7 @@ function update(units, config, transition){
 
 	countup_val("s" + units + "_debt", max_loan)
 	var text = (max_loan_value > max_loan_income) ? "Income" : "Value";
-	var text_indent = (max_loan_value > max_loan_income) ? 151 : 163;
+	var text_indent = (max_loan_value > max_loan_income) ? 97 : 109;
 	d3.select("#loan_label").text(text)
 	d3.select("#debt_label").style("text-indent", text_indent)
 	
@@ -687,12 +702,12 @@ function getMaxLoanIncome(noi, debt_service_coverage, interest_rate){
 	var noi_available = noi/debt_service_coverage
 	var monthly_payment = noi_available/12.0
 	var max_loan_income = PV(interest_rate/12.0, 30.0*12.0, monthly_payment)
-	return max_loan_income;
+	return Math.max(0,max_loan_income);
 }
 function getMaxLoanValue(noi, capitalization_rate, loan_to_value){
 	var calculated_property_value = noi/capitalization_rate;
 	var max_loan_value = calculated_property_value * loan_to_value;
-	return max_loan_value;
+	return Math.max(0,max_loan_value);
 }
 function getTotalDevelopmentCost(uses){
 	var total_development_cost = 0;
@@ -814,7 +829,6 @@ var scrollVis = function() {
   setupSections = function() {
     // activateFunctions are called each
     // time the active section changes
-    console.log("foo")
     activateFunctions[0] = dummy1;
     activateFunctions[1] = dummy2;
     activateFunctions[2] = dummy3;
@@ -842,7 +856,6 @@ function dummy1(){
 	// drawGap("50", config, true)
 	// drawGap("100", config, true)
 
-	console.log("function dummy1")
 	hide100();
 }
 function dummy2(){
@@ -859,10 +872,8 @@ function dummy3(){
 	// $("#text_average_monthly_rent").trigger("change")
 	var config = updateDefaultsFromDashboard()
 	drawGaps(config, true)
-	console.log("function dummy3")
 }
 function dummy4(){
-	console.log("function dummy4")
 }
 
 function show100(){
@@ -925,7 +936,6 @@ function hide100(){
 }
 
 function update1(progress){
-	console.log("function update1", progress)
 }
   /**
    * activate -
@@ -933,7 +943,6 @@ function update1(progress){
    * @param index - index of the activated section
    */
   chart.activate = function(index) {
-  	console.log(activateFunctions)
     activeIndex = index;
     var sign = (activeIndex - lastIndex) < 0 ? -1 : 1;
     var scrolledSections = d3.range(lastIndex + sign, activeIndex + sign, sign);
@@ -976,12 +985,10 @@ function init(){
 
     // activate current section
     plot.activate(index);
-    // console.log("activate", index)
   });
 
   scroll.on('progress', function(index, progress){
     plot.update(index, progress);
-    // console.log("update", index, progress)
   });
 }
 
@@ -1014,6 +1021,7 @@ d3.selectAll(".control")
 			var val;
 			if(d3.select(this).classed("percent")) val = PERCENT(this.value);
 			else if(d3.select(this).classed("percent_small")) val = PERCENT_SMALL(this.value);
+			else if(d3.select(this).classed("dollar")) val = DOLLARS(this.value);
 			else val = this.value;
 
 			d3.select("." + this.id.split("range_")[1] + ".text")

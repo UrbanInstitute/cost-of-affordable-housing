@@ -13,7 +13,7 @@ body{
     width: 100%;
     background: #fff;
     border-bottom: 1px solid #ccc;
-    z-index: 999;
+    z-index: 1000;
     -webkit-transition: top 0.25s linear;
     -moz-transition: top 0.25s linear;
     -o-transition: top 0.25s linear;
@@ -97,7 +97,7 @@ body{
 #header-pinned .share-icons .shareThisP {
     border-top: 0;
     border-left: 1px solid #e6e5e5;
-    height: 50px;
+    height: 40px;
     padding: 9px 0 0;
 }
 
