@@ -80,6 +80,48 @@ function drawGap(units, config, transition){
 		gap = 0;
 	}
 	if(units==100){
+		d3.select("#path100")
+			.transition()
+			.duration(1000)
+			.style("opacity", function(){
+				if(1-(gap/total_development_cost) < bg_break_50_paths){
+				 d3.select("#sidewalk")
+				 	.classed("locked",false)
+				 	// .transition()
+				 	// .duration(1000)
+				 	// .style("opacity",0)
+				 return 0;
+				}
+				else{
+				 d3.select("#sidewalk")
+				 	.classed("locked",true)
+				 	.transition()
+				 	.duration(1000)
+				 	.style("opacity",1)
+				 return 1;
+				}
+			})
+			.style("right", function(){
+				if(d3.select("#building_container_50").node().getBoundingClientRect().right > 0){
+					return "125px";
+				}else{
+					return "-225px"
+				}
+			})
+		d3.select("#shrubs100")
+			.transition()
+			.duration(1000)
+			.style("opacity", function(){
+				if(1-(gap/total_development_cost) < bg_break_50_shrubs){ return 0;}
+				else{ return 1;}
+			})
+			.style("right", function(){
+				if(d3.select("#building_container_50").node().getBoundingClientRect().right > 0){
+					return "94px";
+				}else{
+					return "-225px"
+				}
+			})
 	}
 
 	if(units==50){
@@ -101,7 +143,8 @@ function drawGap(units, config, transition){
 			.transition()
 			.duration(1000)
 			.style("opacity", function(){
-				if(1-(gap/total_development_cost) < bg_break_50_sidewalk){ return 0;}
+				if(d3.select(this).classed("locked")){ return 1}
+				else if(1-(gap/total_development_cost) < bg_break_50_sidewalk){ return 0;}
 				else{ return 1;}
 			})
 		d3.select("#path50")
@@ -112,16 +155,13 @@ function drawGap(units, config, transition){
 				else{ return 1;}
 			})
 			.style("right", function(){
-				if(this.id  == "path50" && d3.select("#building_container_50").node().getBoundingClientRect().right > 0){
-					return "353px";
-				}
-				else if(this.id  == "path100" && d3.select("#building_container_50").node().getBoundingClientRect().right < 0){
-					return "-225px"
+				if(d3.select("#building_container_50").node().getBoundingClientRect().right > 0){
+					return "351px";
 				}else{
 					return "125px"
 				}
 			})
-		d3.selectAll(".shrubs")
+		d3.select("#shrubs50")
 			.transition()
 			.duration(1000)
 			.style("opacity", function(){
@@ -129,11 +169,8 @@ function drawGap(units, config, transition){
 				else{ return 1;}
 			})
 			.style("right", function(){
-				if(this.id  == "shrubs50" && d3.select("#building_container_50").node().getBoundingClientRect().right > 0){
+				if(d3.select("#building_container_50").node().getBoundingClientRect().right > 0){
 					return "321px";
-				}
-				else if(this.id  == "shrubs100" && d3.select("#building_container_50").node().getBoundingClientRect().right < 0){
-					return "-225px"
 				}else{
 					return "94px"
 				}
@@ -891,7 +928,7 @@ function show100(){
 		.style("right","125px")
 	d3.select("#path50")
 		.transition()
-		.style("right","353px")
+		.style("right","351px")
 
 	d3.select("#shrubs100")
 		.style("display","block")
