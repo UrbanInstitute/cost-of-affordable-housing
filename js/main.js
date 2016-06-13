@@ -898,7 +898,7 @@ var scrollVis = function() {
     // time the active section changes
     activateFunctions[0] = dummy1;
     activateFunctions[1] = dummy2;
-    activateFunctions[2] = dummy3;
+    activateFunctions[2] = dummy4;
     activateFunctions[3] = dummy4;
     activateFunctions[4] = dummy4;
     activateFunctions[5] = dummy4;
