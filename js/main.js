@@ -323,14 +323,14 @@ function drawGap(units, config, transition){
 		d3.select("#gap_container_"+units)
 			.transition()
 			.style("bottom", function(){
-				if(window.innerHeight - (scaleDollars(total_development_cost) + 20) < 214){
-					return window.innerHeight-214
+				if(window.innerHeight - (scaleDollars(total_development_cost) + 20) < 228){
+					return window.innerHeight-228
 				}else{
 					return scaleDollars(total_development_cost) + 20
 				}
 			})
 			.style("background-color", function(){
-				if(window.innerHeight - (scaleDollars(total_development_cost) + 20) < 214){
+				if(window.innerHeight - (scaleDollars(total_development_cost) + 20) < 228){
 					return "rgba(22,150,210,.8)"
 				}else{
 					return "rgba(22,150,210,1)"
@@ -509,14 +509,14 @@ function drawGap(units, config, transition){
 			})
 		d3.select("#gap_container_"+units)
 			.style("bottom", function(){
-				if(window.innerHeight - (scaleDollars(total_development_cost) + 20) < 214){
-					return window.innerHeight-214
+				if(window.innerHeight - (scaleDollars(total_development_cost) + 20) < 228){
+					return window.innerHeight-228
 				}else{
 					return scaleDollars(total_development_cost) + 20
 				}
 			})
 			.style("background-color", function(){
-				if(window.innerHeight - (scaleDollars(total_development_cost) + 20) < 214){
+				if(window.innerHeight - (scaleDollars(total_development_cost) + 20) < 228){
 					return "rgba(22,150,210,.8)"
 				}else{
 					return "rgba(22,150,210,1)"
@@ -793,6 +793,11 @@ function updateDefaultsFromDashboard(transition){
 	d3.selectAll("#uses .range.control")
 		.each(function(){
 			var control = this.id.split("range_")[1];
+			if(parseFloat(this.value) < 1){
+				showWarning(control)
+			}else{
+				hideWarning(control)
+			}
 			var sizes = ["50","100"]
 			for (var i = 0; i<sizes.length; i++){
 				size = sizes[i]
@@ -836,7 +841,32 @@ function updateDefaultsFromDashboard(transition){
 }
 
 
-
+function showWarning(control){
+	d3.select("#mouth")
+		.transition()
+		.duration(100)
+		.style("height","8px")
+	var container = d3.select(d3.select("#range_"+control).node().parentNode)
+	container.classed("warning",true)
+	if(container.selectAll(".warning_icon")[0].length == 0){
+		container
+			.append("div")
+			.attr("class","warning_icon")
+			.append("img")
+			.attr("src","images/error.png")
+	}
+}
+function hideWarning(control){
+	var container = d3.select(d3.select("#range_"+control).node().parentNode)
+	container.classed("warning",false)
+	container.selectAll(".warning_icon").remove()
+	if(d3.selectAll(".warning")[0].length == 0){
+		d3.select("#mouth")
+			.transition()
+			.duration(100)
+			.style("height","0px")
+	}
+}
 var scrollVis = function() {
   // When scrolling to a new section
   // the activation function for that
@@ -871,6 +901,16 @@ var scrollVis = function() {
     activateFunctions[2] = dummy3;
     activateFunctions[3] = dummy4;
     activateFunctions[4] = dummy4;
+    activateFunctions[5] = dummy4;
+    activateFunctions[6] = dummy4;
+    activateFunctions[7] = dummy4;
+    activateFunctions[8] = dummy4;
+    activateFunctions[9] = dummy4;
+    activateFunctions[10] = dummy4;
+    activateFunctions[11] = dummy4;
+    activateFunctions[12] = dummy4;
+    activateFunctions[13] = dummy4;
+
     // activateFunctions[5] = showHistPart;
     // activateFunctions[6] = showHistAll;
     // activateFunctions[7] = showCough;
@@ -1028,6 +1068,13 @@ function init(){
     plot.update(index, progress);
   });
 }
+
+
+d3.selectAll(".page-scroll")
+    .on("click", function(){
+    	var scrollTo = $(this).data("scroll")
+        $("html, body").animate({ scrollTop: $("#" + scrollTo).offset().top-205 }, 1000);    
+    })
 
 d3.selectAll(".control")
 	.on("input",function(){

@@ -160,10 +160,9 @@ section.step{
 .gap_container{
 	position: absolute;
 	width: 144px;
-	height: 64px;
+	height: 78px;
 	left: 16px;
 	color: #fff;
-	/*background-color: #000;*/
 	background-color: rgba(22,150,210,.2);
 	z-index: 109;
 }
@@ -173,6 +172,13 @@ section.step{
     float: left;
     margin-left: 10px;
     margin-top: 8px;
+    text-align: left;
+}
+.gap_label span{
+	font-size: 12px;
+    display: block;
+    text-transform: uppercase;
+    margin-bottom: 4px;
 }
 .gap_amount{
 	font-size: 19px;
@@ -306,6 +312,22 @@ section.step{
     right: -130px;
     z-index: -1;
 }
+
+#buildings_rightHill{
+	bottom: 30px;
+    right: 9%;
+    z-index: -2;
+}
+#buildings_leftHill{
+	bottom: -30px;
+    left: calc(40% - 40px);
+    z-index: -2;
+}
+#trees{
+	bottom: 40px;
+    right: 440px;
+    z-index: -2;
+}
 #cloud1{
 	pointer-events: none;
 	z-index: -2;
@@ -379,6 +401,7 @@ section.step{
 	font-size: 16px;
 }
 .control_container{
+	height: 28px;
 	display: block;
 }
 .control_container label{
@@ -466,6 +489,32 @@ input.new_source_label{
 	margin-top: -75px;
 }
 
+/***************************************************************************/
+/****************************** WARNINGS ***********************************/
+/***************************************************************************/
+.control_container.warning{
+	color: #db2b27;
+	font-weight: bold;
+}
+.control_container.warning input[type=text]{
+	color: #db2b27;
+	font-weight: bold;
+}
+.control_container.warning input[type=range]::-webkit-slider-thumb {
+    background: #db2b27;
+}
+.control_container.warning input[type=range]::-moz-range-thumb {
+    background: #db2b27;
+}
+.control_container.warning input[type=range]::-ms-thumb {
+    background: #db2b27;
+}
+.warning_icon{
+	display: inline;
+	position: relative;
+	top: 5px;
+	margin-left: 5px;
+}
 
 /***************************************************************************/
 /****************************** HELP TEXT **********************************/
@@ -493,11 +542,29 @@ input.new_source_label{
     background-size: contain;
     background-repeat: no-repeat;
 }
-
+#help_noi{
+	left: -30px;
+}
+#help_debt{
+	left: -260px;
+}
 
 /***************************************************************************/
 /***************************** TWO LINE INPUT ******************************/
 /***************************************************************************/
+.control_container.tall{
+	height: 44px;
+}
+.control_container.tall label{
+	position: relative;
+	top: 3;
+}	
+.control_container.tall .help-button{
+	top: -6px;
+}
+.control_container.tall .warning_icon{
+	top: -1px;
+}		
 input[type=text].operating_and_debt_service_reserves{
 	position: relative;
 	top: -7px;
