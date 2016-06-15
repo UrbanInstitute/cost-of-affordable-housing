@@ -62,10 +62,14 @@ function drawGap(units, config, transition){
 	var break_100_top_balcony = 135;
 
 	var bg_break_50_rightHill = 0.4
+	var bg_break_50_wheelbarrow = .35
 	var bg_break_50_sidewalk = 0.3
 	var bg_break_50_paths = 0.5
 	var bg_break_50_shrubs = 0.8
+	var bg_break_50_bike = 0.8
+	var bg_break_50_dog = 0.95
 	var bg_break_50_crane = .99999
+
 
 
 	function scaleDollars(dollars){
@@ -132,6 +136,13 @@ function drawGap(units, config, transition){
 				if(1-(gap/total_development_cost) < bg_break_50_rightHill){ return 0;}
 				else{ return 1;}
 			})
+		d3.select("#wheelbarrow")
+			.transition()
+			.duration(1000)
+			.style("opacity", function(){
+				if(1-(gap/total_development_cost) < bg_break_50_wheelbarrow){ return 1;}
+				else{ return 0;}
+			})
 		d3.select("#sidewalk")
 			.transition()
 			.duration(1000)
@@ -145,6 +156,20 @@ function drawGap(units, config, transition){
 			.style("opacity", function(){
 				if(d3.select(this).classed("locked")){ return 1}
 				else if(1-(gap/total_development_cost) < bg_break_50_sidewalk){ return 0;}
+				else{ return 1;}
+			})
+		d3.select("#bike")
+			.transition()
+			.duration(1000)
+			.style("opacity", function(){
+				if(1-(gap/total_development_cost) < bg_break_50_bike){ return 0;}
+				else{ return 1;}
+			})
+		d3.select("#dog")
+			.transition()
+			.duration(1000)
+			.style("opacity", function(){
+				if(1-(gap/total_development_cost) < bg_break_50_dog){ return 0;}
 				else{ return 1;}
 			})
 		d3.select("#path50")
@@ -331,9 +356,9 @@ function drawGap(units, config, transition){
 			})
 			.style("background-color", function(){
 				if(window.innerHeight - (scaleDollars(total_development_cost) + 20) < 228){
-					return "rgba(22,150,210,.8)"
+					return "rgba(38,31,32,.8)"
 				}else{
-					return "rgba(22,150,210,1)"
+					return "rgba(38,31,32,1)"
 				}
 			})
 			countup_val("gap_amount_"+units, resp.gap)
@@ -517,9 +542,9 @@ function drawGap(units, config, transition){
 			})
 			.style("background-color", function(){
 				if(window.innerHeight - (scaleDollars(total_development_cost) + 20) < 228){
-					return "rgba(22,150,210,.8)"
+					return "rgba(38,31,32,.8)"
 				}else{
-					return "rgba(22,150,210,1)"
+					return "rgba(38,31,32,1)"
 				}
 			})
 		countup_val("gap_amount_"+units, resp.gap)
@@ -897,19 +922,19 @@ var scrollVis = function() {
     // activateFunctions are called each
     // time the active section changes
     activateFunctions[0] = dummy1;
-    activateFunctions[1] = dummy2;
-    activateFunctions[2] = dummy3;
-    activateFunctions[3] = dummy4;
-    activateFunctions[4] = dummy4;
+    activateFunctions[1] = dummy1;
+    activateFunctions[2] = dummy2;
+    activateFunctions[3] = dummy2;
+    activateFunctions[4] = dummy3;
     activateFunctions[5] = dummy4;
     activateFunctions[6] = dummy4;
     activateFunctions[7] = dummy4;
-    activateFunctions[8] = dummy4;
-    activateFunctions[9] = dummy4;
-    activateFunctions[10] = dummy4;
-    activateFunctions[11] = dummy4;
-    activateFunctions[12] = dummy4;
-    activateFunctions[13] = dummy4;
+    activateFunctions[8] = dummy5;
+    // activateFunctions[9] = dummy3;
+    // activateFunctions[10] = dummy4;
+    // activateFunctions[11] = dummy4;
+    // activateFunctions[12] = dummy4;
+    // activateFunctions[13] = dummy4;
 
     // activateFunctions[5] = showHistPart;
     // activateFunctions[6] = showHistAll;
@@ -929,28 +954,36 @@ var scrollVis = function() {
   };
 
 function dummy1(){
+	highlightSection(0)
 	// var config = jQuery.extend(true, {}, DEFAULT_CONFIG);
 	// drawGap("50", config, true)
 	// drawGap("100", config, true)
 
-	hide100();
+	// hide100();
 }
 function dummy2(){
+	highlightSection(1)
 	// console.log("function dummy2")
 
 	// drawGap("100", config, true)
-	show100();
+	// show100();
 }
 function dummy3(){
-	d3.select("#range_average_monthly_rent").node().value = 200
-	d3.select("#range_average_monthly_rent").attr("value",200)
-	d3.select("#text_average_monthly_rent").node().value = "200%"
-	d3.select("#text_average_monthly_rent").attr("value","200%")
-	// $("#text_average_monthly_rent").trigger("change")
-	var config = updateDefaultsFromDashboard()
-	drawGaps(config, true)
+	highlightSection(2)
+	// d3.select("#range_average_monthly_rent").node().value = 200
+	// d3.select("#range_average_monthly_rent").attr("value",200)
+	// d3.select("#text_average_monthly_rent").node().value = "200%"
+	// d3.select("#text_average_monthly_rent").attr("value","200%")
+	// // $("#text_average_monthly_rent").trigger("change")
+	// var config = updateDefaultsFromDashboard()
+	// drawGaps(config, true)
+	hide100()
 }
 function dummy4(){
+	show100()
+}
+function dummy5(){
+	highlightSection(3)
 }
 
 function show100(){
@@ -1044,6 +1077,11 @@ function update1(progress){
 };
 
 function init(){
+	W = window.innerWidth;
+	w = W/5
+	x = w/2 - 25
+	d3.select("#nav_arrow")
+		.style("left",x)
   drawGaps(DEFAULT_CONFIG, false)
   var plot = scrollVis();
   plot.call()
@@ -1162,6 +1200,150 @@ d3.select(".control_container.new_source")
 	})
 
 
+d3.select("#about_project")
+	.on("click", function(){
+		if(d3.select("#credits").classed("visible")){ return false}
+
+		highlightSection(4)
+		d3.select("#credits")
+			.classed("visible", true)
+			.transition()
+			.ease("back")
+			.duration(1200)
+			.style("bottom","359px")
+			.style("right","253px")
+			.style("width","422px")
+			.style("height","273px")
+			.style("transform","rotate(360deg")
+
+		var spinLock = {},
+		    fadeLock = {};
+		d3.select("#text_credits")
+		    .call(spin, 1200)
+		    .call(fade, 1200);
+
+		function spin(path, duration) {
+		  d3.select(spinLock).transition()
+		      .duration(duration)
+		      .ease("back")
+		      .tween("style:bottom", function() {
+		        var i = d3.interpolateString("56px", "359px");
+		        return function(t) { path.style("bottom", i(t)); };
+		      })
+		      .tween("style:right", function() {
+		        var i = d3.interpolateString("607px", "253px");
+		        return function(t) { path.style("right", i(t)); };
+		      })
+		      .tween("style:width", function() {
+		        var i = d3.interpolateString("72px", "422px");
+		        return function(t) { path.style("width", i(t)); };
+		      })
+		      .tween("style:height", function() {
+		        var i = d3.interpolateString("53px", "273px");
+		        return function(t) { path.style("height", i(t)); };
+		      })
+		      .tween("style:transform", function() {
+		        var i = d3.interpolateString("rotate(77deg)", "rotate(360deg)");
+		        return function(t) { path.style("transform", i(t)); };
+		      })
+		}
+
+		function fade(path, duration) {
+		  d3.select(fadeLock).transition()
+		      .duration(duration)
+		      .delay(400)
+		      .tween("style:opacity", function() {
+		        var i = d3.interpolateNumber(0, 1);
+		        return function(t) { path.style("opacity", i(t)); };
+		      })
+		      .tween("style:box-shadow", function() {
+		        var i = d3.interpolateString("0px 0px 0px #888888", "4px 4px 16px #888888");
+		        return function(t) { path.style("box-shadow", i(t)); };
+		      })
+		}
+		
+});
+
+
+d3.select(".close_button")
+	.on("click", hideCredits)
+$(document).keyup(function(e) {
+     if (e.keyCode == 27) { // escape key maps to keycode `27`
+     	if(d3.select("#credits").classed("visible")) { hideCredits() }
+    }
+});
+
+function hideCredits(){
+	d3.select("#credits")
+		.classed("visible", false)	
+		.transition()
+		.ease("bounce")
+		.duration(1200)
+		.style("bottom","69px")
+		.style("right","607px")
+		.style("width","72px")
+		.style("height","53px")
+		.style("transform","rotate(77deg")
+
+	var spinLock = {},
+	    fadeLock = {};
+	d3.select("#text_credits")
+	    .call(despin, 1200)
+	    .call(defade, 400);
+
+	function despin(path, duration) {
+	  d3.select(spinLock).transition()
+	      .duration(duration)
+	      .ease("bounce")
+	      .tween("style:bottom", function() {
+	        var i = d3.interpolateString("359px","56px");
+	        return function(t) { path.style("bottom", i(t)); };
+	      })
+	      .tween("style:right", function() {
+	        var i = d3.interpolateString("253px","607px");
+	        return function(t) { path.style("right", i(t)); };
+	      })
+	      .tween("style:width", function() {
+	        var i = d3.interpolateString("422px","72px");
+	        return function(t) { path.style("width", i(t)); };
+	      })
+	      .tween("style:height", function() {
+	        var i = d3.interpolateString("273px","53px");
+	        return function(t) { path.style("height", i(t)); };
+	      })
+	      .tween("style:transform", function() {
+	        var i = d3.interpolateString("rotate(0deg)","rotate(77deg)");
+	        return function(t) { path.style("transform", i(t)); };
+	      })
+	}
+
+	function defade(path, duration) {
+	  d3.select(fadeLock).transition()
+	      .duration(duration)
+	      // .delay(400)
+	      .tween("style:opacity", function() {
+	        var i = d3.interpolateNumber(1, 0);
+	        return function(t) { path.style("opacity", i(t)); };
+	      })
+	      .tween("style:box-shadow", function() {
+	        var i = d3.interpolateString("4px 4px 16px #888888","0px 0px 0px #888888");
+	        return function(t) { path.style("box-shadow", i(t)); };
+	      })
+	}
+}
+
+function highlightSection(i){
+	d3.selectAll(".navTab")
+		.classed("active",false)
+	d3.select(".navTab" + String(i))
+		.classed("active",true)
+	W = window.innerWidth;
+	w = W/5
+	x = i*w + w/2 - 25
+	d3.select("#nav_arrow")
+		.transition()
+		.style("left",x)
+}
 
 
 

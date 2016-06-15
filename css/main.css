@@ -1,3 +1,7 @@
+
+
+
+
 body{
 	background-color: #cbeaf5;
 	font-family: Lato;
@@ -42,8 +46,9 @@ p{
     z-index: 999;
 }
 .navTab{
+	float: left;
 	display: inline-block;
-    width: calc(24% - 1px);
+    width: 20%;
     text-align: center;
     vertical-align: middle;
     height: 29px;
@@ -52,9 +57,24 @@ p{
     font-size: 14px;
     cursor: pointer;
 }
+.navTab.active{
+	font-weight: bold;
+	color: #1696d2;
+}
 .navTab:hover{
 	background-color: #1696d2;
 	color: white;
+}
+#nav_arrow{
+    width: 0;
+    height: 0;
+    border-left: 18px solid transparent;
+    border-right: 18px solid transparent;
+    position: fixed;
+    top: 80px;
+    border-bottom: 9px solid #cee7f2;
+    z-index: 1000;
+    left: 8%;
 }
 /***************************************************************************/
 /*************************** TEXT STYLES ***********************************/
@@ -296,9 +316,14 @@ section.step{
 	opacity: 0;
 }
 #contractor{
-	bottom: 0;
+	bottom: -13;
     right: 570px;
     z-index: 99;
+}
+#hand{
+	bottom: 86px;
+    right: 664px;
+    z-index: 1000;	
 }
 #mouth{
     bottom: 156px;
@@ -327,6 +352,23 @@ section.step{
 	bottom: 40px;
     right: 440px;
     z-index: -2;
+}
+#bike{
+    bottom: 61px;
+    right: 476px;
+    z-index: 3;
+    opacity: 0;
+}
+#dog{
+    bottom: 9px;
+    right: 201px;
+    z-index: 13;
+    opacity: 0;
+}
+#wheelbarrow{
+    bottom: 8px;
+    right: 434px;
+    z-index: 13;
 }
 #cloud1{
 	pointer-events: none;
@@ -706,3 +748,48 @@ input[type=text]{
 input.text.invalid{
 	color: #db2b27;
 }
+
+/***************************************************************************/
+/********************************* CREDITS *********************************/
+/***************************************************************************/
+#credits, #text_credits{
+	position: fixed;
+    bottom: 56px;
+    right: 607px;
+    width: 72px;
+    height: 53px;
+    background-color: white;
+    z-index: 999;
+    transform: rotate(77deg);
+}
+#text_credits{
+	opacity: 0;
+}
+
+
+/********* Close button **********/
+.close_button {
+	position: relative;
+ 	top: -9px;
+    right: -408px;
+    cursor: pointer;
+    height: 34px;
+    width: 34px;
+}
+.close_button > circle {
+	stroke: #231f20;
+    fill: #231f20;
+}
+.close_button > path {
+    stroke: #d1d2d4;
+}
+.close_button:hover > circle {
+	stroke: #1696d2;
+    fill: #1696d2;
+}
+.close_button:hover > path {
+    stroke: white;
+}
+
+
+
