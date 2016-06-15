@@ -52,7 +52,7 @@ var PERCENT_SMALL = d3.format(".1%")
 function drawGap(units, config, transition){
 	var roof_height = 67;
 	var max_dollars =  40400000;
-	var max_pixels = window.innerHeight-90-60;
+	var max_pixels = (window.innerHeight-90-60);
 	var break_50_middle_windows = 179;
 	var break_50_top_windows = 129;
 	var break_50_roof = 61;
@@ -432,7 +432,7 @@ function drawGap(units, config, transition){
 			.duration(100)
 			.style("bottom", function(){
 					var h;
-					if(d3.select(this).classed("door")){ h = 61}
+					if(d3.select(this).classed("door")){ h = 64}
 					else if(d3.select(this).classed("roof")){ h = 68}
 					else {h = 44}
 
@@ -444,7 +444,7 @@ function drawGap(units, config, transition){
 			.style("height", function(){
 					// 34, 61, 44
 					var h;
-					if(d3.select(this).classed("door")){ h = 61}
+					if(d3.select(this).classed("door")){ h = 64}
 					else if(d3.select(this).classed("roof")){ h = 68}
 					else {h = 44}
 					var diff = this.parentNode.getBoundingClientRect().bottom - d3.select("#total_building_" + units).node().getBoundingClientRect().bottom + scaleDollars(total_development_cost) - scaleDollars(gap)
@@ -457,7 +457,7 @@ function drawGap(units, config, transition){
 			.duration(100)
 			.style("height", function(){
 					var h;
-					if(d3.select(this).classed("door")){ h = 61}
+					if(d3.select(this).classed("door")){ h = 64}
 					else if(d3.select(this).classed("roof")){ h = 68}
 					else {h = 44}
 
@@ -468,7 +468,7 @@ function drawGap(units, config, transition){
 			})
 			.style("top", function(){
 					var h;
-					if(d3.select(this).classed("door")){ h = 61}
+					if(d3.select(this).classed("door")){ h = 64}
 					else if(d3.select(this).classed("roof")){ h = 68}
 					else {h = 44}
 
@@ -626,7 +626,7 @@ function drawGap(units, config, transition){
 			.style("height", function(){
 					// 34, 61, 44
 					var h;
-					if(d3.select(this).classed("door")){ h = 61}
+					if(d3.select(this).classed("door")){ h = 64}
 					else if(d3.select(this).classed("roof")){ h = 68}
 					else {h = 44}
 					var diff = this.parentNode.getBoundingClientRect().bottom - d3.select("#total_building_" + units).node().getBoundingClientRect().bottom + scaleDollars(total_development_cost) - scaleDollars(gap)
@@ -636,7 +636,7 @@ function drawGap(units, config, transition){
 			})
 			.style("bottom", function(){
 					var h;
-					if(d3.select(this).classed("door")){ h = 61}
+					if(d3.select(this).classed("door")){ h = 64}
 					else if(d3.select(this).classed("roof")){ h = 68}
 					else {h = 44}
 
@@ -648,7 +648,7 @@ function drawGap(units, config, transition){
 		d3.selectAll(".full_windows_" + units)
 			.style("height", function(){
 					var h;
-					if(d3.select(this).classed("door")){ h = 61}
+					if(d3.select(this).classed("door")){ h = 64}
 					else if(d3.select(this).classed("roof")){ h = 68}
 					else {h = 44}
 
@@ -659,7 +659,7 @@ function drawGap(units, config, transition){
 			})
 			.style("top", function(){
 					var h;
-					if(d3.select(this).classed("door")){ h = 61}
+					if(d3.select(this).classed("door")){ h = 64}
 					else if(d3.select(this).classed("roof")){ h = 68}
 					else {h = 44}
 

@@ -418,6 +418,10 @@ section.step{
 .control_container.new_source{
 	margin: 3px 0 3px 0px;
 }
+.control_container.new_source.button{
+	height: 56px;
+}
+
 #click_to_add_sources{
     text-transform: uppercase;
     color: white;
@@ -460,7 +464,7 @@ input.new_source_label{
     margin-right: 150px;
     text-align: left !important;
     font-size: 16px !important;
-    background-color: #cbeaf5 !important;
+    background-color: transparent !important;
     border-bottom: 1px solid #a2d4ec !important; 
     font-style: italic;
 }
