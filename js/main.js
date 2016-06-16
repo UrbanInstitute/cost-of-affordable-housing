@@ -1359,7 +1359,7 @@ d3.select("#about_project")
 		function fade(path, duration) {
 		  d3.select(fadeLock).transition()
 		      .duration(duration)
-		      .delay(400)
+		      .delay(700)
 		      .tween("style:opacity", function() {
 		        var i = d3.interpolateNumber(0, 1);
 		        return function(t) { path.style("opacity", i(t)); };
