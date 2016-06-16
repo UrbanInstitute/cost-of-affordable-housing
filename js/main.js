@@ -868,6 +868,7 @@ function updateDefaultsFromDashboard(transition){
 
 
 function showWarning(control, disabled, invalid){
+	hideCredits();
 	var newClass = (typeof(disabled) == "undefined") ? "warning" : "disabled"
 	var msgID;
 
@@ -898,6 +899,10 @@ function showWarning(control, disabled, invalid){
 			.append("img")
 			.attr("src","images/error.png")
 			.attr("data-order",max+1)
+			.on("mouseover",function(){
+				var hoverID = msgID
+				d3.select("#warning_sign").text(error_msgs[hoverID])
+			})
 		d3.select("#warning_sign")
 				.transition()
 				.style("opacity",1)

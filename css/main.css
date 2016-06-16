@@ -604,7 +604,7 @@ input.new_source_label{
     text-align: center;
     margin: 10px 10px;
     z-index: 100;
-    opacity: 0;
+    opacity: 0	;
 }
 #warning_sign:before {
 
@@ -859,7 +859,42 @@ input.text.invalid{
 #text_credits{
 	opacity: 0;
 }
+#credits_title{
+    margin-top: -21px;
+    margin-left: 10px;
+    margin-bottom: 10px;
+    color: #1696d2;
+}
 
+.credits_name{
+	margin-left: 10px;
+    margin-bottom: 5px;
+}
+.credits_name span{
+	display: block;
+    font-style: italic;
+    font-size: 13px;
+}
+#credits_left_col, #credits_right_col{
+	float: left;
+}
+#credits_left_col{
+	width: 42%;
+}
+#credits_right_col{
+	width: 58%;
+}
+#report_button{
+	text-transform: uppercase;
+    color: white;
+    background-color: #1696d2;
+    font-style: normal;
+    cursor: pointer;
+    width: 200px;
+    padding: 13px;
+    margin-top: 21px;
+    margin-left: 10px;
+}
 
 /********* Close button **********/
 .close_button {
