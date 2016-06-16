@@ -898,7 +898,9 @@ function showWarning(control, disabled, invalid){
 			.append("img")
 			.attr("src","images/error.png")
 			.attr("data-order",max+1)
-
+		d3.select("#warning_sign")
+				.transition()
+				.style("opacity",1)
 		console.log(msgID, icon.attr("data-order"))
 		d3.select("#warning_sign").text(error_msgs[msgID])
 
@@ -914,7 +916,18 @@ function hideWarning(control){
 		var order = parseInt($(this).data("order"), 10);
 		if ((max===null) || (order > max)) { max = order; }
 	});
-	if(max == null){ return false}
+	if(max == null){
+		if(mouthShouldClose()){
+			d3.select("#mouth")
+				.transition()
+				.duration(100)
+				.style("height","0px")
+			d3.select("#warning_sign")
+				.transition()
+				.style("opacity",0)
+		}
+		return false
+	}
 	var msgID;
 	var helpID = $(".warning_icon img[data-order=" + max + "]").parent().siblings(".help-button")[0].id.replace("help_","")
 	console.log(d3.select("#help_" + helpID))
@@ -928,6 +941,9 @@ function hideWarning(control){
 			.transition()
 			.duration(100)
 			.style("height","0px")
+		d3.select("#warning_sign")
+				.transition()
+				.style("opacity",0)
 	}
 }
 function mouthShouldClose(){
