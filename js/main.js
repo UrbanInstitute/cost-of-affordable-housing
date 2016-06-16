@@ -700,13 +700,14 @@ function drawGaps(config, transition){
 	drawGap("100", config, transition);
 }
 function countup_val(val_id, new_val){
+	var prefix = (val_id == "ami_label_val") ? "" : "$"
 	var current_val = parseFloat(d3.select("#" + val_id).text().replace("$","").replace(/\,/g,""))
 	var countup_options = {
 		useEasing : true, 
 		useGrouping : true,
 		separator : ',', 
 		decimal : '.', 
-		prefix : '$', 
+		prefix : prefix, 
 		suffix : '' 
 	};
 	var amount_countup = new CountUp(val_id, current_val, new_val, 0, .5, countup_options);
@@ -866,31 +867,71 @@ function updateDefaultsFromDashboard(transition){
 }
 
 
-function showWarning(control){
+function showWarning(control, disabled, invalid){
+	var newClass = (typeof(disabled) == "undefined") ? "warning" : "disabled"
+	var msgID;
+
+	if(typeof(disabled) != "undefined"){ msgID = control + "_disabled"}
+	else if(typeof(invalid) != "undefined"){ msgID = control + "_invalid"}
+	else{ msgID = control}
+
+	
+
 	d3.select("#mouth")
 		.transition()
 		.duration(100)
 		.style("height","8px")
 	var container = d3.select(d3.select("#range_"+control).node().parentNode)
-	container.classed("warning",true)
+	container.classed(newClass,true)
 	if(container.selectAll(".warning_icon")[0].length == 0){
-		container
+		if(typeof(disabled) != "undefined"){ msgID = control + "_disabled"}
+		else if(typeof(invalid) != "undefined"){ msgID = control + "_invalid"}
+		else{ msgID = control}
+		  var max=null;
+		  $(".warning_icon img").each(function() {
+		    var order = parseInt($(this).data("order"), 10);
+		    if ((max===null) || (order > max)) { max = order; }
+		  });
+		var icon = container
 			.append("div")
 			.attr("class","warning_icon")
 			.append("img")
 			.attr("src","images/error.png")
+			.attr("data-order",max+1)
+
+		console.log(msgID, icon.attr("data-order"))
+		d3.select("#warning_sign").text(error_msgs[msgID])
+
 	}
 }
 function hideWarning(control){
 	var container = d3.select(d3.select("#range_"+control).node().parentNode)
 	container.classed("warning",false)
+	container.classed("disabled",false)
 	container.selectAll(".warning_icon").remove()
-	if(d3.selectAll(".warning")[0].length == 0){
+	var max=null;
+	$(".warning_icon img").each(function() {
+		var order = parseInt($(this).data("order"), 10);
+		if ((max===null) || (order > max)) { max = order; }
+	});
+	if(max == null){ return false}
+	var msgID;
+	var helpID = $(".warning_icon img[data-order=" + max + "]").parent().siblings(".help-button")[0].id.replace("help_","")
+	console.log(d3.select("#help_" + helpID))
+	if(d3.select(d3.select("#help_" + helpID).node().parentNode).classed("invalid")){ msgID = helpID+ "_invalid"}
+  	else if(d3.select(d3.select("#help_" + helpID).node().parentNode).classed("disabled")){ msgID = helpID+ "_disabled"}
+	else{ msgID = helpID}
+	d3.select("#warning_sign").text(error_msgs[msgID])
+
+	if(mouthShouldClose()){
 		d3.select("#mouth")
 			.transition()
 			.duration(100)
 			.style("height","0px")
 	}
+}
+function mouthShouldClose(){
+	return (d3.selectAll(".warning")[0].length == 0 && d3.selectAll(".disabled")[0].length == 0 && !d3.select("#credits").classed("visible"))
 }
 var scrollVis = function() {
   // When scrolling to a new section
@@ -1116,6 +1157,39 @@ d3.selectAll(".page-scroll")
 
 d3.selectAll(".control")
 	.on("input",function(){
+			if(d3.select(this).classed("tax_credit_equity")){
+				if(this.value != 0 && this.value != "0.0%"){
+					d3.select(this).attr("data-oldval",parseFloat(this.value.replace("%","")))
+				}
+
+			}
+			if(d3.select(this).classed("average_monthly_rent")){
+				if(d3.select(this).classed("range")){
+					countup_val("ami_label_val",this.value*30)
+				}else{ countup_val("ami_label_val",parseFloat(this.value.replace("%",""))*.3) }
+				if((this.value>2 && d3.select(this).classed("range")) || (parseFloat(this.value.replace("%",""))>200 && d3.select(this).classed("text"))){
+					if(d3.select(".tax_credit_equity.range").node().value != 0){
+						d3.select(".tax_credit_equity.range").attr("data-oldval",d3.select(".tax_credit_equity.range").node().value)
+					}
+					d3.select(".tax_credit_equity.text").node().value = "0.0%"
+					d3.select(".tax_credit_equity.text").attr("value", "0.0%")
+					d3.select(".tax_credit_equity.range").node().value = 0
+					d3.select(".tax_credit_equity.range").attr("value", 0)
+					// d3.select(".control_container.tax_credit_equity").classed("disabled", true)
+					showWarning("tax_credit_equity", true)
+				}else{
+					oldval = d3.select(".tax_credit_equity.range").attr("data-oldval")
+					d3.select(".tax_credit_equity.text").node().value = oldval * 100 + "%"
+					d3.select(".tax_credit_equity.text").attr("value", oldval * 100 + "%")
+					d3.select(".tax_credit_equity.range").node().value = oldval
+					d3.select(".tax_credit_equity.range").attr("value", oldval)
+					// d3.select(".control_container.tax_credit_equity").classed("disabled", false)
+					hideWarning("tax_credit_equity", true)
+
+				}
+			}
+
+
 		if(this.type == "text"){
 			if(d3.select(this).classed("new_source_label")){
 				return false;
@@ -1127,6 +1201,7 @@ d3.selectAll(".control")
 			var range = d3.select("." + this.id.split("text_")[1] + ".range")
 			if(val >= parseFloat(range.attr("min")) && val <= parseFloat(range.attr("max"))){
 				d3.select(this).classed("invalid",false)
+				d3.select(d3.select(this).node().parentNode).classed("invalid",false)
 				range.attr("value", val)
 				range.node().value = val
 				var config = updateDefaultsFromDashboard(true)
@@ -1134,11 +1209,16 @@ d3.selectAll(".control")
 
 			}else{
 				d3.select(this).classed("invalid",true)
+				d3.select(d3.select(this).node().parentNode).classed("invalid",true)
+				hideWarning(this.id.replace("text_",""))
+
+				showWarning(this.id.replace("text_",""), undefined, true)
 			}
 			// d3.select("." + this.id.split("text_")[1] + ".range")
 				// .attr("value", val)
 
 		}else{
+
 			var config = updateDefaultsFromDashboard(false)
 			var val;
 			if(d3.select(this).classed("percent")) val = PERCENT(this.value);
@@ -1202,7 +1282,14 @@ d3.select(".control_container.new_source")
 
 d3.select("#about_project")
 	.on("click", function(){
+
+
 		if(d3.select("#credits").classed("visible")){ return false}
+
+		d3.select("#mouth")
+			.transition()
+			.duration(100)
+			.style("height","8px")
 
 		highlightSection(4)
 		d3.select("#credits")
@@ -1274,11 +1361,19 @@ $(document).keyup(function(e) {
 });
 
 function hideCredits(){
+	if(!d3.select("#credits").classed("visible")){ return false}
+	if(mouthShouldClose()){
+		d3.select("#mouth")
+			.transition()
+			.duration(100)
+			.style("height","0px")
+	}
+
 	d3.select("#credits")
 		.classed("visible", false)	
 		.transition()
-		.ease("bounce")
-		.duration(1200)
+		.ease("linear")
+		.duration(600)
 		.style("bottom","69px")
 		.style("right","607px")
 		.style("width","72px")
@@ -1288,13 +1383,13 @@ function hideCredits(){
 	var spinLock = {},
 	    fadeLock = {};
 	d3.select("#text_credits")
-	    .call(despin, 1200)
-	    .call(defade, 400);
+	    .call(despin, 600)
+	    .call(defade, 200);
 
 	function despin(path, duration) {
 	  d3.select(spinLock).transition()
 	      .duration(duration)
-	      .ease("bounce")
+	      .ease("linear")
 	      .tween("style:bottom", function() {
 	        var i = d3.interpolateString("359px","56px");
 	        return function(t) { path.style("bottom", i(t)); };

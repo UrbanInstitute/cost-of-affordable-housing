@@ -205,11 +205,15 @@
 					<div class = "control_container">
 						<div class="help-button" id ="help_average_monthly_rent"></div>
 						<label for="average_monthly_rent">Average Monthly Rent</label>
-						<input type = "range" class = "control percent_small noi average_monthly_rent range" id="range_average_monthly_rent" min="0" max = "2" step=".01" value="1"></input>
+						<input type = "range" class = "control percent_small noi average_monthly_rent range" id="range_average_monthly_rent" min="0" max = "3" step=".01" value="1"></input>
 						<input type="text" class = "control percent_small noi average_monthly_rent text" id = "text_average_monthly_rent" value="100%"></input>
 						<div class = "noi s50_label" id = "s50_average_monthly_rent">$488</div>
 						<div class = "noi s100_label" id ="s100_average_monthly_rent">$489</div>
 					</div>
+					<div class = "control_container ami_label">
+						<div id ="ami_label">(<span id="ami_label_val">30</span>% AMI)</div>
+					</div>
+
 					<div class = "control_container">
 						<div class="help-button" id ="help_vacancy_rate"></div>
 						<label for="vacancy_rate">Vacancy Rate</label>
@@ -305,10 +309,10 @@
 						<div class = "sources s100_label" id ="s100_deferred_developer_fee">$665,533</div>
 					</div>
 
-					<div class = "control_container">
+					<div class = "control_container tax_credit_equity">
 						<div class="help-button" id ="help_tax_credit_equity"></div>
 						<label for="tax_credit_equity">Tax Credit Equity</label>
-						<input type = "range" class = "control percent_small sources tax_credit_equity range" id="range_tax_credit_equity" min="0" max = "2" step=".01" value="1"></input>
+						<input type = "range" class = "control percent_small sources tax_credit_equity range" id="range_tax_credit_equity" data-oldval="1" min="0" max = "2" step=".01" value="1"></input>
 						<input type="text" class = "control percent_small sources tax_credit_equity text" id = "text_tax_credit_equity" value="100%"></input>
 						<div class = "sources s50_label" id = "s50_tax_credit_equity">None</div>
 						<div class = "sources s100_label" id ="s100_tax_credit_equity">$8,300,000</div>
@@ -420,13 +424,12 @@
 				    <path stroke="black" stroke-width="4" fill="none" d="M6.25,17.75,17.75,6.25" />
 				</svg>
 				<div id = "credits_title">PROJECT CREDITS</div>
-
-
 			</div>
-
 			<div id = "mouth_container">
 				<img id = "mouth" src = "images/contractor_mouth.png">
 			</div>
+			<div id = "warning_sign" data-order ="0"></div>
+
 			<img id = "crane" src = "images/crane_bc.png">
 			<img id = "cloud1" src = "images/cloud1.png">
 			<img id = "cloud2" src = "images/cloud2.png">
@@ -574,6 +577,7 @@
 	<script src = "js/vendor/jquery-1.12.4.min.js"></script>
 	<script src="js/vendor/countup.min.js"></script>
 	<script src = "js/scroller.js"></script>
+	<script src = "js/error_msgs.js"></script>
 	<script src = "js/main.js"></script>
 	<script>init()</script>
     <script src="js/header.js"></script>    

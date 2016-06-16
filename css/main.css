@@ -463,6 +463,16 @@ section.step{
 .control_container.new_source.button{
 	height: 56px;
 }
+.control_container.ami_label{
+	margin-bottom: -7px;
+}
+
+#ami_label{
+	font-style: italic;
+    text-indent: 304px;
+    font-size: 13px;
+    margin-top: 4px;
+}
 
 #click_to_add_sources{
     text-transform: uppercase;
@@ -560,6 +570,85 @@ input.new_source_label{
 	position: relative;
 	top: 5px;
 	margin-left: 5px;
+	cursor: pointer;
+}
+/*#warning_sign{
+	position: fixed;
+	bottom: 200px;
+	right: 600px;
+	width: 0;
+	height: 0;
+	border: 150px solid transparent;
+	border-bottom-color: red;
+}
+
+#warning_sign:after {
+	content: '';
+	position: absolute;
+	left: -150px;
+	top: 150px;
+	width: 0;
+	height: 0;
+	border: 150px solid transparent;
+	border-top-color: red;
+}
+*/
+
+#warning_sign {
+	position: fixed;
+	bottom: 200px;
+	right: 600px;
+	height: 250px;
+	width: 250px;
+	/*line-height: 200px;*/
+	text-align: center;
+	margin: 10px 10px;
+	transform: rotateZ(45deg);
+	z-index: 100;
+}
+#warning_sign:before {
+	position: absolute;
+	content: '';
+	top: 0px;
+	left: 0px;
+	height: 100%;
+	width: 100%;
+	/*transform: rotateZ(45deg);*/
+	z-index: -1;
+	/*box-shadow: 0px 0px 12px gray;*/
+	background: #fbbe15;
+	border: 4px solid black;
+
+
+}
+#warning_sign:after {
+	/*position: absolute;*/
+	/*top: 10px;*/
+	/*left: 10px;*/
+	/*content: '';*/
+/*	height: calc(100% - 22px);  /* -22px is 2 * 10px gap on either side - 2px border on either side */
+/*	width: calc(100% - 22px);  /* -22px is 2 * 10px gap on either side - 2px border on either side */
+	/*border: 4px solid black;*/
+	/*transform: rotateZ(45deg);*/
+}
+
+.control_container.disabled{
+	color: #9d9d9d;
+}
+.control_container.disabled input[type=text]{
+	color: #9d9d9d;
+}
+.control_container.disabled input{
+	pointer-events: none;	
+}
+.control_container.disabled input[type=range]::-webkit-slider-thumb {
+    background: #9d9d9d;
+}
+.control_container.disabled input[type=range]::-moz-range-thumb {
+    background: #9d9d9d;
+}
+.control_container.disabled input[type=range]::-ms-thumb {
+    background: #9d9d9d;
 }
 
 /***************************************************************************/
@@ -746,7 +835,8 @@ input[type=text]{
     background-color: #f5f5f5
 }
 input.text.invalid{
-	color: #db2b27;
+	border: 2px solid #db2b27;
+	background: #e3e3e3;
 }
 
 /***************************************************************************/

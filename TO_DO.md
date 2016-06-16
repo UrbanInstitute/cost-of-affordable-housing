@@ -1,0 +1,14 @@
+- Fix window shrinky overlap
+- Open/close mouth on credits, warning, or other msg
+- Warning msgs
+- Show both max loans, then diff test
+- Show multiplier for X%
+- Print style sheet
+- Mobile
+	- hide stuff
+	- shorter bldgs
+	- newline/hide dollar amts
+- IE
+	- test
+	- css animations for clouds and credits
+	 
