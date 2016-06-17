@@ -13,10 +13,7 @@ body{
 /***************************************************************************/
 /*************************** TEMP CONTROLS ***************************/
 /***************************************************************************/
-p{
-	width: 440px;
-	line-height: 2;
-}
+
 #pbottom{
 	margin-bottom: 100px;
 }
@@ -82,18 +79,40 @@ p{
 h1{
 	color: #1696d2;
 	font-size: 36px;
+	font-weight: bold;
 	margin-bottom: 0px;
 	margin-top: 150px;
 }
-
+h2{
+	color: black;
+	font-size: 28px;
+	font-weight: bold;
+	margin-bottom: 0px;
+}
+h2 span{
+    font-weight: normal;
+    font-style: italic;
+}
+p{
+	width: 424px;
+	line-height: 2;
+}
+h2, h1{
+	width: 424px;
+}
 /***************************************************************************/
 /*********************** SPACING AND LAYOUT ********************************/
 /***************************************************************************/
-#noi, #debt_sizing, #uses, #sources, h1, p{
+#noi, #debt_sizing, #uses, #sources{
 	margin-left: 60px;
+	margin-bottom: 80px;
+}
+h1, h2, p{
+	margin-left: 60px;
+	margin-bottom: 40px;	
 }
 section.step{
-	margin-bottom: 300px;
+	margin-bottom: 120px;
 }
 
 /***************************************************************************/
@@ -427,6 +446,30 @@ section.step{
 /***************************************************************************/
 /*************************** DASHBOARD CONTROLS ***************************/
 /***************************************************************************/
+#top_instruction{
+    margin-left: 60px;
+}
+#noi_explainer{
+	margin-top: 16px;
+}
+.explainer{
+	position: relative;
+	font-size: 14px;
+    font-style: italic;
+    width: 404px;
+    padding: 10px;
+    background: rgba(140,140,140,.2);
+    margin-bottom: 10px;
+}
+.header_wrapper{
+	border-bottom: 1px solid #231f20;
+    width: 426px;
+    margin-bottom: 25px;
+    height: 50px;
+}
+.header_wrapper div{
+	display: inline-block;
+}
 .header{
 	display: inline-block;
     font-size: 18px;
@@ -434,24 +477,31 @@ section.step{
     margin-bottom: 14px;
     margin-top: 20px;
 }
-#header_50{
-	margin-left: 322px;
-    margin-right: 28px;
-    font-size: 16px;
+.header_title{
+	width: 213px;
 }
-#header_100{
-	font-size: 16px;
+.header_50{
+    margin-right: 44px;
 }
+.header_50 span, .header_100 span{
+	font-size: 12px;
+}
+
 .control_container{
-	height: 68px;
+	height: 79px;
 	display: block;
 }
 .control_container label{
 	float: left;
-	clear: both;
+	clear: right;
 	display: inline-block;
-    width: 192px;
+    width: 172px;
     margin-right: 24px;
+    font-size: 15px;
+}
+.control_container label span{
+    font-size: 12px;
+    margin-left: 3px;
 }
 .control_container .control.range{
 	width: 80px;
@@ -461,19 +511,23 @@ section.step{
 }
 .control_container.new_source{
 	margin: 3px 0 3px 0px;
+	height: 0px;
 }
 .control_container.new_source.button{
 	height: 56px;
 }
 .control_container.ami_label{
-	margin-bottom: -7px;
+	height: 0px;
+	/*margin-bottom: -7px;*/
 }
 
 #ami_label{
 	font-style: italic;
-    text-indent: 304px;
-    font-size: 13px;
-    margin-top: 4px;
+    text-indent: 91px;
+    font-size: 12px;
+    margin-top: 0px;
+    top: -28px;
+    position: relative;
 }
 
 #click_to_add_sources{
@@ -486,11 +540,27 @@ section.step{
     padding: 13px;
     margin-top: 10px;
 }
+#click_to_add_sources:hover, #report_button:hover{
+	background-color: #231f20;
+}
 .s50_label, .s100_label, .s50_noi_label, .s100_noi_label, .s50_blank_label, .s100_blank_label{
 	display: inline-block;
 	margin-left: 20px;
 	width: 84px;
-    text-align: right;
+    text-align: left;
+}
+.multiplier{
+    float: left;
+    background: #f5f5f5;
+    color: black;
+    top: 8px;
+    height: 20px;
+    position: relative;
+    left: 6px;
+    padding-left: 6px;
+    padding-right: 4px;
+    vertical-align: middle;
+    text-align: center;
 }
 .s50_label.replacement_reserve_rate{
 	width: 86px;
@@ -509,9 +579,13 @@ section.step{
 .control_container.debt, .control_container.noi, .control_container.new_source{
 	font-style: italic;
 }
-#debt_label, #noi_label{
-	width: 358px;
+#debt_label, #noi_label, #debt_label_income, #debt_label_value{
+	width: 188px;
 	float: left;
+}
+.s50_noi_label, .s100_noi_label, #noi_label, #s50_debt_income, #s50_debt_value, #s100_debt_income, #s100_debt_value, #debt_label_income, #debt_label_value{
+	font-style: normal;
+	font-weight: bolder
 }
 input.new_source_label{
 	width: 262px;
@@ -525,19 +599,31 @@ input.new_source_label{
 .control_container.noi, .control_container.debt{
 	margin-bottom: 5px;
 }
-#noi_label{
-	text-indent: 326px;
-}
-#bracket_noi{
-	position: relative;
-    margin-left: 105px
-}
+
 #debt_sizing{
 	margin-top: -56px;
 }
 
 #debt_label{
 	text-indent: 97px;
+}
+.debt_marker{
+	height: 10px;
+	position: absolute;
+}
+#debt_marker_50{
+    left: 273px;
+    top: 13px;
+}
+#debt_marker_100{
+    left: 387px;
+    top: 13px;
+}
+.loan_value{
+	margin-top: 4px;
+}
+.larger{
+    color: #9d9d9d;
 }
 #bracket_debt{
 	position: relative;
@@ -662,10 +748,11 @@ input.new_source_label{
 /***************************************************************************/
 
 .help-button {
+	float: left;
     background: url('../images/help-button.png');
     width: 15px;
     height: 15px;
-    top: -3px;
+    top: 3px;
     background-size: contain;
     background-repeat: no-repeat;
     position: relative;
@@ -674,7 +761,6 @@ input.new_source_label{
 	display: inline-block;
     margin-left: -20px;
     margin-right: 2px;
-    top: 2px;
 }
 .help-button:hover {
     background: url('../images/help-button_hover.png');
@@ -684,39 +770,16 @@ input.new_source_label{
     background-repeat: no-repeat;
 }
 #help_noi{
-	left: -30px;
+	left: -10px;
 }
 #help_debt{
-	left: -260px;
+	left: -10px;
 }
 
 /***************************************************************************/
 /***************************** TWO LINE INPUT ******************************/
 /***************************************************************************/
-.control_container.tall{
-	height: 44px;
-}
-.control_container.tall label{
-	position: relative;
-	top: 3;
-}	
-.control_container.tall .help-button{
-	top: -6px;
-}
-.control_container.tall .warning_icon{
-	top: -1px;
-}		
-input[type=text].operating_and_debt_service_reserves{
-	position: relative;
-	top: -7px;
-}
-input[type=range].operating_and_debt_service_reserves{
-	top: -3px;
-}
-#s50_operating_and_debt_service_reserves, #s100_operating_and_debt_service_reserves{
-    top: -6px;
-    position: relative;
-}
+
 
 /***************************************************************************/
 /************************ CROSS BROWSER RANGE INPUT ************************/
@@ -727,7 +790,7 @@ input[type=range] {
 	float: left;
 	clear: both;
 	position: relative;
-	top: 4px;
+	top: 6px;
     /*removes default webkit styles*/
     -webkit-appearance: none;
     
@@ -833,16 +896,18 @@ input[type=range]:focus::-ms-fill-upper {
 /********************************* TEXT INPUT ******************************/
 /***************************************************************************/
 input[type=text]{
+    margin-top: 8px;
+    margin-left: 6px;
 	float: left;
 	clear: right;
-	font-family: Lato;
 	font-family: Lato;
     border: none;
     height: 20px;
     text-align: center;
     vertical-align: middle;
     font-size: 13px;
-    background-color: #f5f5f5
+    background-color: #f5f5f5;
+    text-align: left;
 }
 input.text.invalid{
 	border: 2px solid #db2b27;

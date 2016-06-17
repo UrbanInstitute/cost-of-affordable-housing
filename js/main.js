@@ -700,7 +700,15 @@ function drawGaps(config, transition){
 	drawGap("100", config, transition);
 }
 function countup_val(val_id, new_val){
-	var prefix = (val_id == "ami_label_val") ? "" : "$"
+	var prefix = (val_id == "ami_label_val" || val_id.search("vacancy_rate") != -1 || val_id.search("debt_service_coverage") != -1 || val_id.search("interest_rate") != -1 || val_id.search("capitalization_rate") != -1 || val_id.search("loan_to_value") != -1) ? "" : "$"
+	var suffix = (val_id.search("vacancy_rate") != -1 || val_id.search("interest_rate") != -1 || val_id.search("capitalization_rate") != -1 || val_id.search("loan_to_value") != -1) ? "%" : ""
+	var precision;
+	if(val_id.search("vacancy_rate") != -1 || val_id.search("loan_to_value") != -1) { precision = 1}
+	else if (val_id.search("debt_service_coverage") != -1 || val_id.search("interest_rate") != -1 || val_id.search("capitalization_rate") != -1) { precision = 2}
+	else{ precision = 0}
+
+	if(val_id.search("vacancy_rate") != -1 || val_id.search("interest_rate") != -1 || val_id.search("capitalization_rate") != -1 || val_id.search("loan_to_value") != -1){ new_val *= 100}
+	console.log(val_id)
 	var current_val = parseFloat(d3.select("#" + val_id).text().replace("$","").replace(/\,/g,""))
 	var countup_options = {
 		useEasing : true, 
@@ -708,9 +716,9 @@ function countup_val(val_id, new_val){
 		separator : ',', 
 		decimal : '.', 
 		prefix : prefix, 
-		suffix : '' 
+		suffix : suffix
 	};
-	var amount_countup = new CountUp(val_id, current_val, new_val, 0, .5, countup_options);
+	var amount_countup = new CountUp(val_id, current_val, new_val, precision, .5, countup_options);
 	amount_countup.start();
 }
 function drawRoof(units, pixels, transition){
@@ -728,11 +736,22 @@ function update(units, config, transition){
 	var max_loan_value = getMaxLoanValue(noi, config.capitalization_rate, config.loan_to_value)
 	var max_loan = Math.min(max_loan_value, max_loan_income)
 
-	countup_val("s" + units + "_debt", max_loan)
-	var text = (max_loan_value > max_loan_income) ? "Income" : "Value";
-	var text_indent = (max_loan_value > max_loan_income) ? 97 : 109;
-	d3.select("#loan_label").text(text)
-	d3.select("#debt_label").style("text-indent", text_indent)
+	countup_val("s" + units + "_debt_income", max_loan_income)
+	countup_val("s" + units + "_debt_value", max_loan_value)
+
+	if(max_loan_income < max_loan_value){
+		d3.selectAll(".larger").classed("larger",false)
+		d3.selectAll(".loan_value").classed("larger", true)
+		d3.selectAll(".debt_marker")
+			.transition()
+			.style("top","13px")
+	}else{
+		d3.selectAll(".larger").classed("larger",false)
+		d3.selectAll(".loan_income").classed("larger", true)
+		d3.selectAll(".debt_marker")
+			.transition()
+			.style("top","33px")
+	}
 	
 	var total_development_cost = getTotalDevelopmentCost(config[units]["uses"])
 	var total_sources = getTotalSources(config[units]["sources"], max_loan)
@@ -800,7 +819,11 @@ function updateDefaultsFromDashboard(transition){
 	var original = jQuery.extend(true, {}, DEFAULT_CONFIG);
 	d3.selectAll("#debt_sizing .range.control")
 		.each(function(){
-			config[this.id.split("range_")[1]] = parseFloat(this.value)
+			var control = this.id.split("range_")[1];
+			var amt = parseFloat(this.value)*original[this.id.split("range_")[1]];
+			config[this.id.split("range_")[1]] = amt;
+			countup_val("s50" + "_" + control, amt)
+			countup_val("s100" + "_" + control, amt)
 		})
 	d3.selectAll("#sources .range.control")
 		.each(function(){
@@ -839,7 +862,10 @@ function updateDefaultsFromDashboard(transition){
 		.each(function(){
 			var control = this.id.split("range_")[1];
 			if(control == "vacancy_rate" || control == "replacement_reserve_rate"){
-				config[this.id.split("range_")[1]] = parseFloat(this.value)	
+				var amt = parseFloat(this.value)*original[this.id.split("range_")[1]];
+				config[this.id.split("range_")[1]] = amt;
+				countup_val("s50" + "_" + control, amt)
+				countup_val("s100" + "_" + control, amt)
 			}
 			var sizes = ["50","100"]
 			for (var i = 0; i<sizes.length; i++){
@@ -863,6 +889,7 @@ function updateDefaultsFromDashboard(transition){
 				config[size]["sources"]["other_source_" + ind] = amt
 			}
 		})
+	console.log(config)
 	return config
 }
 
@@ -1464,6 +1491,19 @@ function highlightSection(i){
 
 
 
-
+function reset(){
+	d3.selectAll(".control.text.percent_small").attr("value","100%")
+	d3.selectAll(".control.text.percent_small")
+		.each(function(){
+			this.value = "100%"
+		});
+	d3.selectAll(".control.range.percent_small").attr("value","1")
+	d3.selectAll(".control.range.percent_small")
+		.each(function(){
+			this.value = "1"
+		});
+	var config = updateDefaultsFromDashboard()
+	drawGaps(config, true)
+}
 
 
