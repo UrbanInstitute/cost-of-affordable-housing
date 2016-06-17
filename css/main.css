@@ -106,7 +106,7 @@ section.step{
 
 .building{
 	position: fixed;
-	bottom: 61px;
+	bottom: 53px;
 	right: 30;
 	font-family: Lato;
 	color: white;
@@ -281,36 +281,36 @@ section.step{
 	opacity: 0;
 }
 #road{
-	bottom: 0px;
-	right: 478px;
+	bottom: -3px;
+	right: 487px;
 	z-index: 4;
 }
 #sidewalk{
-	bottom: 3px;
-	right: -18px;
+	bottom: 0px;
+	right: -9px;
 	z-index: 4;
 	opacity: 0;
 }
 #path50{
-	bottom: 22px;
+	bottom: 13px;
 	right: 125px;
 	z-index: 4;
 	opacity: 0;
 }
 #path100{
-	bottom: 22px;
+	bottom: 13px;
 	right: -225px;
 	z-index: 4;
 	opacity: 0;
 }
 #shrubs50{
-	bottom: 56px;
+	bottom: 49px;
 	right: 94px;
 	z-index: 999;
 	opacity: 0;
 }
 #shrubs100{
-	bottom: 56px;
+	bottom: 49px;
 	right: -225px;
 	z-index: 999;
 	opacity: 0;
@@ -349,24 +349,24 @@ section.step{
     z-index: -2;
 }
 #trees{
-	bottom: 40px;
-    right: 440px;
+	bottom: 45px;
+    right: 424px;
     z-index: -2;
 }
 #bike{
     bottom: 61px;
-    right: 476px;
+    right: 460px;
     z-index: 3;
     opacity: 0;
 }
 #dog{
-    bottom: 9px;
-    right: 201px;
+    bottom: 3px;
+    right: 222px;
     z-index: 13;
     opacity: 0;
 }
 #wheelbarrow{
-    bottom: 8px;
+    bottom: 5px;
     right: 434px;
     z-index: 13;
 }
@@ -443,10 +443,12 @@ section.step{
 	font-size: 16px;
 }
 .control_container{
-	height: 28px;
+	height: 68px;
 	display: block;
 }
 .control_container label{
+	float: left;
+	clear: both;
 	display: inline-block;
     width: 192px;
     margin-right: 24px;
@@ -722,6 +724,8 @@ input[type=range].operating_and_debt_service_reserves{
 /*modified from http://brennaobrien.com/blog/2014/05/style-input-type-range-in-every-browser.html*/
 
 input[type=range] {
+	float: left;
+	clear: both;
 	position: relative;
 	top: 4px;
     /*removes default webkit styles*/
@@ -829,6 +833,8 @@ input[type=range]:focus::-ms-fill-upper {
 /********************************* TEXT INPUT ******************************/
 /***************************************************************************/
 input[type=text]{
+	float: left;
+	clear: right;
 	font-family: Lato;
 	font-family: Lato;
     border: none;

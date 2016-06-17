@@ -181,7 +181,7 @@ function drawGap(units, config, transition){
 			})
 			.style("right", function(){
 				if(d3.select("#building_container_50").node().getBoundingClientRect().right > 0){
-					return "351px";
+					return "354px";
 				}else{
 					return "125px"
 				}
@@ -1051,7 +1051,7 @@ function dummy5(){
 function show100(){
 	d3.select("#building_container_50")
 		.transition()
-		.style("right",256)
+		.style("right",260)
 
 	d3.select("#building_container_100")
 		.style("display","block")
@@ -1063,7 +1063,7 @@ function show100(){
 		.style("right","125px")
 	d3.select("#path50")
 		.transition()
-		.style("right","351px")
+		.style("right","354px")
 
 	d3.select("#shrubs100")
 		.style("display","block")
