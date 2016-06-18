@@ -1063,7 +1063,7 @@ var scrollVis = function() {
     // activateFunctions are called each
     // time the active section changes
     activateFunctions[0] = dummy1;
-    activateFunctions[1] = dummy1;
+    activateFunctions[1] = dummy2;
     activateFunctions[2] = dummy2;
     activateFunctions[3] = dummy2;
     activateFunctions[4] = dummy3;
