@@ -1346,7 +1346,7 @@ d3.selectAll(".control")
 d3.select("#sources")
 			.datum({"count":0})
 
-d3.select(".control_container.new_source")
+d3.select(".control_container.new_source_button")
 	.on("click", function(){
 		var new_source = d3.select("#sources")
 			.append("div")
@@ -1619,6 +1619,17 @@ d3.selectAll(".button_text")
 
 
 function reset(){
+	d3.selectAll(".control.other_source").attr("value","$0")
+	d3.selectAll(".control.other_source")
+		.each(function(){
+			this.value = "0%";
+		});
+	d3.selectAll(".control_container.new_source")
+		.transition()
+		.style("height","0px")
+		.each("end", function(){
+			d3.select(this).remove();
+		})
 	d3.selectAll(".control.text.percent_small").attr("value","100%")
 	d3.selectAll(".control.text.percent_small")
 		.each(function(){

@@ -529,11 +529,15 @@ section.step{
 .control_container .control.text{
 	width: 50px;
 }
-.control_container.new_source{
+.control_container.new_source, .control_container.new_source_button{
 	margin: 3px 0 3px 0px;
 	height: 0px;
 }
-.control_container.new_source.button{
+.control_container.new_source{
+	height: 29px;
+	overflow: hidden;
+}
+.control_container.new_source_button{
 	height: 56px;
 }
 .control_container.ami_label{
@@ -639,7 +643,7 @@ input.new_source_label{
 	text-indent: 97px;
 }
 .debt_marker{
-	height: 10px;
+	height: 14px;
 	position: absolute;
 }
 #debt_marker_50{
@@ -846,7 +850,22 @@ input.new_source_label{
 #help_debt{
 	left: -10px;
 }
-
+/***************************************************************************/
+/************************** ROLLOVER TEXT **********************************/
+/***************************************************************************/
+.rollover{
+	display: inline;
+    text-decoration: none;
+    height: 20px;
+    padding-left: 2px;
+    padding-right: 2px;
+    border-bottom: 3px solid #e7d18f;
+    box-shadow: inset 0 -5px 0 #e7d18f;
+    cursor: pointer;
+}
+.rollover:hover{
+	background-color: #e7d18f;
+}
 /***************************************************************************/
 /***************************** TWO LINE INPUT ******************************/
 /***************************************************************************/
