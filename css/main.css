@@ -167,7 +167,7 @@ section.step{
 .total_building, .built_building{
 	position: absolute;
 	bottom: 0px;
-	background-color: rgba(205,230,241,.8);
+	background-color: rgba(205,230,241,.7);
 }
 .total_building{
 	width: 176px;
@@ -585,6 +585,14 @@ section.step{
     vertical-align: middle;
     text-align: center;
 }
+.control_container.invalid .multiplier{
+/*	border: 2px solid #db2b27;
+ 	border-right: none;
+    height: 16px;
+    background-color: #e3e3e3;
+    color: #e3e3e3;*/
+    display: none;
+}
 .s50_label.replacement_reserve_rate{
 	width: 86px;
     margin-left: 0px;
@@ -684,7 +692,7 @@ input.new_source_label{
 .warning_icon{
 	display: inline;
 	position: relative;
-	top: 5px;
+	top: -2px;
 	margin-left: 5px;
 	cursor: pointer;
 }
@@ -725,8 +733,8 @@ input.new_source_label{
     /* line-height: 200px; */
     text-align: center;
     margin: 10px 10px;
-    z-index: 100;
-    opacity: 0	;
+    z-index: 100000;
+    opacity: 0;
 }
 #warning_sign:before {
 
@@ -776,9 +784,9 @@ input.new_source_label{
 .control_container.disabled input[type=range]::-ms-thumb {
     background: #9d9d9d;
 }
-.control_container.disabled .s50_label,.control_container.disabled .s100_label{
+.control_container.disabled .s50_label,.control_container.disabled .s100_label, .control_container.warning .s50_label,.control_container.warning .s100_label{
 	position: relative;
-	bottom: 8px;
+	bottom: 7px;
 }
 
 /***************************************************************************/
@@ -806,6 +814,31 @@ input.new_source_label{
     height: 15px;
     background-size: contain;
     background-repeat: no-repeat;
+}
+.help-text{
+	position: relative;
+	background: #231f20;
+    /*top: 0px;*/
+    font-style: italic;
+    font-size: 14px;
+    left: 30px;
+    width: 190px;
+    color: white;
+    padding: 17px;
+}
+.help-text:after{
+	right: 100%;
+	top: 50%;
+	border: solid transparent;
+	content: " ";
+	height: 0;
+	width: 0;
+	position: absolute;
+	pointer-events: none;
+	border-color: rgba(35, 31, 32, 0);
+	border-right-color: #231f20;
+	border-width: 14px;
+	margin-top: -14px;
 }
 #help_noi{
 	left: -10px;
@@ -949,6 +982,9 @@ input[type=text]{
 }
 input.text.invalid{
 	border: 2px solid #db2b27;
+	/*border-left: none;*/
+	width: 68px !important;
+	text-align: center !important;
 	background: #e3e3e3;
 }
 

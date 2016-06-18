@@ -936,6 +936,7 @@ function showWarning(control, disabled, invalid){
 		    if ((max===null) || (order > max)) { max = order; }
 		  });
 		var opacity = (SMALL_DESKTOP) ? 0 : 1;
+		// d3.select("body").classed("small_desktop", SMALL_DESKTOP)
 		var icon = container
 			.append("div")
 			.attr("class","warning_icon")
@@ -957,6 +958,12 @@ function showWarning(control, disabled, invalid){
 		d3.select("#warning_sign")
 				.transition()
 				.style("opacity",1)
+				// .each("start", function(){
+				// 	d3.select(this).classed("done", false)
+				// })
+				// .each("end", function(){
+				// 	d3.select("body").classed("small_desktop", SMALL_DESKTOP)
+				// })
 				.transition()
 				.delay(2000)
 				.duration(1400)
@@ -970,6 +977,14 @@ function showWarning(control, disabled, invalid){
 
 	}
 }
+function hideSign(){
+	if(d3.select("body").classed("small_desktop")){
+		d3.select("#warning_sign").transition().style("opacity",0)
+	}
+}
+d3.select("body")
+	.on("click",hideSign)
+
 function hideWarning(control){
 	if(control == "noi_label"){
 		container = d3.select(".noi.explainer")
@@ -1000,7 +1015,7 @@ function hideWarning(control){
 	var helpID = $(".warning_icon img[data-order=" + max + "]").parent().siblings(".help-button")[0].id.replace("help_","")
 	if(d3.select(d3.select("#help_" + helpID).node().parentNode).classed("invalid")){ msgID = helpID+ "_invalid"}
   	else if(d3.select(d3.select("#help_" + helpID).node().parentNode).classed("disabled")){ msgID = helpID+ "_disabled"}
-  	else if(helpID = "noi") { msgID = "noi_label"}
+  	else if(helpID == "noi") { msgID = "noi_label"}
 	else{ msgID = helpID}
 	// console.log(msgID)
 	d3.select("#warning_sign").text(error_msgs[msgID])
@@ -1105,7 +1120,6 @@ function dummy3(){
 	hide100()
 }
 function dummy4(){
-	reset();
 	show100()
 }
 function dummy5(){
@@ -1114,6 +1128,8 @@ function dummy5(){
 }
 
 function show100(){
+
+
 	d3.select("#building_container_50")
 		.transition()
 		.style("right",260)
@@ -1122,6 +1138,9 @@ function show100(){
 		.style("display","block")
 		.transition()
 		.style("right",30)
+		.each("start", function(){
+			reset();
+		})
 	d3.select("#path100")
 		.style("display","block")
 		.transition()
@@ -1221,6 +1240,7 @@ function init(){
 
   // setup event handling
   scroll.on('active', function(index) {
+
     // highlight current step text
     // d3.selectAll('.step')
     //   .style('opacity',  function(d,i) { return i == index ? 1 : 0.1; });
@@ -1243,6 +1263,7 @@ d3.selectAll(".page-scroll")
 
 d3.selectAll(".control")
 	.on("input",function(){
+			hideSign();
 			if(d3.select(this).classed("tax_credit_equity")){
 				if(this.value != 0 && this.value != "0.0%"){
 					d3.select(this).attr("data-oldval",parseFloat(this.value.replace("%","")))
@@ -1345,6 +1366,7 @@ d3.select(".control_container.new_source")
 			})
 			.attr("value","$0")
 			.on("input", function(d){
+				hideSign();
 				var config = updateDefaultsFromDashboard(true);
 				// config["50"]["sources"]["other_source_" + d.count] = this.value
 				drawGap("50",config, true)
@@ -1358,6 +1380,7 @@ d3.select(".control_container.new_source")
 			})
 			.attr("value","$0")
 			.on("input", function(d){
+				hideSign()
 				var config = updateDefaultsFromDashboard(true);
 				// config["50"]["sources"]["other_source_" + d.count] = this.value
 				drawGap("100",config, true)
@@ -1554,6 +1577,21 @@ d3.select("#s1").on("click", function () {
     }
 });
 
+d3.selectAll(".help-button")
+	.on("mouseover", function(){
+		var msg = help_msgs[this.id]
+		d3.select(this)
+			.append("div")
+			.attr("class","help-text")
+			.text(msg)
+		d3.selectAll(".help-text")
+			.style("top",function(){
+				return 6-1*this.getBoundingClientRect().height/2
+			})
+	})
+	.on("mouseout", function(){
+		d3.selectAll(".help-text").remove();
+	})
 d3.selectAll(".button_text")
 	.on("click", function(){
 		var id = this.id;
