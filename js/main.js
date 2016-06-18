@@ -21,7 +21,9 @@ var DEFAULT_CONFIG = {
 				"project_management" : 67130.63766
 			},
 			"sources" : {
-				"deferred_developer_fee" : 372464.0
+				"deferred_developer_fee" : 372464.0,
+				"tax_credit_equity" : 0
+
 			}
 		},
 		"100" : {
@@ -53,8 +55,8 @@ function drawGap(units, config, transition){
 	var roof_height = 67;
 	var max_dollars =  40400000;
 	var max_pixels = (window.innerHeight-90-60);
-	var break_50_middle_windows = 179;
-	var break_50_top_windows = 129;
+	var break_50_middle_windows = 194;
+	var break_50_top_windows = 133;
 	var break_50_roof = 61;
 	var break_50_door = -3;
 	var break_100_middle_windows = 275;
@@ -708,7 +710,6 @@ function countup_val(val_id, new_val){
 	else{ precision = 0}
 
 	if(val_id.search("vacancy_rate") != -1 || val_id.search("interest_rate") != -1 || val_id.search("capitalization_rate") != -1 || val_id.search("loan_to_value") != -1){ new_val *= 100}
-	console.log(val_id)
 	var current_val = parseFloat(d3.select("#" + val_id).text().replace("$","").replace(/\,/g,""))
 	var countup_options = {
 		useEasing : true, 
@@ -729,7 +730,11 @@ function drawRoof(units, pixels, transition){
 function update(units, config, transition){
 	var effective_gross_income = getEffectiveGrossIncome(units, config.vacancy_rate, config[units]["average_monthly_rent"])
 	var noi = getNOI(units, config[units]["admin_expenses"], config[units]["operating_expenses"], config[units]["maintenance_expenses"], config.replacement_reserve_rate, effective_gross_income)
-
+	if(noi < 0){
+		showWarning("noi_label")
+	}else{
+		hideWarning("noi_label")
+	}
 	countup_val("s" + units + "_noi", noi)
 
 	var max_loan_income = getMaxLoanIncome(noi, config.debt_service_coverage, config.interest_rate)
@@ -817,6 +822,10 @@ function restoreDefaults(config){
 function updateDefaultsFromDashboard(transition){
 	var config = jQuery.extend(true, {}, DEFAULT_CONFIG);
 	var original = jQuery.extend(true, {}, DEFAULT_CONFIG);
+	if(d3.select(".switch").classed("on")){
+		config["50"]["sources"]["tax_credit_equity"] = 7550000
+		original["50"]["sources"]["tax_credit_equity"] = 7550000
+	}
 	d3.selectAll("#debt_sizing .range.control")
 		.each(function(){
 			var control = this.id.split("range_")[1];
@@ -889,12 +898,12 @@ function updateDefaultsFromDashboard(transition){
 				config[size]["sources"]["other_source_" + ind] = amt
 			}
 		})
-	console.log(config)
 	return config
 }
 
 
 function showWarning(control, disabled, invalid){
+	// console.log(control)
 	hideCredits();
 	var newClass = (typeof(disabled) == "undefined") ? "warning" : "disabled"
 	var msgID;
@@ -902,14 +911,20 @@ function showWarning(control, disabled, invalid){
 	if(typeof(disabled) != "undefined"){ msgID = control + "_disabled"}
 	else if(typeof(invalid) != "undefined"){ msgID = control + "_invalid"}
 	else{ msgID = control}
+	// console.log(msgID)
+	var container;
+	if(control == "noi_label"){
+		container = d3.select(".noi.explainer")
+	}else{
+		container = d3.select(d3.select("#range_"+control).node().parentNode)
+	}
 
-	
 
 	d3.select("#mouth")
 		.transition()
 		.duration(100)
 		.style("height","8px")
-	var container = d3.select(d3.select("#range_"+control).node().parentNode)
+	// var container = d3.select(d3.select("#range_"+control).node().parentNode)
 	container.classed(newClass,true)
 	if(container.selectAll(".warning_icon")[0].length == 0){
 		if(typeof(disabled) != "undefined"){ msgID = control + "_disabled"}
@@ -920,6 +935,7 @@ function showWarning(control, disabled, invalid){
 		    var order = parseInt($(this).data("order"), 10);
 		    if ((max===null) || (order > max)) { max = order; }
 		  });
+		var opacity = (SMALL_DESKTOP) ? 0 : 1;
 		var icon = container
 			.append("div")
 			.attr("class","warning_icon")
@@ -928,18 +944,38 @@ function showWarning(control, disabled, invalid){
 			.attr("data-order",max+1)
 			.on("mouseover",function(){
 				var hoverID = msgID
-				d3.select("#warning_sign").text(error_msgs[hoverID])
+				d3.select("#warning_sign")
+					.style("opacity",1)
+					.text(error_msgs[hoverID])
 			})
+			.on("mouseout", function(){
+				d3.select("#warning_sign")
+					.transition()
+					.style("opacity",opacity)
+			})
+		
 		d3.select("#warning_sign")
 				.transition()
 				.style("opacity",1)
-		console.log(msgID, icon.attr("data-order"))
+				.transition()
+				.delay(2000)
+				.duration(1400)
+				.style("opacity",opacity)
+
+		// if(SMALL_DESKTOP){
+
+		// }
+		console.log(msgID)
 		d3.select("#warning_sign").text(error_msgs[msgID])
 
 	}
 }
 function hideWarning(control){
-	var container = d3.select(d3.select("#range_"+control).node().parentNode)
+	if(control == "noi_label"){
+		container = d3.select(".noi.explainer")
+	}else{
+		container = d3.select(d3.select("#range_"+control).node().parentNode)
+	}
 	container.classed("warning",false)
 	container.classed("disabled",false)
 	container.selectAll(".warning_icon").remove()
@@ -962,10 +998,11 @@ function hideWarning(control){
 	}
 	var msgID;
 	var helpID = $(".warning_icon img[data-order=" + max + "]").parent().siblings(".help-button")[0].id.replace("help_","")
-	console.log(d3.select("#help_" + helpID))
 	if(d3.select(d3.select("#help_" + helpID).node().parentNode).classed("invalid")){ msgID = helpID+ "_invalid"}
   	else if(d3.select(d3.select("#help_" + helpID).node().parentNode).classed("disabled")){ msgID = helpID+ "_disabled"}
+  	else if(helpID = "noi") { msgID = "noi_label"}
 	else{ msgID = helpID}
+	// console.log(msgID)
 	d3.select("#warning_sign").text(error_msgs[msgID])
 
 	if(mouthShouldClose()){
@@ -1043,6 +1080,7 @@ var scrollVis = function() {
   };
 
 function dummy1(){
+	reset();
 	highlightSection(0)
 	// var config = jQuery.extend(true, {}, DEFAULT_CONFIG);
 	// drawGap("50", config, true)
@@ -1051,13 +1089,11 @@ function dummy1(){
 	// hide100();
 }
 function dummy2(){
+	reset();
 	highlightSection(1)
-	// console.log("function dummy2")
-
-	// drawGap("100", config, true)
-	// show100();
 }
 function dummy3(){
+	reset();
 	highlightSection(2)
 	// d3.select("#range_average_monthly_rent").node().value = 200
 	// d3.select("#range_average_monthly_rent").attr("value",200)
@@ -1069,9 +1105,11 @@ function dummy3(){
 	hide100()
 }
 function dummy4(){
+	reset();
 	show100()
 }
 function dummy5(){
+	reset();
 	highlightSection(3)
 }
 
@@ -1488,7 +1526,57 @@ function highlightSection(i){
 		.style("left",x)
 }
 
+var show1 = 0;
+d3.select("#s1").on("click", function () {
+    if (show1 == 1) {
+        d3.select("#s1.switch")
+            .attr("class", "switch off")
+            .transition()
+            .style("background-color","#ececec")
 
+        var config = updateDefaultsFromDashboard();
+        config["50"]["sources"]["tax_credit_equity"] = 0
+        drawGaps(config, true)
+        show1 = 0;
+    } else {
+        d3.select("#s1.switch")
+            .attr("class", "switch on")
+            .transition()
+            .style("background-color","#ffffff")
+
+        var config = updateDefaultsFromDashboard();
+        var amt = 7550000 * parseFloat(d3.select("#text_tax_credit_equity").attr("value"))/100
+        config["50"]["sources"]["tax_credit_equity"] = amt
+        // d3.select("#s50_tax_credit_equity").text(amt)
+        drawGaps(config, true)
+
+        show1 = 1;
+    }
+});
+
+d3.selectAll(".button_text")
+	.on("click", function(){
+		var id = this.id;
+		var config = updateDefaultsFromDashboard();
+		switch(id){
+			case "public_land":
+				config["50"]["uses"]["acquisition_costs"] = 0;
+				config["50"]["uses"]["acquisition_costs"] = 0;
+				break;
+			case "weak_market":
+				config["capitalization_rate"] = 0.1;
+				config["loan_to_value"] = .75;
+				break;
+			case "sixty_ami":
+				config["50"]["average_monthly_rent"] = 975;
+				config["100"]["average_monthly_rent"] = 979;
+				break;
+			case "no_credit":
+				config["50"]["sources"]["tax_credit_equity"] = 0;
+				config["100"]["sources"]["tax_credit_equity"] = 0;
+		}
+		drawGaps(config, true)
+	})
 
 
 function reset(){
@@ -1505,5 +1593,11 @@ function reset(){
 	var config = updateDefaultsFromDashboard()
 	drawGaps(config, true)
 }
-
+var SMALL_DESKTOP;
+function resizeFeature(){
+	SMALL_DESKTOP = d3.select("#small_desktop").style("display") == "block"
+	console.log(SMALL_DESKTOP)
+}
+resizeFeature();
+window.onresize = resizeFeature;
 

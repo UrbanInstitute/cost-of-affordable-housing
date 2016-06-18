@@ -1,4 +1,23 @@
-
+/***************************************************************************/
+/***************************** MOBILE IMAGES *******************************/
+/***************************************************************************/
+@media (max-width:1315px){
+     #warning_sign{
+ 	    bottom: -23px !important;
+		right: 295px !important;
+     }
+     #small_desktop{
+     	display: block !important;
+     }     
+}
+#small_desktop{
+	width: 0;
+	height: 0;
+	top: 0;
+	left: 0;
+	position: fixed;
+	display: none;
+}
 
 
 
@@ -489,6 +508,7 @@ section.step{
 
 .control_container{
 	height: 79px;
+	width: 440px;
 	display: block;
 }
 .control_container label{
@@ -520,6 +540,9 @@ section.step{
 	height: 0px;
 	/*margin-bottom: -7px;*/
 }
+.control_container.tax_credit_equity{
+	position: relative;
+}
 
 #ami_label{
 	font-style: italic;
@@ -540,7 +563,7 @@ section.step{
     padding: 13px;
     margin-top: 10px;
 }
-#click_to_add_sources:hover, #report_button:hover{
+#click_to_add_sources:hover, #report_button:hover, .button_text:hover{
 	background-color: #231f20;
 }
 .s50_label, .s100_label, .s50_noi_label, .s100_noi_label, .s50_blank_label, .s100_blank_label{
@@ -588,8 +611,8 @@ section.step{
 	font-weight: bolder
 }
 input.new_source_label{
-	width: 262px;
-    margin-right: 150px;
+	width: 205px;
+    margin-right: 20px;
     text-align: left !important;
     font-size: 16px !important;
     background-color: transparent !important;
@@ -616,7 +639,7 @@ input.new_source_label{
     top: 13px;
 }
 #debt_marker_100{
-    left: 387px;
+    left: 407px;
     top: 13px;
 }
 .loan_value{
@@ -636,6 +659,11 @@ input.new_source_label{
 /***************************************************************************/
 /****************************** WARNINGS ***********************************/
 /***************************************************************************/
+.explainer.warning{
+	background-color: rgba(219,43,39,.3);
+	position: relative;
+}
+
 .control_container.warning{
 	color: #db2b27;
 	font-weight: bold;
@@ -660,6 +688,12 @@ input.new_source_label{
 	margin-left: 5px;
 	cursor: pointer;
 }
+.noi.explainer .warning_icon{
+	right: -30px;
+    top: 31px;
+	position: absolute;
+}
+
 /*#warning_sign{
 	position: fixed;
 	bottom: 200px;
@@ -741,6 +775,10 @@ input.new_source_label{
 }
 .control_container.disabled input[type=range]::-ms-thumb {
     background: #9d9d9d;
+}
+.control_container.disabled .s50_label,.control_container.disabled .s100_label{
+	position: relative;
+	bottom: 8px;
 }
 
 /***************************************************************************/
@@ -966,6 +1004,27 @@ input.text.invalid{
     margin-top: 21px;
     margin-left: 10px;
 }
+.button_text{
+    text-transform: uppercase;
+    color: white;
+    background-color: #1696d2;
+    font-style: normal;
+    cursor: pointer;
+    width: 200px;
+    padding: 13px;
+    margin-top: -16px;
+    margin-bottom: 22px;
+    margin-left: 60px;
+}
+#weak_market{
+	width: 210px;
+}
+#sixty_ami{
+	width: 214px;
+}
+#no_credit{
+	width: 119px;
+}
 
 /********* Close button **********/
 .close_button {
@@ -993,3 +1052,57 @@ input.text.invalid{
 
 
 
+/***************************************************************************/
+/********************************* SWITHC **********************************/
+/***************************************************************************/
+.urban-switch {
+    position: absolute;
+    top: 22px;
+    left: 212px;
+    font-size: 13px;
+    font-family: Lato, sans-serif;
+    height: 26px;
+    border: none;
+    color: #ffffff;
+    display: inline-block;
+    line-height: 12px;
+    text-align: left;
+    border-radius: 10px;
+    padding-right: 10px;
+}
+.control_container.disabled .switch{
+	background-image: url(../images/off-on_disabled.png);
+	pointer-events: none;
+}
+.switch:hover{
+	background-image: url(../images/off-on_hover.png);
+}
+.switch {
+    background-image: url(../images/off-on.png);
+    background-color: #ececec;
+    background-repeat: no-repeat;
+    width: 52px;
+    height: 18px;
+    display: inline-block;
+    background-size: cover;
+    cursor: pointer;
+    margin-right: 9px;
+    top: 4px;
+    left: 4px;
+    position: relative;
+    border-radius: 8px;
+
+    -webkit-transition:background-position .1s ease-in;  
+    -moz-transition:background-position .1s ease-in;  
+    -o-transition:background-position .1s ease-in;  
+    transition:background-position .1s ease-in; 
+
+}
+
+.off {
+    background-position: -31px 0px;
+}
+
+.on {
+    background-position: 0px 0px;
+}
