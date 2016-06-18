@@ -361,7 +361,7 @@ section.step{
 #hand{
 	bottom: 86px;
     right: 664px;
-    z-index: 1000;	
+    z-index: 10000000;	
 }
 #mouth{
     bottom: 156px;
