@@ -1592,6 +1592,7 @@ d3.selectAll(".help-button")
 	.on("mouseout", function(){
 		d3.selectAll(".help-text").remove();
 	})
+d3.select("#reset-button").on("click", reset);
 d3.selectAll(".button_text")
 	.on("click", function(){
 		var id = this.id;

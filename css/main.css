@@ -563,7 +563,7 @@ section.step{
     padding: 13px;
     margin-top: 10px;
 }
-#click_to_add_sources:hover, #report_button:hover, .button_text:hover{
+#click_to_add_sources:hover, #report_button:hover, .button_text:hover, #reset-button:hover{
 	background-color: #231f20;
 }
 .s50_label, .s100_label, .s50_noi_label, .s100_noi_label, .s50_blank_label, .s100_blank_label{
@@ -1040,7 +1040,7 @@ input.text.invalid{
     margin-top: 21px;
     margin-left: 10px;
 }
-.button_text{
+.button_text, #reset-button{
     text-transform: uppercase;
     color: white;
     background-color: #1696d2;
@@ -1051,6 +1051,10 @@ input.text.invalid{
     margin-top: -16px;
     margin-bottom: 22px;
     margin-left: 60px;
+}
+#reset-button{
+	width: 152px;
+    margin-top: -71px;
 }
 #weak_market{
 	width: 210px;
