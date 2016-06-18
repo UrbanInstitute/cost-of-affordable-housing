@@ -998,7 +998,7 @@ input.text.invalid{
     width: 72px;
     height: 53px;
     background-color: white;
-    z-index: 999;
+    z-index: 1000000;
     transform: rotate(77deg);
 }
 #text_credits{

@@ -1471,7 +1471,7 @@ $(document).keyup(function(e) {
 
 function hideCredits(){
 	if(!d3.select("#credits").classed("visible")){ return false}
-	if(mouthShouldClose()){
+	if(d3.selectAll(".warning")[0].length == 0 && d3.selectAll(".disabled")[0].length == 0){
 		d3.select("#mouth")
 			.transition()
 			.duration(100)
