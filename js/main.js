@@ -1619,6 +1619,16 @@ d3.selectAll(".button_text")
 
 
 function reset(){
+    d3.select("#s1.switch")
+        .attr("class", "switch off")
+        .transition()
+        .style("background-color","#ececec")
+
+    var config = updateDefaultsFromDashboard();
+    config["50"]["sources"]["tax_credit_equity"] = 0
+    drawGaps(config, true)
+    show1 = 0;
+    
 	d3.selectAll(".control.other_source").attr("value","$0")
 	d3.selectAll(".control.other_source")
 		.each(function(){
