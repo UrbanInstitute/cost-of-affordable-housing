@@ -1066,8 +1066,8 @@ var scrollVis = function() {
     activateFunctions[1] = dummy2;
     activateFunctions[2] = dummy2;
     activateFunctions[3] = dummy2;
-    activateFunctions[4] = dummy3;
-    activateFunctions[5] = dummy4;
+    activateFunctions[4] = dummy2;
+    activateFunctions[5] = dummy3;
     activateFunctions[6] = dummy4;
     activateFunctions[7] = dummy4;
     activateFunctions[8] = dummy5;
@@ -1628,7 +1628,7 @@ function reset(){
     config["50"]["sources"]["tax_credit_equity"] = 0
     drawGaps(config, true)
     show1 = 0;
-    
+
 	d3.selectAll(".control.other_source").attr("value","$0")
 	d3.selectAll(".control.other_source")
 		.each(function(){

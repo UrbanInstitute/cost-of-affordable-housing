@@ -5,6 +5,7 @@
      #warning_sign{
  	    bottom: -23px !important;
 		right: 295px !important;
+		pointer-events: none;
      }
      #small_desktop{
      	display: block !important;
