@@ -1,5 +1,6 @@
 var error_msgs = {
 	"tax_credit_equity_disabled" : "You've raised rents above an affordable level and no longer quality for tax credit equity.",
+	"noi_label": "No lender would make a loan to a property with negative NOI, and you have insufficient funds to operate the property.",
 	"average_monthly_rent" : "An error message",
 	"average_monthly_rent_invalid" : "This value falls outside the valid range.",
 	"vacancy_rate" : "An error message",

@@ -1,4 +1,24 @@
-
+/***************************************************************************/
+/***************************** MOBILE IMAGES *******************************/
+/***************************************************************************/
+@media (max-width:1315px){
+     #warning_sign{
+ 	    bottom: -23px !important;
+		right: 295px !important;
+		pointer-events: none;
+     }
+     #small_desktop{
+     	display: block !important;
+     }     
+}
+#small_desktop{
+	width: 0;
+	height: 0;
+	top: 0;
+	left: 0;
+	position: fixed;
+	display: none;
+}
 
 
 
@@ -148,7 +168,7 @@ section.step{
 .total_building, .built_building{
 	position: absolute;
 	bottom: 0px;
-	background-color: rgba(205,230,241,.8);
+	background-color: rgba(205,230,241,.7);
 }
 .total_building{
 	width: 176px;
@@ -342,7 +362,7 @@ section.step{
 #hand{
 	bottom: 86px;
     right: 664px;
-    z-index: 1000;	
+    z-index: 10000000;	
 }
 #mouth{
     bottom: 156px;
@@ -489,6 +509,7 @@ section.step{
 
 .control_container{
 	height: 79px;
+	width: 440px;
 	display: block;
 }
 .control_container label{
@@ -509,16 +530,23 @@ section.step{
 .control_container .control.text{
 	width: 50px;
 }
-.control_container.new_source{
+.control_container.new_source, .control_container.new_source_button{
 	margin: 3px 0 3px 0px;
 	height: 0px;
 }
-.control_container.new_source.button{
+.control_container.new_source{
+	height: 29px;
+	overflow: hidden;
+}
+.control_container.new_source_button{
 	height: 56px;
 }
 .control_container.ami_label{
 	height: 0px;
 	/*margin-bottom: -7px;*/
+}
+.control_container.tax_credit_equity{
+	position: relative;
 }
 
 #ami_label{
@@ -540,7 +568,7 @@ section.step{
     padding: 13px;
     margin-top: 10px;
 }
-#click_to_add_sources:hover, #report_button:hover{
+#click_to_add_sources:hover, #report_button:hover, .button_text:hover, #reset-button:hover{
 	background-color: #231f20;
 }
 .s50_label, .s100_label, .s50_noi_label, .s100_noi_label, .s50_blank_label, .s100_blank_label{
@@ -561,6 +589,14 @@ section.step{
     padding-right: 4px;
     vertical-align: middle;
     text-align: center;
+}
+.control_container.invalid .multiplier{
+/*	border: 2px solid #db2b27;
+ 	border-right: none;
+    height: 16px;
+    background-color: #e3e3e3;
+    color: #e3e3e3;*/
+    display: none;
 }
 .s50_label.replacement_reserve_rate{
 	width: 86px;
@@ -588,8 +624,8 @@ section.step{
 	font-weight: bolder
 }
 input.new_source_label{
-	width: 262px;
-    margin-right: 150px;
+	width: 205px;
+    margin-right: 20px;
     text-align: left !important;
     font-size: 16px !important;
     background-color: transparent !important;
@@ -608,7 +644,7 @@ input.new_source_label{
 	text-indent: 97px;
 }
 .debt_marker{
-	height: 10px;
+	height: 14px;
 	position: absolute;
 }
 #debt_marker_50{
@@ -616,7 +652,7 @@ input.new_source_label{
     top: 13px;
 }
 #debt_marker_100{
-    left: 387px;
+    left: 407px;
     top: 13px;
 }
 .loan_value{
@@ -636,6 +672,11 @@ input.new_source_label{
 /***************************************************************************/
 /****************************** WARNINGS ***********************************/
 /***************************************************************************/
+.explainer.warning{
+	background-color: rgba(219,43,39,.3);
+	position: relative;
+}
+
 .control_container.warning{
 	color: #db2b27;
 	font-weight: bold;
@@ -656,10 +697,16 @@ input.new_source_label{
 .warning_icon{
 	display: inline;
 	position: relative;
-	top: 5px;
+	top: -2px;
 	margin-left: 5px;
 	cursor: pointer;
 }
+.noi.explainer .warning_icon{
+	right: -30px;
+    top: 31px;
+	position: absolute;
+}
+
 /*#warning_sign{
 	position: fixed;
 	bottom: 200px;
@@ -691,8 +738,8 @@ input.new_source_label{
     /* line-height: 200px; */
     text-align: center;
     margin: 10px 10px;
-    z-index: 100;
-    opacity: 0	;
+    z-index: 100000;
+    opacity: 0;
 }
 #warning_sign:before {
 
@@ -742,6 +789,10 @@ input.new_source_label{
 .control_container.disabled input[type=range]::-ms-thumb {
     background: #9d9d9d;
 }
+.control_container.disabled .s50_label,.control_container.disabled .s100_label, .control_container.warning .s50_label,.control_container.warning .s100_label{
+	position: relative;
+	bottom: 7px;
+}
 
 /***************************************************************************/
 /****************************** HELP TEXT **********************************/
@@ -769,13 +820,53 @@ input.new_source_label{
     background-size: contain;
     background-repeat: no-repeat;
 }
+.help-text{
+	position: relative;
+	background: #231f20;
+    /*top: 0px;*/
+    font-style: italic;
+    font-size: 14px;
+    left: 30px;
+    width: 190px;
+    color: white;
+    padding: 17px;
+}
+.help-text:after{
+	right: 100%;
+	top: 50%;
+	border: solid transparent;
+	content: " ";
+	height: 0;
+	width: 0;
+	position: absolute;
+	pointer-events: none;
+	border-color: rgba(35, 31, 32, 0);
+	border-right-color: #231f20;
+	border-width: 14px;
+	margin-top: -14px;
+}
 #help_noi{
 	left: -10px;
 }
 #help_debt{
 	left: -10px;
 }
-
+/***************************************************************************/
+/************************** ROLLOVER TEXT **********************************/
+/***************************************************************************/
+.rollover{
+	display: inline;
+    text-decoration: none;
+    height: 20px;
+    padding-left: 2px;
+    padding-right: 2px;
+    border-bottom: 3px solid #e7d18f;
+    box-shadow: inset 0 -5px 0 #e7d18f;
+    cursor: pointer;
+}
+.rollover:hover{
+	background-color: #e7d18f;
+}
 /***************************************************************************/
 /***************************** TWO LINE INPUT ******************************/
 /***************************************************************************/
@@ -911,6 +1002,9 @@ input[type=text]{
 }
 input.text.invalid{
 	border: 2px solid #db2b27;
+	/*border-left: none;*/
+	width: 68px !important;
+	text-align: center !important;
 	background: #e3e3e3;
 }
 
@@ -924,7 +1018,7 @@ input.text.invalid{
     width: 72px;
     height: 53px;
     background-color: white;
-    z-index: 999;
+    z-index: 1000000;
     transform: rotate(77deg);
 }
 #text_credits{
@@ -987,6 +1081,31 @@ input.text.invalid{
     margin-top: 21px;
     margin-left: 10px;
 }
+.button_text, #reset-button{
+    text-transform: uppercase;
+    color: white;
+    background-color: #1696d2;
+    font-style: normal;
+    cursor: pointer;
+    width: 200px;
+    padding: 13px;
+    margin-top: -16px;
+    margin-bottom: 22px;
+    margin-left: 60px;
+}
+#reset-button{
+	width: 152px;
+    margin-top: -71px;
+}
+#weak_market{
+	width: 210px;
+}
+#sixty_ami{
+	width: 214px;
+}
+#no_credit{
+	width: 119px;
+}
 
 /********* Close button **********/
 .close_button {
@@ -1014,3 +1133,57 @@ input.text.invalid{
 
 
 
+/***************************************************************************/
+/********************************* SWITHC **********************************/
+/***************************************************************************/
+.urban-switch {
+    position: absolute;
+    top: 22px;
+    left: 212px;
+    font-size: 13px;
+    font-family: Lato, sans-serif;
+    height: 26px;
+    border: none;
+    color: #ffffff;
+    display: inline-block;
+    line-height: 12px;
+    text-align: left;
+    border-radius: 10px;
+    padding-right: 10px;
+}
+.control_container.disabled .switch{
+	background-image: url(../images/off-on_disabled.png);
+	pointer-events: none;
+}
+.switch:hover{
+	background-image: url(../images/off-on_hover.png);
+}
+.switch {
+    background-image: url(../images/off-on.png);
+    background-color: #ececec;
+    background-repeat: no-repeat;
+    width: 52px;
+    height: 18px;
+    display: inline-block;
+    background-size: cover;
+    cursor: pointer;
+    margin-right: 9px;
+    top: 4px;
+    left: 4px;
+    position: relative;
+    border-radius: 8px;
+
+    -webkit-transition:background-position .1s ease-in;  
+    -moz-transition:background-position .1s ease-in;  
+    -o-transition:background-position .1s ease-in;  
+    transition:background-position .1s ease-in; 
+
+}
+
+.off {
+    background-position: -31px 0px;
+}
+
+.on {
+    background-position: 0px 0px;
+}
