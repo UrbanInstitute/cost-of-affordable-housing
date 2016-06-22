@@ -934,12 +934,33 @@ input.text.invalid{
     margin-top: -21px;
     margin-left: 10px;
     margin-bottom: 10px;
+    font-size: 22px;
+}
+.credits_h2{
+	margin-left: 10px;
+	font-weight: bold;
+}
+.credits_h3{
+    margin-left: 10px;
+    font-size: 12px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    text-transform: uppercase;
+    font-weight: bold;
     color: #1696d2;
 }
 
 .credits_name{
 	margin-left: 10px;
     margin-bottom: 5px;
+}
+.credits_name a{
+	cursor: pointer;
+	text-decoration: none;
+	color: #000;
+}
+.credits_name a:hover{
+	color: #1696d2;
 }
 .credits_name span{
 	display: block;
@@ -950,10 +971,10 @@ input.text.invalid{
 	float: left;
 }
 #credits_left_col{
-	width: 42%;
+	width: 50%;
 }
 #credits_right_col{
-	width: 58%;
+	width: 50%;
 }
 #report_button{
 	text-transform: uppercase;
@@ -961,7 +982,7 @@ input.text.invalid{
     background-color: #1696d2;
     font-style: normal;
     cursor: pointer;
-    width: 200px;
+    width: 162px;
     padding: 13px;
     margin-top: 21px;
     margin-left: 10px;
@@ -971,7 +992,7 @@ input.text.invalid{
 .close_button {
 	position: relative;
  	top: -9px;
-    right: -408px;
+    right: -461px;
     cursor: pointer;
     height: 34px;
     width: 34px;

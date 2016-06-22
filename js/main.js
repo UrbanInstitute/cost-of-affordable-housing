@@ -1347,8 +1347,8 @@ d3.select("#about_project")
 			.duration(1200)
 			.style("bottom","359px")
 			.style("right","253px")
-			.style("width","422px")
-			.style("height","273px")
+			.style("width","473px")
+			.style("height","373px")
 			.style("transform","rotate(360deg")
 
 		var spinLock = {},
@@ -1370,11 +1370,11 @@ d3.select("#about_project")
 		        return function(t) { path.style("right", i(t)); };
 		      })
 		      .tween("style:width", function() {
-		        var i = d3.interpolateString("72px", "422px");
+		        var i = d3.interpolateString("72px", "473px");
 		        return function(t) { path.style("width", i(t)); };
 		      })
 		      .tween("style:height", function() {
-		        var i = d3.interpolateString("53px", "273px");
+		        var i = d3.interpolateString("53px", "373px");
 		        return function(t) { path.style("height", i(t)); };
 		      })
 		      .tween("style:transform", function() {
