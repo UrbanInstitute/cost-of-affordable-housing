@@ -109,6 +109,14 @@ h2{
 	font-weight: bold;
 	margin-bottom: 0px;
 }
+h4{
+    margin-left: 60px;
+    top: -39px;
+    position: relative;
+    font-size: 28px;
+    width: 424px;
+    font-weight: 300;
+}
 h2 span{
     font-weight: normal;
     font-style: italic;
@@ -219,10 +227,10 @@ section.step{
 .gap_container{
 	position: absolute;
 	width: 144px;
-	height: 78px;
+	height: 98px;
 	left: 16px;
 	color: #fff;
-	background-color: rgba(22,150,210,.2);
+	background-color: rgba(35,31,32,.2);
 	z-index: 109;
 }
 .gap_label{
@@ -238,6 +246,10 @@ section.step{
     display: block;
     text-transform: uppercase;
     margin-bottom: 4px;
+    color: #d1d2d4;
+}
+.gap_label span i{
+	font-style: normal;
 }
 .gap_amount{
 	font-size: 19px;
@@ -1186,4 +1198,27 @@ input.text.invalid{
 
 .on {
     background-position: 0px 0px;
+}
+
+
+/***************************************************************************/
+/********************************* PRINT ***********************************/
+/***************************************************************************/
+#print_credits{
+	display: none;
+}
+#print_nhc{
+	display: none;
+}
+#print_urban{
+	display: none;
+}
+#print_logos{
+	display: none;
+}
+#print_output{
+	display: none;
+}
+#print_output_label{
+	display: none;
 }

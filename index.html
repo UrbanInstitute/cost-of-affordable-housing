@@ -6,13 +6,16 @@
   <base target="_blank" />
    <!-- <meta name="viewport" content="width=device-width"> -->
   <link rel="stylesheet" type="text/css" href="css/main.css">
+  <!-- <link rel="stylesheet" type="text/css" href="css/print.css"> -->
+  <link href="css/print.css" rel="stylesheet" media="print" type="text/css" />
+
   <link href='http://fonts.googleapis.com/css?family=Lato:300,400,700,900,300italic,400italic,700italic,900italic' rel='stylesheet' type='text/css'>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <!-- <meta name="viewport" content="width=device-width, initial-scale=1"> -->
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Pencilling Out</title> 
+    <title>Cracks in the Foundation</title> 
      <meta name="twitter:card" content="summary">
     <meta name="twitter:site" content="@urbaninstitute">
     <meta name="twitter:creator" content="@urbaninstitute">
@@ -47,6 +50,11 @@
 </head>
 
 <body>
+<div id = "print_logos">
+<div id = "print_urban"><img src = "images/urban_print.png"></div>
+<div id = "print_nhc"><img src = "images/nhc_logo.jpg"></div>
+</div>
+
 <span id = "small_desktop"></span>
 <span id = "mobile"></span>
 
@@ -55,7 +63,7 @@
 	<a target="_blank" href="http://www.urban.org" title="Home" rel="home" class="site-logo"></a>
 	<a target="_blank" href="http://www.nhc.org/" title="Home" rel="home" class="nhc-logo"></a>
 
-	<div class="title"><span class="feature-link"><a href="http://www.urban.org/features" class="title-linkback" alt="Urban Institute logo">Features</a> <span>: :</span> </span><a href="index.html" class="title-linkback">Title of Project</a>
+	<div class="title"><span class="feature-link"><a href="http://www.urban.org/features" class="title-linkback" alt="Urban Institute logo">Features</a> <span>: :</span> </span><a href="index.html" class="title-linkback">Cracks in the Foundation</a>
 	</div>
 	<div class="share-icons">
 	    <div class="shareThisP">
@@ -90,7 +98,8 @@
 <div id = "graphic">
 	<div id = "sections">
 		<section class="step" id="scroll-intro">
-			<h1>Title of Project</h1>
+			<h1>Cracks in the Foundation</h1>
+			<h4>Why developers struggle to build affordable homes</h4>
 			<p>
 				<strong>There is not enough affordable housing in the United States.</strong>
 				For every 100 extremely low income households, there are only 29 adequate, affordable, and available affordable rental units. That means a single mom working as a cashier, who has some money for rent, just not a lot, might wait years to find a safe place for her two kids to live. With such high demand, why aren’t developers racing to build affordable apartments?
@@ -133,7 +142,6 @@
 				The terms of the loan&mdash;interest rate, debt service coverage, etc.&mdash;might be variable, but as you can see, changing those terms doesn’t do much to the gap. That’s because unlike a home loan, where the value of the house determines the amount of the loan, here the loan amount is based on the future rents the building will bring in. For this scenario, we’ve set the future rent income to the Denver average.
 			</p>
 			<div class = "button_text" id = "weak_market">Simulate a Weak Market</div>
-			(NB: cap rate = 10%, loan to value = 75%, smallest possible loan)
 			<p>
 				Beyond the loan, developers might pay for their uses through tax credits or grants. These sources come with caveats, however. The tax credits a building is eligible for depend on how big the building is and on how much rent the developer plans to charge relative to average wages in the area. Additionally, states have a limited sum of money for tax credits and grants, so even if a development qualifies, funding is not guaranteed. The amount of money available through tax credits and grants is not enough to build the amount of affordable housing cities need.
 			</p>
@@ -521,7 +529,7 @@
 				<div id = "i_bar_50" class="i_bar"></div>
 			</div>
 			<div id = "gap_container_50" class="gap_container">
-				<div id = "gap_label_50" class="gap_label"><span>50 apartments</span>Gap</div>
+				<div id = "gap_label_50" class="gap_label"><span>50 apartments</span><span><i id = "gap_container_50_ami">30</i>% AMI renters</span>Gap</div>
 				<div id = "gap_amount_50" class="gap_amount">0</div>
 			</div>
 			<div id ="balcony_top_50" class="balcony_top balcony">
@@ -577,7 +585,7 @@
 				<div id = "i_bar_100" class="i_bar"></div>
 			</div>
 			<div id = "gap_container_100" class="gap_container">
-				<div id = "gap_label_100" class="gap_label"><span>100 apartments</span>Gap</div>
+				<div id = "gap_label_50" class="gap_label"><span>100 apartments</span><span><i id = "gap_container_100_ami">30</i>% AMI renters</span>Gap</div>
 				<div id = "gap_amount_100" class="gap_amount">0</div>
 			</div>
 			<div id ="balcony_top_100" class="balcony_top balcony">
@@ -631,6 +639,56 @@
 			</div>
 		</div>
 	</div>
+	<div class = "page-break"></div>
+
+	<h2 id = "print_output_label">Results</h2>
+
+	<div id = "print_output">
+				<div id = "print_left">
+					<div id = "print_gap_label_50" class="print_gap_label"><span>50 apartments</span><span><i id = "print_gap_container_50_ami">30</i>% AMI tenants</span></div>
+					<span class = "print_label">Total Development Cost:</span> <div id = "print_cost_amount_50" class="print_cost_amount">0</div>
+					<span class = "print_label">Total Sources:</span><div id = "print_sources_amount_50" class="print_sources_amount">0</div>
+					<span class = "print_label">Gap:</span> <div id = "print_gap_amount_50" class="print_gap_amount">0</div>
+				</div>
+				<div id = "print_right">
+					<div id = "print_gap_label_100" class="print_gap_label"><span>100 apartments</span><span><i id = "print_gap_container_100_ami">30</i>% AMI tenants</span></div>
+					<span class = "print_label">Total Development Cost:</span> <div id = "print_cost_amount_100" class="print_cost_amount">0</div>
+					<span class = "print_label">Total Sources:</span><div id = "print_sources_amount_100" class="print_sources_amount">0</div>
+					<span class = "print_label">Gap:</span> <div id = "print_gap_amount_100" class="print_gap_amount">0</div>
+				</div>
+			<!-- </div> -->
+	</div>
+			<div id="print_credits">
+				<svg class="close_button">
+				    <circle cx="12" cy="12" r="11" stroke="black" stroke-width="2" fill="white" />
+				    <path stroke="black" stroke-width="4" fill="none" d="M6.25,6.25,17.75,17.75" />
+				    <path stroke="black" stroke-width="4" fill="none" d="M6.25,17.75,17.75,6.25" />
+				</svg>
+				<div id = "credits_title">Project Credits</div>
+				<div id = "credits_left_col">
+					<div class="credits_h2">Research</div>
+					<div class="credits_h3">Urban Institute</div>
+					<div class = "credits_name"><a href = "http://www.urban.org/author/pamela-blumenthal">Pamela Blumenthal</a><span>Senior Research Associate</span></div>
+					<div class = "credits_name"><a href = "http://www.urban.org/author/reed-jordan">Reed Jordan</a><span>Research Associate II</span></div>
+					<div class="credits_h3">National Housing Conference</div>
+					<div class = "credits_name"><a href = "http://www.nhc.org/#!amy-clark/b3vsj">Amy Clark</a><span>Director of Marketing and Communications</span></div>
+					<div class = "credits_name"><a href = "http://www.nhc.org/#!handelman/ti4vm">Ethan Handelman</a><span>Vice President of Policy and Advocacy</span></div>
+					<div class = "credits_name"><a href = "http://www.nhc.org/#!rking/p7c05">Rebekah King</a><span>Policy Associate </span></div>
+
+				</div>
+				<div id = "credits_right_col">
+					<div class="credits_h2">Feature</div>
+					<div class="credits_h3">Urban Institute</div>
+					<div class = "credits_name"><a href = "http://www.urban.org/author/christina-baird">Christina Baird</a><span>Web Designer</span></div>
+					<div class = "credits_name"><a href = "http://www.urban.org/author/fiona-blackshaw">Fiona Blackshaw</a><span>Senior Production Editor</span></div>
+					<div class = "credits_name"><a href = "http://www.urban.org/author/benjamin-chartoff">Ben Chartoff</a><span>Data Visualization Developer</span></div>
+					<div class = "credits_name"><a href = "http://www.urban.org/author/alexandra-tilsley">Alexandra Tilsley</a><span>Research Writer</span></div>
+					<div class = "credits_name"><a href = "http://www.urban.org/author/john-wehmann">John Wehmann</a><span>Director of Design and Visuals</span></div>
+
+					<div id ="report_button">Read the research</div>
+				</div>
+			</div>
+
 	<script src = "js/vendor/d3.v3.min.js"></script>
 	<script src = "js/vendor/jquery-1.12.4.min.js"></script>
 	<script src="js/vendor/countup.min.js"></script>

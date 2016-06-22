@@ -50,6 +50,7 @@ var DEFAULT_CONFIG = {
 var DOLLARS = d3.format("$,.0f")
 var PERCENT = d3.format(".2%")
 var PERCENT_SMALL = d3.format(".1%")
+var TOP_THRESHOLD = 240;
 
 function drawGap(units, config, transition){
 	var roof_height = 67;
@@ -350,20 +351,23 @@ function drawGap(units, config, transition){
 		d3.select("#gap_container_"+units)
 			.transition()
 			.style("bottom", function(){
-				if(window.innerHeight - (scaleDollars(total_development_cost) + 20) < 228){
-					return window.innerHeight-228
+				if(window.innerHeight - (scaleDollars(total_development_cost) + 20) < TOP_THRESHOLD){
+					return window.innerHeight-TOP_THRESHOLD
 				}else{
 					return scaleDollars(total_development_cost) + 20
 				}
 			})
 			.style("background-color", function(){
-				if(window.innerHeight - (scaleDollars(total_development_cost) + 20) < 228){
+				if(window.innerHeight - (scaleDollars(total_development_cost) + 20) < TOP_THRESHOLD){
 					return "rgba(38,31,32,.8)"
 				}else{
 					return "rgba(38,31,32,1)"
 				}
 			})
 			countup_val("gap_amount_"+units, resp.gap)
+			countup_val("print_gap_amount_"+units, resp.gap)
+			countup_val("print_cost_amount_"+units, resp.total_development_cost)
+			countup_val("print_sources_amount_"+units, resp.total_sources)
 
 		d3.select("#balcony_top_" + units)
 			.transition()
@@ -536,20 +540,23 @@ function drawGap(units, config, transition){
 			})
 		d3.select("#gap_container_"+units)
 			.style("bottom", function(){
-				if(window.innerHeight - (scaleDollars(total_development_cost) + 20) < 228){
-					return window.innerHeight-228
+				if(window.innerHeight - (scaleDollars(total_development_cost) + 20) < TOP_THRESHOLD){
+					return window.innerHeight-TOP_THRESHOLD
 				}else{
 					return scaleDollars(total_development_cost) + 20
 				}
 			})
 			.style("background-color", function(){
-				if(window.innerHeight - (scaleDollars(total_development_cost) + 20) < 228){
-					return "rgba(38,31,32,.8)"
+				if(window.innerHeight - (scaleDollars(total_development_cost) + 20) < TOP_THRESHOLD){
+					return "rgba(35,31,32,.8)"
 				}else{
-					return "rgba(38,31,32,1)"
+					return "rgba(35,31,32,1)"
 				}
 			})
-		countup_val("gap_amount_"+units, resp.gap)
+			countup_val("gap_amount_"+units, resp.gap)
+			countup_val("print_gap_amount_"+units, resp.gap)
+			countup_val("print_cost_amount_"+units, resp.total_development_cost)
+			countup_val("print_sources_amount_"+units, resp.total_sources)
 
 		d3.select("#balcony_top_" + units)
 			.style("bottom", function(){
@@ -702,7 +709,7 @@ function drawGaps(config, transition){
 	drawGap("100", config, transition);
 }
 function countup_val(val_id, new_val){
-	var prefix = (val_id == "ami_label_val" || val_id.search("vacancy_rate") != -1 || val_id.search("debt_service_coverage") != -1 || val_id.search("interest_rate") != -1 || val_id.search("capitalization_rate") != -1 || val_id.search("loan_to_value") != -1) ? "" : "$"
+	var prefix = (val_id == "ami_label_val" || val_id == "gap_container_50_ami" || val_id == "gap_container_100_ami" || val_id == "print_gap_container_50_ami" || val_id == "print_gap_container_100_ami" || val_id.search("vacancy_rate") != -1 || val_id.search("debt_service_coverage") != -1 || val_id.search("interest_rate") != -1 || val_id.search("capitalization_rate") != -1 || val_id.search("loan_to_value") != -1) ? "" : "$"
 	var suffix = (val_id.search("vacancy_rate") != -1 || val_id.search("interest_rate") != -1 || val_id.search("capitalization_rate") != -1 || val_id.search("loan_to_value") != -1) ? "%" : ""
 	var precision;
 	if(val_id.search("vacancy_rate") != -1 || val_id.search("loan_to_value") != -1) { precision = 1}
@@ -1273,7 +1280,19 @@ d3.selectAll(".control")
 			if(d3.select(this).classed("average_monthly_rent")){
 				if(d3.select(this).classed("range")){
 					countup_val("ami_label_val",this.value*30)
-				}else{ countup_val("ami_label_val",parseFloat(this.value.replace("%",""))*.3) }
+					countup_val("gap_container_50_ami",this.value*30)
+					countup_val("gap_container_100_ami",this.value*30)
+					countup_val("print_gap_container_50_ami",this.value*30)
+					countup_val("print_gap_container_100_ami",this.value*30)
+
+				}else{
+					countup_val("ami_label_val",parseFloat(this.value.replace("%",""))*.3)
+					countup_val("gap_container_50_ami",parseFloat(this.value.replace("%",""))*.3)
+					countup_val("gap_container_100_ami",parseFloat(this.value.replace("%",""))*.3)
+					countup_val("print_gap_container_50_ami",parseFloat(this.value.replace("%",""))*.3)
+					countup_val("print_gap_container_100_ami",parseFloat(this.value.replace("%",""))*.3)
+
+				}
 				if((this.value>2 && d3.select(this).classed("range")) || (parseFloat(this.value.replace("%",""))>200 && d3.select(this).classed("text"))){
 					if(d3.select(".tax_credit_equity.range").node().value != 0){
 						d3.select(".tax_credit_equity.range").attr("data-oldval",d3.select(".tax_credit_equity.range").node().value)
@@ -1609,6 +1628,8 @@ d3.selectAll(".button_text")
 			case "sixty_ami":
 				config["50"]["average_monthly_rent"] = 975;
 				config["100"]["average_monthly_rent"] = 979;
+				countup_val("gap_container_50_ami",60)
+				countup_val("gap_container_100_ami",60)
 				break;
 			case "no_credit":
 				config["50"]["sources"]["tax_credit_equity"] = 0;
@@ -1619,6 +1640,8 @@ d3.selectAll(".button_text")
 
 
 function reset(){
+	d3.selectAll(".disabled").classed("disabled", false)
+	d3.selectAll(".warning_icon").remove()
     d3.select("#s1.switch")
         .attr("class", "switch off")
         .transition()
@@ -1651,6 +1674,10 @@ function reset(){
 			this.value = "1"
 		});
 	var config = updateDefaultsFromDashboard()
+	countup_val("gap_container_50_ami",30)
+	countup_val("gap_container_100_ami",30)
+	countup_val("print_gap_container_50_ami",30)
+	countup_val("print_gap_container_100_ami",30)
 	drawGaps(config, true)
 }
 var SMALL_DESKTOP;
