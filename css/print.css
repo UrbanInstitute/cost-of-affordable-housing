@@ -1,0 +1,152 @@
+body{
+	background-color: transparent !important;
+	-webkit-print-color-adjust: exact; 
+}
+input[type=range]{
+	display: none;
+}
+.control_container:not(.new_source) input[type=text]{
+	position: absolute;
+    left: 220px;
+    margin-top: -2px;
+}
+input[type=text]{
+	background: transparent;
+}
+.control_container.tax_credit_equity input[type=text]{
+	left: 160px;	
+}
+.multiplier{
+	left: -48px;
+	top: -2px;
+	background: transparent;
+}
+#ami_label{
+    text-indent: 153px;
+    top: -58px;
+}
+.control_container label {
+    width: 133px;
+    margin-right: 64px;
+}
+#ground_container{
+	display: none;
+}
+.help-button{
+	display: none;
+}
+
+.rollover{
+	display: inline;
+    text-decoration: none;
+    height: 20px;
+    padding-left: 0px;
+    padding-right: 0px;
+    border-bottom: none;
+    box-shadow: none;
+    cursor: pointer;
+}
+.button_text, #reset-button, #click_to_add_sources, #report_button{
+	background-color: transparent;
+	color: black;
+	border: 2px solid black;
+}
+
+#print_credits{
+	display: block;
+	margin-left: 50px;
+}
+.close_button{
+	display: none;
+}
+#header-pinned, #subNav{
+	display: none;
+}
+p{
+	width: 6.5in;
+}
+.explainer{
+    background: transparent;
+    border: 1px dashed black;
+}
+h1{
+	margin-top: 1in;
+}
+#print_nhc{
+	margin-top: 20px;
+	display: inline-block;
+}
+#print_nhc img{
+    height: .35in;
+    margin-top: 2px;		
+}
+#print_urban{
+	margin-top: 20px;
+	margin-left: 60px;
+	margin-right: 20px;
+	float: left;
+	display: block;
+}
+#print_urban img{
+	height: .5in;
+}
+#print_logos{
+	display: block;
+    position: absolute;
+    right: 13px;
+    top: 0;
+}
+.building{
+	display: none !important;
+}
+
+#print_output{
+    display: block;
+    clear: both;
+    width: 7in;
+    height: 2in;
+    margin-left: 60px;
+}
+.print_gap_label{
+	margin-bottom: 15px;
+}
+.print_gap_label span{
+	font-size: 10pt;
+    display: inline-block;
+    text-transform: uppercase;
+    margin-right: 10px;
+}
+
+.print_gap_label span i{
+	font-style: normal;
+}
+
+#print_left{
+	width: 3in;
+	float: left;
+}
+#print_right{
+	width: 3in;
+	margin-left: .5in;
+	display: inline-block;
+}
+.print_cost_amount, .print_gap_amount, .print_sources_amount{
+	float: right;
+	clear: right;
+}
+.print_label{
+	float: left;
+	clear: both;
+	font-weight: bold;
+	height: 24px;
+}
+.print_sources_amount{
+	padding-bottom: 3px;
+    border-bottom: 1px solid black;
+    padding-left: 40px;
+
+}
+#print_output_label{
+	display: block;
+}
+.page-break { height:0; page-break-after:always; margin:0; border-top:none; }

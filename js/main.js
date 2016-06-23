@@ -53,9 +53,10 @@ var PERCENT_SMALL = d3.format(".1%")
 var TOP_THRESHOLD = 240;
 
 function drawGap(units, config, transition){
+	var scalar = (TABLET) ? 2.1: 1;
 	var roof_height = 67;
 	var max_dollars =  40400000;
-	var max_pixels = (window.innerHeight-90-60);
+	var max_pixels = (window.innerHeight-90-60)/scalar;
 	var break_50_middle_windows = 194;
 	var break_50_top_windows = 133;
 	var break_50_roof = 61;
@@ -1139,12 +1140,12 @@ function show100(){
 
 	d3.select("#building_container_50")
 		.transition()
-		.style("right",260)
+		.style("right",function(){ return (MOBILE) ? 116 : 260 })
 
 	d3.select("#building_container_100")
 		.style("display","block")
 		.transition()
-		.style("right",30)
+		.style("right",function(){ return (MOBILE) ? -40 : 30 })
 		.each("start", function(){
 			reset();
 		})
@@ -1680,9 +1681,14 @@ function reset(){
 	countup_val("print_gap_container_100_ami",30)
 	drawGaps(config, true)
 }
-var SMALL_DESKTOP;
+var SMALL_DESKTOP,
+	MOBILE,
+	TABLET;
 function resizeFeature(){
 	SMALL_DESKTOP = d3.select("#small_desktop").style("display") == "block"
+	MOBILE = d3.select("#mobile").style("display") == "block"
+	TABLET = d3.select("#tablet").style("display") == "block"
+
 	console.log(SMALL_DESKTOP)
 }
 resizeFeature();

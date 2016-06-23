@@ -1,3 +1,164 @@
+body{
+	background-color: #cbeaf5;
+	font-family: Lato;
+	margin: 0;
+}
+*:focus{
+	outline: 0;
+}
+
+/***************************************************************************/
+/***************************** MOBILE BUILDING *****************************/
+/***************************************************************************/
+@media (max-width:484px){
+	.total_building{
+		width: 100px !important;
+	}
+	.built_building{
+		width: 101px !important;
+	}
+	#building_container_50{
+		right: -40;
+	}
+	.empty_windows_50.door img, .empty_windows_100.door img ,.full_windows_50.door img, .full_windows_100.door img {
+    	margin-left: 0 !important;
+    	left: 0 !important;
+	}
+     #mobile{
+     	display: block !important;
+     }
+     .mobile_window{
+     	display: block !important;
+     }     
+     .desktop_window{
+     	display: none;
+     }
+     .windows_roof{
+     	margin-left: -32 !important;
+     }
+     #noi, #debt_sizing, #uses, #sources, h4, h1, h2, p, #top_instruction, .button_text, #reset-button {
+     	margin-left: 20px !important;
+     }
+     #noi, #debt_sizing, #uses, #sources{
+     	width: calc(100% - 40px) !important;
+     }
+     p, h2, h1, h4{
+     	width: calc(100% - 40px) !important;
+     }
+     .header_wrapper{
+     	width: 100% !important;
+     }
+     .header_title{
+     	width: 123px !important;
+     }
+     .header_50{
+     	margin-right: 20px !important;
+     }
+     #top_instruction{
+     	width: calc(100% - 60px) !important;	
+     }
+     .explainer{
+     	/*width: calc(100% - 60px) !important;	*/
+     	width: calc(100% - 20px) !important;
+     }
+	.s50_label, .s50_noi_label, .s100_noi_label, .s50_blank_label, .s100_blank_label {
+	    margin-left: -20px !important;
+	    font-size: 13px !important;
+	    width: 101px !important;
+	}
+	.s100_label{
+	    margin-left: -20px !important;
+	    font-size: 13px !important;
+	    width: 1px !important;
+	}
+	#debt_marker_100{
+		left: calc(100% - 21px) !important;
+	}
+	.control_container label{
+		font-size: 13px !important;
+    	width: 111px !important;
+    	margin-right: 37px !important;
+	}
+	input[type=text] {
+		clear: both !important;
+		margin-left: 22px !important;
+	}
+	.control_container.tall{
+		height: 129px !important;
+	}
+	.control_container{
+		height: 109px !important;
+		width: 100%	 !important;
+	}
+	.control_container.ami_label{
+		height: 0px !important;
+	}
+	#ami_label{
+		text-indent: 19px !important;
+	}
+	.multiplier{
+    	top: 30px !important;
+    	left: -81px !important;
+	}
+	.gap_apt_label{
+	    position: fixed;
+	    bottom: 24px;
+	    padding: 3px;
+	    color: black !important;
+	    margin-left: -14px;
+	}
+	.gap_ami_label{
+	    position: fixed;
+	    bottom: 4px;
+	    padding: 3px;
+	    color: black !important;
+	    margin-left: -14px;
+	}
+	.gap_container{
+    	width: 124px !important;
+    	height: 58px !important;
+    	left: -1px !important;
+	}
+	.gap_amount{
+		font-size: 16px !important;
+	}
+
+}
+.mobile_window{
+	display: none;
+}
+#mobile{
+	width: 0;
+	height: 0;
+	top: 0;
+	left: 0;
+	position: fixed;
+	display: none;
+}
+
+/***************************************************************************/
+/********************************* TABLET **********************************/
+/***************************************************************************/
+@media (max-width:943px){
+     #tablet{
+     	display: block !important;
+     } 
+     #mobile_spacer{
+     	height: 200px !important;
+     }    
+}
+#mobile_spacer{
+	height: 0px;
+}
+#tablet{
+	width: 0;
+	height: 0;
+	top: 0;
+	left: 0;
+	position: fixed;
+	display: none;
+}
+
 /***************************************************************************/
 /***************************** MOBILE IMAGES *******************************/
 /***************************************************************************/
@@ -11,6 +172,18 @@
      	display: block !important;
      }     
 }
+@media (max-width:716px){
+	#leftHill,#trees, #crane, #cloud2, #contractor, #mouth_container, #hand, #credits, #text_credits{
+		display: none !important;
+	}
+}
+@media (max-width:484px){
+	#leftHill,#trees, #crane, #cloud1, #buildings_rightHill, #buildings_leftHill{
+		display: none !important;
+	}
+}
+
+
 #small_desktop{
 	width: 0;
 	height: 0;
@@ -20,16 +193,6 @@
 	display: none;
 }
 
-
-
-body{
-	background-color: #cbeaf5;
-	font-family: Lato;
-	margin: 0;
-}
-*:focus{
-	outline: 0;
-}
 /***************************************************************************/
 /*************************** TEMP CONTROLS ***************************/
 /***************************************************************************/
@@ -322,7 +485,7 @@ section.step{
 }
 #rightHillDirt{
 	bottom: 0px;
-	right: 0px;
+	right: -4px;
 	z-index: 2;
 }
 #rightHill{
