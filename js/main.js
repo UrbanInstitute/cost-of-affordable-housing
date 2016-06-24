@@ -1266,7 +1266,8 @@ function init(){
 d3.selectAll(".page-scroll")
     .on("click", function(){
     	var scrollTo = $(this).data("scroll")
-        $("html, body").animate({ scrollTop: $("#" + scrollTo).offset().top-205 }, 1000);    
+    	var offset = (d3.select(".navTab.mobile").style("display") == "block") ? 65 : 205;
+        $("html, body").animate({ scrollTop: $("#" + scrollTo).offset().top-offset }, 1000);    
     })
 
 d3.selectAll(".control")
@@ -1561,9 +1562,10 @@ function highlightSection(i){
 		.classed("active",false)
 	d3.select(".navTab" + String(i))
 		.classed("active",true)
+	var offset = (d3.select(".navTab.mobile").style("display") == "block") ? .19 : .2;
 	W = window.innerWidth;
-	w = W/5
-	x = i*w + w/2 - 25
+	w = W*offset
+	x = i*w + w/2 - 18
 	d3.select("#nav_arrow")
 		.transition()
 		.style("left",x)

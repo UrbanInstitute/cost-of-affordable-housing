@@ -12,10 +12,17 @@ body{
 /***************************************************************************/
 @media (max-width:484px){
 	.total_building{
-		width: 100px !important;
+		width: 120px !important;
+		left: -10px !important;
 	}
 	.built_building{
-		width: 101px !important;
+		width: 121px !important;
+		left: -10px !important;
+	}
+	.shadow_gap{
+    	width: 121px !important;
+    	left: -10px !important;
+    	border-right: 1px solid #1696d2;
 	}
 	#building_container_50{
 		right: -40;
@@ -117,7 +124,7 @@ body{
 	.gap_container{
     	width: 124px !important;
     	height: 58px !important;
-    	left: -1px !important;
+    	left: -11px !important;
 	}
 	.gap_amount{
 		font-size: 16px !important;
@@ -145,7 +152,17 @@ body{
      } 
      #mobile_spacer{
      	height: 200px !important;
-     }    
+     }
+     .navTab.desktop{
+     	display: none;
+     }
+     .navTab.mobile{
+     	display: block !important;
+     	width: 19% !important;
+     }
+}
+.navTab.mobile{
+	display: none;
 }
 #mobile_spacer{
 	height: 0px;
