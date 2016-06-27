@@ -708,6 +708,7 @@ function drawGap(units, config, transition){
 function drawGaps(config, transition){
 	drawGap("50", config, transition);
 	drawGap("100", config, transition);
+	// show100();
 }
 function countup_val(val_id, new_val){
 	var prefix = (val_id == "ami_label_val" || val_id == "gap_container_50_ami" || val_id == "gap_container_100_ami" || val_id == "print_gap_container_50_ami" || val_id == "print_gap_container_100_ami" || val_id.search("vacancy_rate") != -1 || val_id.search("debt_service_coverage") != -1 || val_id.search("interest_rate") != -1 || val_id.search("capitalization_rate") != -1 || val_id.search("loan_to_value") != -1) ? "" : "$"
@@ -1125,7 +1126,7 @@ function dummy3(){
 	// // $("#text_average_monthly_rent").trigger("change")
 	// var config = updateDefaultsFromDashboard()
 	// drawGaps(config, true)
-	hide100()
+	show100()
 }
 function dummy4(){
 	show100()
@@ -1260,6 +1261,7 @@ function init(){
   scroll.on('progress', function(index, progress){
     plot.update(index, progress);
   });
+
 }
 
 

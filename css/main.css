@@ -459,11 +459,11 @@ section.step{
 #building_container_50{
 	/*background-color: #cbeaf5;*/
 	clear: both;
-	right: 30px;
+	right: 260px;
 }
 #building_container_100{
 	clear: both;
-	right: -350px;
+	right: 30px;
 }
 .empty_windows_50, .empty_windows_100{
 	position: relative;
