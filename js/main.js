@@ -955,6 +955,7 @@ function showWarning(control, disabled, invalid){
 				var hoverID = msgID
 				d3.select("#warning_sign")
 					.style("opacity",1)
+				d3.select("#warning_text")
 					.text(error_msgs[hoverID])
 			})
 			.on("mouseout", function(){
@@ -981,7 +982,7 @@ function showWarning(control, disabled, invalid){
 
 		// }
 		// console.log(msgID)
-		d3.select("#warning_sign").text(error_msgs[msgID])
+		d3.select("#warning_text").text(error_msgs[msgID])
 
 	}
 }
@@ -1027,7 +1028,7 @@ function hideWarning(control){
   	// else if(helpID == "noi") { msgID = "noi_label"}
 	else{ msgID = helpID}
 	// console.log(msgID)
-	d3.select("#warning_sign").text(error_msgs[msgID])
+	d3.select("#warning_text").text(error_msgs[msgID])
 
 	if(mouthShouldClose()){
 		d3.select("#mouth")
