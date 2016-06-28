@@ -757,13 +757,13 @@ function update(units, config, transition){
 		d3.selectAll(".loan_value").classed("larger", true)
 		d3.selectAll(".debt_marker")
 			.transition()
-			.style("top","13px")
+			.style("top","21px")
 	}else{
 		d3.selectAll(".larger").classed("larger",false)
 		d3.selectAll(".loan_income").classed("larger", true)
 		d3.selectAll(".debt_marker")
 			.transition()
-			.style("top","33px")
+			.style("top","42px")
 	}
 	
 	var total_development_cost = getTotalDevelopmentCost(config[units]["uses"])
@@ -947,7 +947,7 @@ function showWarning(control, disabled, invalid){
 		// d3.select("body").classed("small_desktop", SMALL_DESKTOP)
 		var icon = container
 			.append("div")
-			.attr("class","warning_icon")
+			.attr("class","warning_icon " +  control)
 			.append("img")
 			.attr("src","images/error.png")
 			.attr("data-order",max+1)
@@ -980,7 +980,7 @@ function showWarning(control, disabled, invalid){
 		// if(SMALL_DESKTOP){
 
 		// }
-		console.log(msgID)
+		// console.log(msgID)
 		d3.select("#warning_sign").text(error_msgs[msgID])
 
 	}
@@ -1020,10 +1020,11 @@ function hideWarning(control){
 		return false
 	}
 	var msgID;
-	var helpID = $(".warning_icon img[data-order=" + max + "]").parent().siblings(".help-button")[0].id.replace("help_","")
-	if(d3.select(d3.select("#help_" + helpID).node().parentNode).classed("invalid")){ msgID = helpID+ "_invalid"}
+	var helpID = $(".warning_icon img[data-order=" + max + "]").parent()[0].className.replace("warning_icon","").replace(/\s/g,"")
+	if(helpID == "noi_label"){ msgID = "noi_label"}
+	else if(d3.select(d3.select("#help_" + helpID).node().parentNode).classed("invalid")){ msgID = helpID+ "_invalid"}
   	else if(d3.select(d3.select("#help_" + helpID).node().parentNode).classed("disabled")){ msgID = helpID+ "_disabled"}
-  	else if(helpID == "noi") { msgID = "noi_label"}
+  	// else if(helpID == "noi") { msgID = "noi_label"}
 	else{ msgID = helpID}
 	// console.log(msgID)
 	d3.select("#warning_sign").text(error_msgs[msgID])
@@ -1319,6 +1320,7 @@ d3.selectAll(".control")
 
 
 		if(this.type == "text"){
+			// return false
 			if(d3.select(this).classed("new_source_label")){
 				return false;
 			}
@@ -1342,8 +1344,8 @@ d3.selectAll(".control")
 
 				showWarning(this.id.replace("text_",""), undefined, true)
 			}
-			// d3.select("." + this.id.split("text_")[1] + ".range")
-				// .attr("value", val)
+			d3.select("." + this.id.split("text_")[1] + ".range")
+				.attr("value", val)
 
 		}else{
 
@@ -1410,8 +1412,11 @@ d3.select(".control_container.new_source_button")
 	})
 
 
-d3.select("#about_project")
+d3.selectAll(".navTab.navTab4")
 	.on("click", function(){
+		// console.log(this);
+		var small = d3.select("#contractor").style("display") == "none"
+		console.log(small)
 
 
 		if(d3.select("#credits").classed("visible")){ return false}
@@ -1422,13 +1427,17 @@ d3.select("#about_project")
 			.style("height","8px")
 
 		highlightSection(4)
+		var bottom = 3*(window.innerHeight - 373)/4
+		var right = window.innerHeight - bottom - 373
+		var r = parseFloat(d3.select("#ground_container").node().getBoundingClientRect().width)*.36 + 37
+
 		d3.select("#credits")
 			.classed("visible", true)
 			.transition()
 			.ease("back")
 			.duration(1200)
-			.style("bottom","359px")
-			.style("right","253px")
+			.style("bottom",bottom)
+			.style("right",right)
 			.style("width","473px")
 			.style("height","373px")
 			.style("transform","rotate(360deg")
@@ -1444,11 +1453,11 @@ d3.select("#about_project")
 		      .duration(duration)
 		      .ease("back")
 		      .tween("style:bottom", function() {
-		        var i = d3.interpolateString("56px", "359px");
+		        var i = d3.interpolateString("56px", bottom + "px");
 		        return function(t) { path.style("bottom", i(t)); };
 		      })
 		      .tween("style:right", function() {
-		        var i = d3.interpolateString("607px", "253px");
+		        var i = d3.interpolateString(r + "px", right + "px");
 		        return function(t) { path.style("right", i(t)); };
 		      })
 		      .tween("style:width", function() {
@@ -1498,6 +1507,10 @@ function hideCredits(){
 			.duration(100)
 			.style("height","0px")
 	}
+    // right: calc(36% + 34px);
+	var bottom = 3*(window.innerHeight - 373)/4
+	var right = window.innerHeight - bottom - 373
+	var r = parseFloat(d3.select("#ground_container").node().getBoundingClientRect().width)*.36 + 37
 
 	d3.select("#credits")
 		.classed("visible", false)	
@@ -1505,7 +1518,7 @@ function hideCredits(){
 		.ease("linear")
 		.duration(600)
 		.style("bottom","69px")
-		.style("right","607px")
+		.style("right",r)
 		.style("width","72px")
 		.style("height","53px")
 		.style("transform","rotate(77deg")
@@ -1521,11 +1534,11 @@ function hideCredits(){
 	      .duration(duration)
 	      .ease("linear")
 	      .tween("style:bottom", function() {
-	        var i = d3.interpolateString("359px","56px");
+	        var i = d3.interpolateString(bottom + "px","56px");
 	        return function(t) { path.style("bottom", i(t)); };
 	      })
 	      .tween("style:right", function() {
-	        var i = d3.interpolateString("253px","607px");
+	        var i = d3.interpolateString(right+50 + "px",r + "px");
 	        return function(t) { path.style("right", i(t)); };
 	      })
 	      .tween("style:width", function() {
@@ -1603,6 +1616,7 @@ d3.selectAll(".help-button")
 	.on("mouseover", function(){
 		var msg = help_msgs[this.id]
 		d3.select(this)
+			.style("z-index",100)
 			.append("div")
 			.attr("class","help-text")
 			.text(msg)
@@ -1612,6 +1626,8 @@ d3.selectAll(".help-button")
 			})
 	})
 	.on("mouseout", function(){
+		d3.selectAll(".help-button")
+			.style("z-index",99)
 		d3.selectAll(".help-text").remove();
 	})
 d3.select("#reset-button").on("click", reset);
