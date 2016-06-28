@@ -1229,9 +1229,9 @@ input.text.invalid{
 	opacity: 0;
 }
 #credits_title{
-    margin-top: -21px;
-    margin-left: 10px;
-    margin-bottom: 10px;
+	margin-left:35px;
+	margin-top:-10px;
+	margin-bottom:20px;
     font-size: 22px;
 }
 .credits_h2{
@@ -1241,8 +1241,8 @@ input.text.invalid{
 .credits_h3{
     margin-left: 10px;
     font-size: 12px;
-    margin-top: 5px;
-    margin-bottom: 5px;
+	margin-top:15px;
+	margin-bottom:5px;
     text-transform: uppercase;
     font-weight: bold;
     color: #1696d2;
@@ -1268,11 +1268,9 @@ input.text.invalid{
 #credits_left_col, #credits_right_col{
 	float: left;
 }
-#credits_left_col{
-	width: 50%;
-}
-#credits_right_col{
-	width: 50%;
+#credits_left_col, #credits_right_col{
+	width:44%;
+	margin-left:25px;
 }
 #report_button{
 	text-transform: uppercase;
@@ -1280,10 +1278,13 @@ input.text.invalid{
     background-color: #1696d2;
     font-style: normal;
     cursor: pointer;
-    width: 162px;
     padding: 13px;
-    margin-top: 21px;
-    margin-left: 10px;
+	width:150px;
+	text-align:center;
+	margin-top:15px;
+	margin-left:10px;
+	font-size:14px;
+
 }
 .button_text, #reset-button{
     text-transform: uppercase;

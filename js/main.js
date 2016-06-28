@@ -1427,8 +1427,8 @@ d3.selectAll(".navTab.navTab4")
 			.style("height","8px")
 
 		highlightSection(4)
-		var bottom = 3*(window.innerHeight - 373)/4
-		var right = window.innerHeight - bottom - 373
+		var bottom = 3*(window.innerHeight - 423)/4
+		var right = window.innerHeight - bottom - 423
 		var r = parseFloat(d3.select("#ground_container").node().getBoundingClientRect().width)*.36 + 37
 
 		d3.select("#credits")
@@ -1439,7 +1439,7 @@ d3.selectAll(".navTab.navTab4")
 			.style("bottom",bottom)
 			.style("right",right)
 			.style("width","473px")
-			.style("height","373px")
+			.style("height","423px")
 			.style("transform","rotate(360deg")
 
 		var spinLock = {},
@@ -1465,7 +1465,7 @@ d3.selectAll(".navTab.navTab4")
 		        return function(t) { path.style("width", i(t)); };
 		      })
 		      .tween("style:height", function() {
-		        var i = d3.interpolateString("53px", "373px");
+		        var i = d3.interpolateString("53px", "423px");
 		        return function(t) { path.style("height", i(t)); };
 		      })
 		      .tween("style:transform", function() {
@@ -1508,8 +1508,8 @@ function hideCredits(){
 			.style("height","0px")
 	}
     // right: calc(36% + 34px);
-	var bottom = 3*(window.innerHeight - 373)/4
-	var right = window.innerHeight - bottom - 373
+	var bottom = 3*(window.innerHeight - 423)/4
+	var right = window.innerHeight - bottom - 423
 	var r = parseFloat(d3.select("#ground_container").node().getBoundingClientRect().width)*.36 + 37
 
 	d3.select("#credits")
