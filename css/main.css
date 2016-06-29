@@ -49,7 +49,7 @@ body{
      #noi, #debt_sizing, #uses, #sources{
      	width: calc(100% - 40px) !important;
      }
-     p, h2, h1, h4{
+     p, h2, h1, h4, #top_instruction{
      	width: calc(100% - 40px) !important;
      }
      .header_wrapper{
@@ -61,9 +61,9 @@ body{
      .header_50{
      	margin-right: 20px !important;
      }
-     #top_instruction{
+/*     #top_instruction{
      	width: calc(100% - 60px) !important;	
-     }
+     }*/
      .explainer{
      	/*width: calc(100% - 60px) !important;	*/
      	padding: 10px;
@@ -306,6 +306,14 @@ p{
 	width: 424px;
 	line-height: 2;
 }
+#top_instruction{
+	width: 424px;
+	font-style: italic;
+	line-height: 1.5;
+    margin-top: -12px;
+    margin-bottom: 23px;
+    font-size: 14px;	
+}
 h2, h1{
 	width: 424px;
 }
@@ -343,7 +351,7 @@ section.step{
 	width: 176px;
 	/*border: 2px solid #ccc;*/
 	/*float: right;*/
-	z-index: 9;
+	z-index: 209;
 }
 .shadow_gap{
 	position: absolute;
@@ -352,7 +360,7 @@ section.step{
 	border: none;
 	background-color: rgba(0,0,0,.1);
 	width: 178px;
-	z-index: 20;
+	z-index: 220;
 }
 .total_building, .built_building{
 	position: absolute;
@@ -362,22 +370,22 @@ section.step{
 .total_building{
 	width: 176px;
 	border: 1px solid #0c94d3;
-	z-index: 12;
+	z-index: 212;
 }
 .built_building{
 	width: 178px;
 	background-color: #1696d2;
-	z-index: 12;
+	z-index: 212;
 }
 .roof_img{
 	position: absolute;
     bottom: 0px;
     left: -21px;
-    z-index: 12;
+    z-index: 212;
 }
 #roof_100, #roof_50 {
 	position: absolute;
-	z-index: 1;
+	z-index: 201;
 	background-color: #1696d2;
 /*    border-top: 67px solid transparent;
     border-bottom: 0px solid #1696d2;
@@ -393,7 +401,7 @@ section.step{
 	height: 3px;
 	width: 19px;
 	position: absolute;
-	z-index: 16;
+	z-index: 216;
 }
 .i_bar_container{
 	margin-left: 9px;
@@ -403,7 +411,7 @@ section.step{
 	width: 3px;
 	margin-left: 6.5px;
 	background-color: #000;
-	z-index: 16;
+	z-index: 216;
 }
 .gap_container{
 	position: absolute;
@@ -412,7 +420,7 @@ section.step{
 	left: 16px;
 	color: #fff;
 	background-color: rgba(35,31,32,.2);
-	z-index: 109;
+	z-index: 309;
 }
 .gap_label{
 	font-size: 16px;
@@ -447,7 +455,7 @@ section.step{
 
 .windows{
 	position: absolute;
-	z-index: 15;
+	z-index: 215;
 }
 .windows_bottom{
 	bottom: -2;
@@ -499,40 +507,40 @@ section.step{
 #leftHill{
 	bottom: 0px;
 	left: 0px;
-	z-index: 1;
+	z-index: 201;
 }
 #rightHillDirt{
 	bottom: 0px;
 	right: -4px;
-	z-index: 2;
+	z-index: 202;
 }
 #rightHill{
 	bottom: 0px;
 	right: 0px;
-	z-index: 3;
+	z-index: 203;
 	opacity: 0;
 }
 #road{
 	bottom: -3px;
 	right: 487px;
-	z-index: 4;
+	z-index: 204;
 }
 #sidewalk{
 	bottom: 0px;
 	right: -9px;
-	z-index: 4;
+	z-index: 204;
 	opacity: 0;
 }
 #path50{
 	bottom: 13px;
 	right: 125px;
-	z-index: 4;
+	z-index: 204;
 	opacity: 0;
 }
 #path100{
 	bottom: 13px;
 	right: -225px;
-	z-index: 4;
+	z-index: 204;
 	opacity: 0;
 }
 #shrubs50{
@@ -550,7 +558,7 @@ section.step{
 #contractor{
 	bottom: -13;
     right: 36%;
-    z-index: 99;
+    z-index: 299;
 }
 #hand{
 	bottom: 86px;
@@ -560,7 +568,7 @@ section.step{
 #mouth{
     bottom: 156px;
     right: calc(36% + 81px);
-    z-index: 100;
+    z-index: 300;
     width: 14px;
     height: 0px;
 }
@@ -588,19 +596,19 @@ section.step{
 #bike{
     bottom: 61px;
     right: 460px;
-    z-index: 3;
+    z-index: 203;
     opacity: 0;
 }
 #dog{
     bottom: 3px;
     right: 222px;
-    z-index: 13;
+    z-index: 213;
     opacity: 0;
 }
 #wheelbarrow{
     bottom: 5px;
     right: 434px;
-    z-index: 13;
+    z-index: 213;
 }
 #cloud1{
 	pointer-events: none;
@@ -765,7 +773,7 @@ section.step{
     padding: 13px;
     margin-top: 10px;
 }
-#click_to_add_sources:hover, #report_button:hover, .button_text:hover, #reset-button:hover{
+#click_to_add_sources:hover, #report_button:hover, .button_text:hover{
 	background-color: #231f20;
 }
 .s50_label, .s100_label, .s50_noi_label, .s100_noi_label, .s50_blank_label, .s100_blank_label{
@@ -933,8 +941,8 @@ input.new_source_label{
 
 #warning_sign {
     position: fixed;
-    bottom: 267px;
-    right: calc(36% - 275px);
+    bottom: 137px;
+    right: calc(36% - 325px);
     /* height: 220px; */
     width: 275px;
     /* line-height: 200px; */
@@ -944,6 +952,10 @@ input.new_source_label{
     z-index: 100000;
     opacity: 0;
     background: white;
+	-webkit-box-shadow: 4px 4px 10px 0px rgba(0,0,0,0.1);
+	-moz-box-shadow: 4px 4px 10px 0px rgba(0,0,0,0.1);
+	box-shadow: 4px 4px 10px 0px rgba(0,0,0,0.1);
+	cursor: pointer;
 
 }
 #warning_text{
@@ -1265,7 +1277,7 @@ input.text.invalid{
 	font-size:14px;
 
 }
-.button_text, #reset-button{
+.button_text{
     text-transform: uppercase;
     color: white;
     background-color: #1696d2;
@@ -1278,8 +1290,27 @@ input.text.invalid{
     margin-left: 60px;
 }
 #reset-button{
-	width: 152px;
-    margin-top: -71px;
+	-webkit-border-radius: 10;
+	-moz-border-radius: 10;
+	border-radius: 10px;
+	-webkit-box-shadow: 0px 3px 0px #414042;
+	-moz-box-shadow: 0px 3px 0px #414042;
+	box-shadow: 0px 3px 0px #414042;
+	background: #58595b;
+	padding: 10px 15px 8px 15px;
+	text-decoration: none;
+	cursor: pointer;
+	width: 155px;
+	text-transform: uppercase;
+	color: #ffffff;
+	margin-left: 60px;
+	position: fixed;
+	bottom: -100px;
+	z-index: 33333333;
+}
+#reset-button:hover{
+  background: #1696d2;
+  text-decoration: none;
 }
 #weak_market{
 	width: 210px;
@@ -1292,10 +1323,18 @@ input.text.invalid{
 }
 
 /********* Close button **********/
-.close_button {
+.close_button.credits {
 	position: relative;
  	top: -9px;
     right: -461px;
+    cursor: pointer;
+    height: 34px;
+    width: 34px;
+}
+.close_button.warning {
+	position: absolute;
+    top: -9px;
+    right: -20px;
     cursor: pointer;
     height: 34px;
     width: 34px;
@@ -1397,3 +1436,23 @@ input.text.invalid{
 #print_output_label{
 	display: none;
 }
+
+/***************************************************************************/
+/********************************** FADER **********************************/
+/***************************************************************************/
+#fader{
+	position: fixed;
+    bottom: -130px;
+    left: 0px;
+    z-index: 200;
+    pointer-events: none;
+
+}
+#rect1 {
+ fill: url(#Gradient1); 
+}
+
+
+
+
+

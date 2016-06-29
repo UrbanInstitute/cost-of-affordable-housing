@@ -958,11 +958,11 @@ function showWarning(control, disabled, invalid){
 				d3.select("#warning_text")
 					.text(error_msgs[hoverID])
 			})
-			.on("mouseout", function(){
-				d3.select("#warning_sign")
-					.transition()
-					.style("opacity",opacity)
-			})
+			// .on("mouseout", function(){
+			// 	d3.select("#warning_sign")
+			// 		.transition()
+			// 		.style("opacity",1)
+			// })
 		
 		d3.select("#warning_sign")
 				.transition()
@@ -973,10 +973,10 @@ function showWarning(control, disabled, invalid){
 				// .each("end", function(){
 				// 	d3.select("body").classed("small_desktop", SMALL_DESKTOP)
 				// })
-				.transition()
-				.delay(2000)
-				.duration(1400)
-				.style("opacity",opacity)
+				// .transition()
+				// .delay(2000)
+				// .duration(1400)
+				// .style("opacity",opacity)
 
 		// if(SMALL_DESKTOP){
 
@@ -987,12 +987,13 @@ function showWarning(control, disabled, invalid){
 	}
 }
 function hideSign(){
-	if(d3.select("body").classed("small_desktop")){
-		d3.select("#warning_sign").transition().style("opacity",0)
-	}
+	// if(d3.select("body").classed("small_desktop")){
+	// d3.select("#warning_sign").transition().style("opacity",0)
+	// }
+
 }
-d3.select("body")
-	.on("click",hideSign)
+// d3.select("body")
+// 	.on("click",hideSign)
 
 function hideWarning(control){
 	if(control == "noi_label"){
@@ -1081,7 +1082,6 @@ var scrollVis = function() {
     activateFunctions[6] = dummy4;
     activateFunctions[7] = dummy4;
     activateFunctions[8] = dummy5;
-    // activateFunctions[9] = dummy3;
     // activateFunctions[10] = dummy4;
     // activateFunctions[11] = dummy4;
     // activateFunctions[12] = dummy4;
@@ -1130,12 +1130,19 @@ function dummy3(){
 	hide100()
 }
 function dummy4(){
-	show100()
+	show100();
+	d3.select("#reset-button")
+		.transition()
+		.style("bottom","-100px")
 }
 function dummy5(){
 	reset();
+	d3.select("#reset-button")
+		.transition()
+		.style("bottom","20px")
 	highlightSection(3)
 }
+
 
 function show100(){
 
@@ -1274,7 +1281,7 @@ d3.selectAll(".page-scroll")
 
 d3.selectAll(".control")
 	.on("input",function(){
-			hideSign();
+			// hideSign();
 			if(d3.select(this).classed("tax_credit_equity")){
 				if(this.value != 0 && this.value != "0.0%"){
 					d3.select(this).attr("data-oldval",parseFloat(this.value.replace("%","")))
@@ -1390,7 +1397,7 @@ d3.select(".control_container.new_source_button")
 			})
 			.attr("value","$0")
 			.on("input", function(d){
-				hideSign();
+				// hideSign();
 				var config = updateDefaultsFromDashboard(true);
 				// config["50"]["sources"]["other_source_" + d.count] = this.value
 				drawGap("50",config, true)
@@ -1404,7 +1411,7 @@ d3.select(".control_container.new_source_button")
 			})
 			.attr("value","$0")
 			.on("input", function(d){
-				hideSign()
+				// hideSign()
 				var config = updateDefaultsFromDashboard(true);
 				// config["50"]["sources"]["other_source_" + d.count] = this.value
 				drawGap("100",config, true)
@@ -1492,8 +1499,12 @@ d3.selectAll(".navTab.navTab4")
 });
 
 
-d3.select(".close_button")
+d3.select(".close_button.credits")
 	.on("click", hideCredits)
+d3.select(".close_button.warning")
+	.on("click", function(){
+		d3.select("#warning_sign").transition().style("opacity",0)
+	})
 $(document).keyup(function(e) {
      if (e.keyCode == 27) { // escape key maps to keycode `27`
      	if(d3.select("#credits").classed("visible")) { hideCredits() }
@@ -1713,3 +1724,28 @@ function resizeFeature(){
 resizeFeature();
 window.onresize = resizeFeature;
 
+
+
+window.onload = addListeners;
+
+function addListeners(){
+    document.getElementById('warning_sign').addEventListener('mousedown', mouseDown, false);
+    window.addEventListener('mouseup', mouseUp, false);
+
+}
+
+function mouseUp()
+{
+    window.removeEventListener('mousemove', divMove, true);
+}
+
+function mouseDown(e){
+  window.addEventListener('mousemove', divMove, true);
+}
+
+function divMove(e){
+  var div = document.getElementById('warning_sign');
+  // div.style.position = 'fixed';
+  div.style.bottom = window.innerHeight-div.getBoundingClientRect().height*.5-e.clientY + 'px';
+  div.style.right = window.innerWidth-div.getBoundingClientRect().width*.5-e.clientX + 'px';
+}

@@ -215,7 +215,7 @@
 		<section class="step" id="scroll-interactive">
 			<h2> Try it Yourself</h2>
 			<div id = "full_controls">
-				<div id = "top_instruction" class = "explainer">The inputs below default to realistic values based on a typical housing market. Use the controls to increase or decrease the value for both the 50 and 100 apartment example by a given percent.</div>
+				<div id = "top_instruction">The inputs below default to realistic values based on a typical housing market. Use the controls to increase or decrease the value for both the 50 and 100 apartment example by a given percent.</div>
 				<div id = "noi">
 					<div class = "header_wrapper">
 						<div id ="header_noi" class="header header_title">NOI</div>
@@ -454,7 +454,7 @@
 			<img id = "hand" src = "images/hand.png">
 			<div id="credits"></div>
 			<div id="text_credits">
-				<svg class="close_button">
+				<svg class="close_button credits">
 				    <circle cx="12" cy="12" r="11" stroke="black" stroke-width="2" fill="white" />
 				    <path stroke="black" stroke-width="4" fill="none" d="M6.25,6.25,17.75,17.75" />
 				    <path stroke="black" stroke-width="4" fill="none" d="M6.25,17.75,17.75,6.25" />
@@ -486,7 +486,14 @@
 			<div id = "mouth_container">
 				<img id = "mouth" src = "images/contractor_mouth.png">
 			</div>
-			<div id = "warning_sign" data-order ="0"><div id = "warning_text"></div></div>
+			<div id = "warning_sign" data-order ="0">
+				<svg class="close_button warning">
+				    <circle cx="12" cy="12" r="11" stroke="black" stroke-width="2" fill="white" />
+				    <path stroke="black" stroke-width="4" fill="none" d="M6.25,6.25,17.75,17.75" />
+				    <path stroke="black" stroke-width="4" fill="none" d="M6.25,17.75,17.75,6.25" />
+				</svg>
+				<div id = "warning_text"></div>
+			</div>
 
 			<img id = "crane" src = "images/crane_bc.png">
 			<img id = "cloud1" src = "images/cloud1.png">
@@ -652,6 +659,23 @@
 			</div>
 		</div>
 	</div>
+	<svg width="840" height="400" version="1.1" xmlns="http://www.w3.org/2000/svg" id = "fader">
+		<defs>
+<!-- 		  <linearGradient id="Gradient2" x1="0" x2="0" y1="0" y2="1">
+		    <stop offset="0%" stop-color="rgba(203,234,245,0)"/>
+		    <stop offset="50%" stop-color="rgba(203,234,245,1)"/>
+		  </linearGradient> -->
+		  <radialGradient id="Gradient2" cx="50%" cy="50%" r="50%" fx="50%" fy="50%">
+		    <stop offset="0%" stop-color="rgba(203,234,245,1)"/>
+		    <stop offset="30%" stop-color="rgba(203,234,245,.9)"/>
+		    <stop offset="80%" stop-color="rgba(203,234,245,.05)"/>
+		    <stop offset="100%" stop-color="rgba(203,234,245,0)"/>
+		  </linearGradient>
+		</defs>
+		<ellipse cx="260" cy="205" rx="760" ry="145" fill="url(#Gradient2)"/>
+	</svg>
+
+
 	<div id = "mobile_spacer"></div>
 	<div class = "page-break"></div>
 
@@ -673,7 +697,7 @@
 			<!-- </div> -->
 	</div>
 			<div id="print_credits">
-				<svg class="close_button">
+				<svg class="close_button print_credits">
 				    <circle cx="12" cy="12" r="11" stroke="black" stroke-width="2" fill="white" />
 				    <path stroke="black" stroke-width="4" fill="none" d="M6.25,6.25,17.75,17.75" />
 				    <path stroke="black" stroke-width="4" fill="none" d="M6.25,17.75,17.75,6.25" />
