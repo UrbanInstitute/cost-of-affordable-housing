@@ -446,7 +446,14 @@ section.step{
     float: left;
     clear: both;
     margin-left: 9px;
-    margin-top: 2px;
+    margin-top: 5px;
+}
+.needed{
+	    float: left;
+    margin-left: 10px;
+    font-size: 12px;
+    font-style: italic;
+    margin-top: 4px;
 }
 .balcony{
 	position: absolute;
@@ -463,6 +470,17 @@ section.step{
 .windows_roof{
 	margin-left: -22px;
     margin-bottom: -1px;
+}
+#person1{
+	left: 127px;
+    bottom: 3px;
+}
+#person2{
+    bottom: 16px;
+    left: 105px;
+}
+.person_50, .person_100{
+	opacity: 0;
 }
 
 #building_container_50{
@@ -814,6 +832,7 @@ section.step{
 	width: 100%;
 }
 .other_source.other{
+	pointer-events: visible !important;
 	display: inline-block;
 	margin-left: 20px;
 	width: 84px !important;
@@ -841,6 +860,7 @@ input.new_source_label{
     background-color: transparent !important;
     border-bottom: 1px solid #a2d4ec !important; 
     font-style: italic;
+    pointer-events: visible !important;
 }
 .control_container.noi, .control_container.debt{
 	margin-bottom: 5px;

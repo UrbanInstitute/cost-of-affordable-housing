@@ -130,6 +130,14 @@ function drawGap(units, config, transition){
 					return "-225px"
 				}
 			})
+
+		d3.selectAll(".person_100")
+			.transition()
+			.duration(1000)
+			.style("opacity", function(){
+				if(1-(gap/total_development_cost) < bg_break_50_crane){ return 0;}
+				else{ return 1;}
+			})
 	}
 
 	if(units==50){
@@ -220,6 +228,13 @@ function drawGap(units, config, transition){
 				if(1-(gap/total_development_cost) >= bg_break_50_crane){
 					d3.select(this).style("display","none")
 				}
+			})
+		d3.selectAll(".person_50")
+			.transition()
+			.duration(1000)
+			.style("opacity", function(){
+				if(1-(gap/total_development_cost) < bg_break_50_crane){ return 0;}
+				else{ return 1;}
 			})
 			
 		// d3.select("#road")
