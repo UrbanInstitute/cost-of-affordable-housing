@@ -3,15 +3,19 @@
 	credits
 	warning
 	haze
+	window peeps
 
--inline definitions
--silhouettes in window
+- inline definitions
 
--interactive indicator inside the text
-     toggle?
-    or reset and action button
-     remember that the button or sentence whatever it is need to be obvious and connect to the action
+- no question marks to left of boxes
+	swap location with bookmark
 
--Where the roof meets the house, can we replace this gap with a subtle shadow? This has bugged me since day one and I can’t seem to let it go. (Thinking something like this )
+- 2 sliders for rent in tool and in text (the 2 different 30%'s)
+- Instead of weak market, vacancy rate and interest rate
 
--The developer dude having pink lips is still kinda weird for me. Can his mouth just be black?
+- pink person go away
+
+- display tax credit always
+- turn off 100 unit tax credits
+- restyle toggle?
+- new warning language for more than 30% of income
