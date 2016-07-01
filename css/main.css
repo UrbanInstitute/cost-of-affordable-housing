@@ -1487,8 +1487,8 @@ input.text.invalid{
     /*border-radius: 10px;*/
 
 
-	width: 100px;
-    height: 32px;
+    width: 83px;
+    height: 26px;
     border-radius: 20px;
     margin-left: 60px;
 
@@ -1514,12 +1514,12 @@ input.text.invalid{
 }
 
 .switch.large.off {
-    background-position: -83.2px 0px;
+    background-position: -68px 0px;
     background-color: #696969;
 }
 
 .switch.large.on {
-    background-position: -15px 0px;
+    background-position: -10px 0px;
     background-color: #1696d2;
 }
 
