@@ -134,7 +134,10 @@
 			<p>
 				Buildings cost money to build and run: to developers, those costs are called <span class="rollover" id = "rollover_uses">uses</span>. The first major cost is the land you plan to build on, called the <span class="rollover" id = "rollover_acquisition_costs">acquisition cost</span>. In some cases, developers are able to use public land to develop affordable housing, but when that option is not available, there is little a developer can do to lower the land cost. 
 			</p>
-			<div class = "button_text" id = "public_land">Simulate Public Land</div>
+			<div class = "toggle_text">Simulate Public Land</div>
+			<div class="urban-switch blue large">
+        		<div id="public_land" class="button_toggle switch large off"></div>
+        	</div>
 			<p>
 				Once you have the land, the next major cost is <span class="rollover" id = "rollover_construction_costs">construction</span>, which includes labor costs. While there are some decisions a developer could make to minimize construction costs, much of this cost is determined by market forces. Construction costs in Denver ranged from [$] to [$], which makes them the largest single use by [$].
 			</p>
@@ -153,7 +156,11 @@
 			<p>
 				The terms of the loan&mdash;interest rate, debt service coverage, etc.&mdash;might be variable, but as you can see, changing those terms doesn’t do much to the gap. That’s because unlike a home loan, where the value of the house determines the amount of the loan, here the loan amount is based on the future rents the building will bring in. For this scenario, we’ve set the future rent income to the Denver average.
 			</p>
-			<div class = "button_text" id = "weak_market">Simulate a Weak Market</div>
+			<div class = "toggle_text">Simulate a Weak Market</div>
+			<div class="urban-switch blue large">
+        		<div id="weak_market" class="button_toggle switch large off"></div>
+        	</div>
+
 			<p>
 				Beyond the loan, developers might pay for their uses through tax credits or grants. These sources come with caveats, however. The tax credits a building is eligible for depend on how big the building is and on how much rent the developer plans to charge relative to average wages in the area. Additionally, states have a limited sum of money for tax credits and grants, so even if a development qualifies, funding is not guaranteed. The amount of money available through tax credits and grants is not enough to build the amount of affordable housing cities need.
 			</p>
@@ -178,7 +185,10 @@
 			<p>
 				There are, however, some caveats. The first is a matter of economics. One of the big benefits of building a 100-apartment building is that you’re eligible for tax credits. But, as we mentioned before, just because you’re eligible for tax credits doesn’t always mean you get them. Click the button below to see what happens when you get rid of the tax credit. 
 			</p>
-			<div class = "button_text" id = "no_credit">No Tax Credit</div>
+			<div class = "toggle_text">No Tax Credit</div>
+			<div class="urban-switch blue large">
+        		<div id="no_credit" class="button_toggle switch large off"></div>
+        	</div>
 			<p>
 				The other caveats are practical ones. Consider, first, that adding more apartments is only useful if you can fill them, which might be possible in cities but harder as you move further away from dense urban areas. Additionally, there are social and economic downsides to creating large communities of affordable housing. While building a 100-apartment building is okay, building a 500-apartment building might unintentionally segregate low-income families from the rest of a city. 
 			</p>
@@ -194,8 +204,10 @@
 			<p>
 				In Denver, AMI for a family of three is $72,100, so earning 60 percent of AMI meant a family took home $43,260 and earning 30 percent of AMI meant a family had $21,630. A man working as a telemarketer and supporting his wife would earn $36,544 in Denver—slightly less than 60 percent AMI for a family of two. A single woman working full-time but earning minimum wage, which is slightly above the federal minimum in Colorado, would be slightly about 30 percent AMI, but still well below 60 percent. Can you close the gap using the controls below, while still keeping rent affordable for these families? 
 			</p>
-			<div class = "button_text" id = "sixty_ami">Increase Rent to 60% AMI</div>
-
+			<div class = "toggle_text">Increase Rent to 60% AMI</div>
+			<div class="urban-switch blue large">
+        		<div id="sixty_ami" class="button_toggle switch large off"></div>
+        	</div>
 			<p>
 				What can these families afford? The standard is that you shouldn't spend more than 30 percent of your income on rent. So, to make a unit affordable to an extremely low-income family, you could charge no more than $540 per month. You could charge up to $1081 and still call it affordable housing, but now you risk shutting out extremely low-income residents, like the single mom with two children working as a retail cashier and earning $21,125. 
 			</p>
@@ -351,8 +363,8 @@
 						<input type = "range" class = "control percent_small sources tax_credit_equity range" id="range_tax_credit_equity" data-oldval="1" min="0" max = "2" step=".001" value="1"></input>
 						<span class="multiplier">&times;</span><input type="text" class = "control percent_small sources tax_credit_equity text" id = "text_tax_credit_equity" value="100%"></input>
 						<div class = "sources s50_label" id = "s50_tax_credit_equity">$0</div>
-						<div class="urban-switch blue">
-                    		<div id="s1" class="switch off"></div>
+						<div class="urban-switch blue small">
+                    		<div id="s1" class="switch small off"></div>
                     	</div>
 						<div class = "sources s100_label" id ="s100_tax_credit_equity">$8,300,000</div>
 					</div>
@@ -542,6 +554,7 @@
 				<div class = "full_windows_50 door">
 					<img class = "desktop_window" src = "images/doorWindowsFilled.png">
 					<img class = "mobile_window" src = "images/mobile/doorWindowsFilled.png">
+					<img class = "person_50" id = "person3" src ="images/Person1.png">
 				</div>
 				<div class = "empty_windows_50 door">
 					<img class = "desktop_window" src = "images/doorWindowsEmpty.png">
@@ -552,6 +565,7 @@
 					<div class = "full_windows_50">
 						<img class = "desktop_window" src = "images/filledWindows.png">
 						<img class = "mobile_window" src = "images/mobile/filledWindows.png">
+						<img class = "person_50" id = "person4" src ="images/Person2.png">
 					</div>
 					<div class = "empty_windows_50">
 						<img class = "desktop_window" src = "images/emptyWindows.png">
@@ -562,7 +576,7 @@
 					<div class = "full_windows_50">
 						<img class = "desktop_window" src = "images/filledWindows.png">
 						<img class = "mobile_window" src = "images/mobile/filledWindows.png">
-						<img class = "person_50" id = "person1" src ="images/Person2.png">
+						<img class = "person_50" id = "person1" src ="images/pinkGuy.png">
 					</div>
 					<div class = "empty_windows_50">
 						<img class = "desktop_window" src = "images/emptyWindows.png">
@@ -573,7 +587,7 @@
 					<div class = "full_windows_50 roof">
 						<img class = "desktop_window" src = "images/roofWindowsFilled.png">
 						<img class = "mobile_window" src = "images/mobile/roofWindowsFilled.png">
-						<img class = "person_50" id = "person2" src ="images/Person1.png">
+						<img class = "person_50" id = "person2" src ="images/purpleGirl.png">
 					</div>
 					<div class = "empty_windows_50 roof">
 						<img class = "desktop_window" src = "images/roofWindowsEmpty.png">
@@ -609,6 +623,7 @@
 				<div class = "full_windows_100 door">
 					<img class = "desktop_window" src = "images/doorWindowsFilled.png">
 					<img class = "mobile_window" src = "images/mobile/doorWindowsFilled.png">
+					<img class = "person_100" id = "person5" src ="images/purpleGirl.png">	
 				</div>
 				<div class = "empty_windows_100 door">
 					<img class = "desktop_window" src = "images/doorWindowsEmpty.png">
@@ -619,6 +634,7 @@
 					<div class = "full_windows_100">
 						<img class = "desktop_window" src = "images/filledWindows.png">
 						<img class = "mobile_window" src = "images/mobile/filledWindows.png">
+						<img class = "person_100" id = "person6" src ="images/pinkGuy.png">	
 					</div>
 					<div class = "empty_windows_100">
 						<img class = "desktop_window" src = "images/emptyWindows.png">
@@ -628,6 +644,7 @@
 					<div class = "full_windows_100">
 						<img class = "desktop_window" src = "images/filledWindows.png">
 						<img class = "mobile_window" src = "images/mobile/filledWindows.png">
+						<img class = "person_100" id = "person7" src ="images/greyGuy.png">	
 					</div>
 					<div class = "empty_windows_100">
 						<img class = "desktop_window" src = "images/emptyWindows.png">
@@ -637,6 +654,7 @@
 					<div class = "full_windows_100">
 						<img class = "desktop_window" src = "images/filledWindows.png">
 						<img class = "mobile_window" src = "images/mobile/filledWindows.png">
+						<img class = "person_100" id = "person8" src ="images/greyGirl.png">	
 					</div>
 					<div class = "empty_windows_100">
 						<img class = "desktop_window" src = "images/emptyWindows.png">
@@ -646,6 +664,7 @@
 					<div class = "full_windows_100">
 						<img class = "desktop_window" src = "images/filledWindows.png">
 						<img class = "mobile_window" src = "images/mobile/filledWindows.png">
+						<img class = "person_100" id = "person9" src ="images/Person2.png">	
 					</div>
 					<div class = "empty_windows_100">
 						<img class = "desktop_window" src = "images/emptyWindows.png">
@@ -655,6 +674,7 @@
 					<div class = "full_windows_100 roof">
 						<img class = "desktop_window" src = "images/roofWindowsFilled.png">
 						<img class = "mobile_window" src = "images/mobile/roofWindowsFilled.png">
+						<img class = "person_100" id = "person10" src ="images/Person1.png">	
 					</div>
 					<div class = "empty_windows_100 roof">
 						<img class = "desktop_window" src = "images/roofWindowsEmpty.png">
@@ -676,7 +696,7 @@
 		    <stop offset="100%" stop-color="rgba(203,234,245,0)"/>
 		  </linearGradient>
 		</defs>
-		<ellipse cx="260" cy="205" rx="760" ry="145" fill="url(#Gradient2)"/>
+		<ellipse cx="260" cy="205" rx="760" ry="85" fill="url(#Gradient2)"/>
 	</svg>
 
 

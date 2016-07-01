@@ -43,7 +43,7 @@ body{
      .windows_roof{
      	margin-left: -32 !important;
      }
-     #noi, #debt_sizing, #uses, #sources, h4, h1, h2, p, #top_instruction, .button_text, #reset-button {
+     #noi, #debt_sizing, #uses, #sources, .button_toggle, .toggle_text, h4, h1, h2, p, #top_instruction, .button_text, #reset-button {
      	margin-left: 20px !important;
      }
      #noi, #debt_sizing, #uses, #sources{
@@ -355,8 +355,8 @@ section.step{
 }
 .shadow_gap{
 	position: absolute;
-	max-height: 5px;
-	min-height: 0px;
+	max-height: 6px;
+	min-height: 6px;
 	border: none;
 	background-color: rgba(0,0,0,.1);
 	width: 178px;
@@ -371,6 +371,8 @@ section.step{
 	width: 176px;
 	border: 1px solid #0c94d3;
 	z-index: 212;
+	padding-top: 5px;
+
 }
 .built_building{
 	width: 178px;
@@ -479,6 +481,39 @@ section.step{
     bottom: 16px;
     left: 105px;
 }
+#person3{
+	left: 79px;
+    bottom: 32px;
+}
+#person4{
+    bottom: 3px;
+    left: 32px;
+}
+#person5{
+	left: 129px;
+    bottom: 32px;
+}
+#person6{
+    bottom: 3px;
+    left: 80px;
+}
+#person7{
+	left: 31px;
+    bottom: 2px;
+}
+#person8{
+    bottom: 2px;
+    left: 129px;
+}
+#person9{
+    bottom: 2px;
+    left: 79px;
+}
+#person10{
+	bottom: 16px;
+    left: 60px;
+}
+
 .person_50, .person_100{
 	opacity: 0;
 }
@@ -1332,15 +1367,6 @@ input.text.invalid{
   background: #1696d2;
   text-decoration: none;
 }
-#weak_market{
-	width: 210px;
-}
-#sixty_ami{
-	width: 214px;
-}
-#no_credit{
-	width: 119px;
-}
 
 /********* Close button **********/
 .close_button.credits {
@@ -1377,9 +1403,9 @@ input.text.invalid{
 
 
 /***************************************************************************/
-/********************************* SWITHC **********************************/
+/********************************* SWITCH **********************************/
 /***************************************************************************/
-.urban-switch {
+.urban-switch.small {
     position: absolute;
     top: 22px;
     left: 212px;
@@ -1395,17 +1421,17 @@ input.text.invalid{
     padding-right: 10px;
 }
 .control_container.disabled .switch{
-	background-image: url(../images/off-on_disabled.png);
+	background-color: #9d9d9d !important;
 	pointer-events: none;
 }
 .switch:hover{ 
-	background-image: url(../images/off-on_hover.png);
+	background-color: #333 !important;
 }
-.switch {
+.switch.small {
     background-image: url(../images/off-on.png);
-    background-color: #ececec;
+    background-color: #696969;
     background-repeat: no-repeat;
-    width: 52px;
+    width: 55px;
     height: 18px;
     display: inline-block;
     background-size: cover;
@@ -1414,7 +1440,7 @@ input.text.invalid{
     top: 4px;
     left: 4px;
     position: relative;
-    border-radius: 8px;
+    border-radius: 10px;
 
     -webkit-transition:background-position .1s ease-in;  
     -moz-transition:background-position .1s ease-in;  
@@ -1423,14 +1449,87 @@ input.text.invalid{
 
 }
 
-.off {
-    background-position: -31px 0px;
+.switch.small.off {
+    background-position: -47.2px 0px;
 }
 
-.on {
-    background-position: 0px 0px;
+.switch.small.on {
+    background-position: -10px 0px;
 }
 
+
+
+
+.urban-switch.large {
+    /*position: absolute;*/
+    /*top: 22px;*/
+    /*left: 212px;*/
+    font-size: 13px;
+    font-family: Lato, sans-serif;
+    height: 26px;
+    border: none;
+    color: #ffffff;
+    display: inline-block;
+    line-height: 12px;
+    text-align: left;
+    border-radius: 10px;
+    padding-right: 10px;
+
+    margin-bottom: 18px;
+}
+
+.switch.large {
+    background-image: url(../images/off-on.png);
+    background-color: #696969;
+    background-repeat: no-repeat;
+    /*width: 55px;*/
+    /*height: 18px;*/
+    /*border-radius: 10px;*/
+
+
+	width: 100px;
+    height: 32px;
+    border-radius: 20px;
+    margin-left: 60px;
+
+
+
+
+
+
+    display: inline-block;
+    background-size: cover;
+    cursor: pointer;
+    margin-right: 9px;
+/*    top: 4px;
+    left: 4px;
+*/
+    position: relative;
+
+    -webkit-transition:background-position .1s ease-in;  
+    -moz-transition:background-position .1s ease-in;  
+    -o-transition:background-position .1s ease-in;  
+    transition:background-position .1s ease-in; 
+
+}
+
+.switch.large.off {
+    background-position: -83.2px 0px;
+    background-color: #696969;
+}
+
+.switch.large.on {
+    background-position: -15px 0px;
+    background-color: #1696d2;
+}
+
+.toggle_text{
+	font-weight: 900;
+    margin-left: 60px;
+    margin-top: -14px;
+    margin-bottom: 9px;
+    font-size: 18px;
+}
 
 /***************************************************************************/
 /********************************* PRINT ***********************************/

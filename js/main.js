@@ -300,12 +300,22 @@ function drawGap(units, config, transition){
 					return scaleDollars(total_development_cost)-2
 				}else return scaleDollars(total_development_cost) - roof_height - 2 -5
 			})
+			.style("padding-top", function(){
+				if(scaleDollars(total_development_cost) - roof_height < break_50_roof){
+					return 0;
+				}else return 6
+			})
 	}else{
 		d3.select("#total_building_"+units)
 			.style("height", function(){
 				if(scaleDollars(total_development_cost) - roof_height < break_50_roof){
 					return scaleDollars(total_development_cost)-2
 				}else return scaleDollars(total_development_cost) - roof_height - 2 -5
+			})
+			.style("padding-top", function(){
+				if(scaleDollars(total_development_cost) - roof_height < break_50_roof){
+					return 0;
+				}else return 6
 			})
 	}
 	if(transition){
@@ -336,15 +346,15 @@ function drawGap(units, config, transition){
 		d3.select("#shadow_gap_"+units)
 			.transition()
 			.style("bottom", function(){
-				return scaleDollars(total_development_cost) - roof_height -5
+				return scaleDollars(total_development_cost) - roof_height -6
 			})
-			.style("height", function(){
-				return scaleDollars(total_development_cost) - scaleDollars(gap) - (scaleDollars(total_development_cost) - roof_height - 2 -5)-1
-			})
+				// .style("height", function(){
+				// 	return scaleDollars(total_development_cost) - scaleDollars(gap) - (scaleDollars(total_development_cost) - roof_height - 2 -5)-1
+				// })
 			.style("opacity", function(){
-				if(scaleDollars(total_development_cost) - scaleDollars(gap) > scaleDollars(total_development_cost) -roof_height-5 && scaleDollars(total_development_cost) - roof_height > break_50_roof){
-					return 1
-				}else return 0
+				if(scaleDollars(total_development_cost) - roof_height < break_50_roof){
+					return 0;
+				}else return 1
 			})
 		d3.select("#i_bar_top_"+units)
 			.transition()
@@ -527,17 +537,18 @@ function drawGap(units, config, transition){
 	}else{
 		d3.select("#shadow_gap_"+units)
 			.style("bottom", function(){
-				return scaleDollars(total_development_cost) - roof_height -5
+				return scaleDollars(total_development_cost) - roof_height -6
 			})
-			.style("height", function(){
-				return scaleDollars(total_development_cost) - scaleDollars(gap) - (scaleDollars(total_development_cost) - roof_height - 2 -5)-1
-			})
+			// .style("height", function(){
+			// 	return scaleDollars(total_development_cost) - scaleDollars(gap) - (scaleDollars(total_development_cost) - roof_height - 2 -5)-1
+			// })
 			.transition()
 			.duration(100)
 			.style("opacity", function(){
-				if(scaleDollars(total_development_cost) - scaleDollars(gap) > scaleDollars(total_development_cost) -roof_height-5 && scaleDollars(total_development_cost) - roof_height > break_50_roof){
-					return 1
-				}else return 0
+				if(scaleDollars(total_development_cost) - roof_height < break_50_roof){
+					return 0;
+				}else return 1
+
 			})
 		d3.select("#i_bar_top_"+units)
 			.style("bottom", function(){
@@ -845,7 +856,7 @@ function restoreDefaults(config){
 function updateDefaultsFromDashboard(transition){
 	var config = jQuery.extend(true, {}, DEFAULT_CONFIG);
 	var original = jQuery.extend(true, {}, DEFAULT_CONFIG);
-	if(d3.select(".switch").classed("on")){
+	if(d3.select("#s1").classed("on")){
 		config["50"]["sources"]["tax_credit_equity"] = 7550000
 		original["50"]["sources"]["tax_credit_equity"] = 7550000
 	}
@@ -1615,9 +1626,9 @@ var show1 = 0;
 d3.select("#s1").on("click", function () {
     if (show1 == 1) {
         d3.select("#s1.switch")
-            .attr("class", "switch off")
+            .attr("class", "switch small off")
             .transition()
-            .style("background-color","#ececec")
+            .style("background-color","#696969")
 
         var config = updateDefaultsFromDashboard();
         config["50"]["sources"]["tax_credit_equity"] = 0
@@ -1625,9 +1636,9 @@ d3.select("#s1").on("click", function () {
         show1 = 0;
     } else {
         d3.select("#s1.switch")
-            .attr("class", "switch on")
+            .attr("class", "switch small on")
             .transition()
-            .style("background-color","#ffffff")
+            .style("background-color","#1696d2")
 
         var config = updateDefaultsFromDashboard();
         var amt = 7550000 * parseFloat(d3.select("#text_tax_credit_equity").attr("value"))/100
@@ -1658,40 +1669,51 @@ d3.selectAll(".help-button")
 		d3.selectAll(".help-text").remove();
 	})
 d3.select("#reset-button").on("click", reset);
-d3.selectAll(".button_text")
+d3.selectAll(".button_toggle")
 	.on("click", function(){
-		var id = this.id;
-		var config = updateDefaultsFromDashboard();
-		switch(id){
-			case "public_land":
-				config["50"]["uses"]["acquisition_costs"] = 0;
-				config["50"]["uses"]["acquisition_costs"] = 0;
-				break;
-			case "weak_market":
-				config["capitalization_rate"] = 0.1;
-				config["loan_to_value"] = .75;
-				break;
-			case "sixty_ami":
-				config["50"]["average_monthly_rent"] = 975;
-				config["100"]["average_monthly_rent"] = 979;
-				countup_val("gap_container_50_ami",60)
-				countup_val("gap_container_100_ami",60)
-				break;
-			case "no_credit":
-				config["50"]["sources"]["tax_credit_equity"] = 0;
-				config["100"]["sources"]["tax_credit_equity"] = 0;
+		if(d3.select(this).classed("on")){
+			d3.select(this).classed("on", false)
+			d3.select(this).classed("off", true)
+			reset()
+		}else{
+			d3.select(this).classed("on", true)
+			d3.select(this).classed("off", false)
+
+			var id = this.id;
+			var config = updateDefaultsFromDashboard();
+			switch(id){
+				case "public_land":
+					config["50"]["uses"]["acquisition_costs"] = 0;
+					config["50"]["uses"]["acquisition_costs"] = 0;
+					break;
+				case "weak_market":
+					config["capitalization_rate"] = 0.1;
+					config["loan_to_value"] = .75;
+					break;
+				case "sixty_ami":
+					config["50"]["average_monthly_rent"] = 975;
+					config["100"]["average_monthly_rent"] = 979;
+					countup_val("gap_container_50_ami",60)
+					countup_val("gap_container_100_ami",60)
+					break;
+				case "no_credit":
+					config["50"]["sources"]["tax_credit_equity"] = 0;
+					config["100"]["sources"]["tax_credit_equity"] = 0;
+			}
+			drawGaps(config, true)
 		}
-		drawGaps(config, true)
 	})
 
 
 function reset(){
+	d3.selectAll(".button_toggle").classed("on",false)
+	d3.selectAll(".button_toggle").classed("off",true)
 	d3.selectAll(".disabled").classed("disabled", false)
 	d3.selectAll(".warning_icon").remove()
     d3.select("#s1.switch")
-        .attr("class", "switch off")
+        .attr("class", "switch small off")
         .transition()
-        .style("background-color","#ececec")
+        .style("background-color","#696969")
 
     var config = updateDefaultsFromDashboard();
     config["50"]["sources"]["tax_credit_equity"] = 0
