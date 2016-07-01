@@ -1068,7 +1068,7 @@ function hideWarning(control){
 	}
 }
 function mouthShouldClose(){
-	return (d3.selectAll(".warning")[0].length == 0 && d3.selectAll(".disabled")[0].length == 0 && !d3.select("#credits").classed("visible"))
+	return (d3.selectAll(".warning_icon")[0].length == 0 && d3.selectAll(".disabled")[0].length == 0 && !d3.select("#credits").classed("visible"))
 }
 var scrollVis = function() {
   // When scrolling to a new section
