@@ -860,6 +860,10 @@ function updateDefaultsFromDashboard(transition){
 		config["50"]["sources"]["tax_credit_equity"] = 7550000
 		original["50"]["sources"]["tax_credit_equity"] = 7550000
 	}
+	if(d3.select("#s2").classed("off")){
+		config["100"]["sources"]["tax_credit_equity"] = 0
+		original["100"]["sources"]["tax_credit_equity"] = 0
+	}
 	d3.selectAll("#debt_sizing .range.control")
 		.each(function(){
 			var control = this.id.split("range_")[1];
@@ -872,6 +876,14 @@ function updateDefaultsFromDashboard(transition){
 		.each(function(){
 			var control = this.id.split("range_")[1];
 			var sizes = ["50","100"]
+
+			if(control == "deferred_developer_fee"){
+				if(parseFloat(this.value) < .1){
+					showWarning(control)
+				}else hideWarning(control)
+			}else{
+				hideWarning(control)
+			}
 			for (var i = 0; i<sizes.length; i++){
 				size = sizes[i]
 				var amt = parseFloat(this.value)*original[size]["sources"][control]
@@ -885,7 +897,7 @@ function updateDefaultsFromDashboard(transition){
 	d3.selectAll("#uses .range.control")
 		.each(function(){
 			var control = this.id.split("range_")[1];
-			if(parseFloat(this.value) < 1){
+			if(parseFloat(this.value) < 1 && control != "project_management" && control != "developers_fee" && control != "permanent_financing_fees"){
 				showWarning(control)
 			}else{
 				hideWarning(control)
@@ -904,6 +916,13 @@ function updateDefaultsFromDashboard(transition){
 	d3.selectAll("#noi .range.control")
 		.each(function(){
 			var control = this.id.split("range_")[1];
+			if(control == "replacement_reserve_rate" || control == "operating_expenses" || control == "maintenance_expenses" || control == "admin_expenses"){
+				if (parseFloat(this.value) < 1){
+					showWarning(control)
+				}else{
+					hideWarning(control)
+				}
+			}
 			if(control == "vacancy_rate" || control == "replacement_reserve_rate"){
 				var amt = parseFloat(this.value)*original[this.id.split("range_")[1]];
 				config[this.id.split("range_")[1]] = amt;
@@ -937,7 +956,6 @@ function updateDefaultsFromDashboard(transition){
 
 
 function showWarning(control, disabled, invalid){
-	// console.log(control)
 	hideCredits();
 	var newClass = (typeof(disabled) == "undefined") ? "warning" : "disabled"
 	var msgID;
@@ -945,7 +963,6 @@ function showWarning(control, disabled, invalid){
 	if(typeof(disabled) != "undefined"){ msgID = control + "_disabled"}
 	else if(typeof(invalid) != "undefined"){ msgID = control + "_invalid"}
 	else{ msgID = control}
-	// console.log(msgID)
 	var container;
 	if(control == "noi_label"){
 		container = d3.select(".noi.explainer")
@@ -1007,7 +1024,6 @@ function showWarning(control, disabled, invalid){
 		// if(SMALL_DESKTOP){
 
 		// }
-		// console.log(msgID)
 		d3.select("#warning_text").text(error_msgs[msgID])
 
 	}
@@ -1050,11 +1066,11 @@ function hideWarning(control){
 	var msgID;
 	var helpID = $(".warning_icon img[data-order=" + max + "]").parent()[0].className.replace("warning_icon","").replace(/\s/g,"")
 	if(helpID == "noi_label"){ msgID = "noi_label"}
+	else if(helpID == "tax_credit_equity" && d3.select(".control_container.tax_credit_equity").classed("disabled")){ msgID = "tax_credit_equity_disabled"}
 	else if(d3.select(d3.select("#help_" + helpID).node().parentNode).classed("invalid")){ msgID = helpID+ "_invalid"}
   	else if(d3.select(d3.select("#help_" + helpID).node().parentNode).classed("disabled")){ msgID = helpID+ "_disabled"}
   	// else if(helpID == "noi") { msgID = "noi_label"}
 	else{ msgID = helpID}
-	// console.log(msgID)
 	d3.select("#warning_text").text(error_msgs[msgID])
 
 	if(mouthShouldClose()){
@@ -1448,9 +1464,7 @@ d3.select(".control_container.new_source_button")
 
 d3.selectAll(".navTab.navTab4")
 	.on("click", function(){
-		// console.log(this);
 		var small = d3.select("#contractor").style("display") == "none"
-		console.log(small)
 
 
 		if(d3.select("#credits").classed("visible")){ return false}
@@ -1630,6 +1644,8 @@ d3.select("#s1").on("click", function () {
             .transition()
             .style("background-color","#696969")
 
+        d3.select("#gap_container_50_credit").text("No")
+
         var config = updateDefaultsFromDashboard();
         config["50"]["sources"]["tax_credit_equity"] = 0
         drawGaps(config, true)
@@ -1640,6 +1656,9 @@ d3.select("#s1").on("click", function () {
             .transition()
             .style("background-color","#1696d2")
 
+        d3.select("#gap_container_50_credit").text("With")
+
+
         var config = updateDefaultsFromDashboard();
         var amt = 7550000 * parseFloat(d3.select("#text_tax_credit_equity").attr("value"))/100
         config["50"]["sources"]["tax_credit_equity"] = amt
@@ -1647,6 +1666,39 @@ d3.select("#s1").on("click", function () {
         drawGaps(config, true)
 
         show1 = 1;
+    }
+});
+
+var show2 = 1;
+d3.select("#s2").on("click", function () {
+    if (show2 == 1) {
+        d3.select("#s2.switch")
+            .attr("class", "switch small off")
+            .transition()
+            .style("background-color","#696969")
+
+        d3.select("#gap_container_100_credit").text("No")
+
+        var config = updateDefaultsFromDashboard();
+        config["100"]["sources"]["tax_credit_equity"] = 0
+        drawGaps(config, true)
+        show2 = 0;
+    } else {
+        d3.select("#s2.switch")
+            .attr("class", "switch small on")
+            .transition()
+            .style("background-color","#1696d2")
+
+        d3.select("#gap_container_100_credit").text("With")
+
+
+        var config = updateDefaultsFromDashboard();
+        var amt = 8300000 * parseFloat(d3.select("#text_tax_credit_equity").attr("value"))/100
+        config["100"]["sources"]["tax_credit_equity"] = amt
+        // d3.select("#s50_tax_credit_equity").text(amt)
+        drawGaps(config, true)
+
+        show2 = 1;
     }
 });
 
@@ -1674,7 +1726,22 @@ d3.selectAll(".button_toggle")
 		if(d3.select(this).classed("on")){
 			d3.select(this).classed("on", false)
 			d3.select(this).classed("off", true)
-			reset()
+			var config = updateDefaultsFromDashboard();
+			if(this.id == "vacancy"){
+				if(d3.select("#interest").classed("on")){
+					config["interest_rate"] = 0.03;
+				}
+				drawGaps(config, true)
+			}
+			else if(this.id == "interest"){
+				if(d3.select("#vacancy").classed("on")){
+					config["vacancy_rate"] = 0.03;
+				}
+				drawGaps(config, true)
+			}
+			else{
+				reset()
+			}
 		}else{
 			d3.select(this).classed("on", true)
 			d3.select(this).classed("off", false)
@@ -1686,9 +1753,17 @@ d3.selectAll(".button_toggle")
 					config["50"]["uses"]["acquisition_costs"] = 0;
 					config["50"]["uses"]["acquisition_costs"] = 0;
 					break;
-				case "weak_market":
-					config["capitalization_rate"] = 0.1;
-					config["loan_to_value"] = .75;
+				case "vacancy":
+					if(d3.select("#interest").classed("on")){
+						config["interest_rate"] = 0.03;
+					}
+					config["vacancy_rate"] = 0.03;
+					break;
+				case "interest":
+					if(d3.select("#vacancy").classed("on")){
+						config["vacancy_rate"] = 0.03;
+					}
+					config["interest_rate"] = 0.03;
 					break;
 				case "sixty_ami":
 					config["50"]["average_monthly_rent"] = 975;
@@ -1714,6 +1789,11 @@ function reset(){
         .attr("class", "switch small off")
         .transition()
         .style("background-color","#696969")
+
+    d3.select("#s2.switch")
+        .attr("class", "switch small on s100")
+        .transition()
+        .style("background-color","#1696d2")
 
     var config = updateDefaultsFromDashboard();
     config["50"]["sources"]["tax_credit_equity"] = 0
@@ -1756,7 +1836,6 @@ function resizeFeature(){
 	MOBILE = d3.select("#mobile").style("display") == "block"
 	TABLET = d3.select("#tablet").style("display") == "block"
 
-	console.log(SMALL_DESKTOP)
 }
 resizeFeature();
 window.onresize = resizeFeature;

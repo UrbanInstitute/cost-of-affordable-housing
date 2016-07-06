@@ -130,6 +130,12 @@ body{
 	.gap_amount{
 		font-size: 16px !important;
 	}
+	.urban-switch.small{
+		left: 124px !important;
+	}
+	.urban-switch.small.s100{
+		left: 208px !important;
+	}
 
 }
 .mobile_window{
@@ -418,7 +424,7 @@ section.step{
 .gap_container{
 	position: absolute;
 	width: 144px;
-	height: 98px;
+	height: 114px;
 	left: 16px;
 	color: #fff;
 	background-color: rgba(35,31,32,.2);
@@ -770,8 +776,8 @@ section.step{
 	float: left;
     clear: right;
     display: inline-block;
-    width: 182px;
-    margin-right: 14px;
+    width: 184px;
+    margin-right: 12px;
     font-size: 15px;
 }
 .label_wide{
@@ -888,6 +894,7 @@ section.step{
 	font-weight: bolder
 }
 input.new_source_label{
+	text-indent: 4px;
 	width: 205px;
     margin-right: 20px;
     text-align: left !important;
@@ -1420,6 +1427,9 @@ input.text.invalid{
     border-radius: 10px;
     padding-right: 10px;
 }
+.urban-switch.small.s100 {
+    left: 319px;
+}
 .control_container.disabled .switch{
 	background-color: #9d9d9d !important;
 	pointer-events: none;
@@ -1446,7 +1456,9 @@ input.text.invalid{
     -moz-transition:background-position .1s ease-in;  
     -o-transition:background-position .1s ease-in;  
     transition:background-position .1s ease-in; 
-
+}
+.switch.small.s100{
+	background-color: #1696d2;
 }
 
 .switch.small.off {

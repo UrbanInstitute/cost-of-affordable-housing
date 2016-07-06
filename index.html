@@ -156,10 +156,15 @@
 			<p>
 				The terms of the loan&mdash;interest rate, debt service coverage, etc.&mdash;might be variable, but as you can see, changing those terms doesn’t do much to the gap. That’s because unlike a home loan, where the value of the house determines the amount of the loan, here the loan amount is based on the future rents the building will bring in. For this scenario, we’ve set the future rent income to the Denver average.
 			</p>
-			<div class = "toggle_text">Simulate a Weak Market</div>
+			<div class = "toggle_text">Lower vacancy rate from 7% to 3%</div>
 			<div class="urban-switch blue large">
-        		<div id="weak_market" class="button_toggle switch large off"></div>
+        		<div id="vacancy" class="button_toggle switch large off"></div>
         	</div>
+			<div class = "toggle_text">Lower interest rate from 5% to 3%</div>
+			<div class="urban-switch blue large">
+        		<div id="interest" class="button_toggle switch large off"></div>
+        	</div>
+
 
 			<p>
 				Beyond the loan, developers might pay for their uses through tax credits or grants. These sources come with caveats, however. The tax credits a building is eligible for depend on how big the building is and on how much rent the developer plans to charge relative to average wages in the area. Additionally, states have a limited sum of money for tax credits and grants, so even if a development qualifies, funding is not guaranteed. The amount of money available through tax credits and grants is not enough to build the amount of affordable housing cities need.
@@ -366,6 +371,9 @@
 						<div class="urban-switch blue small">
                     		<div id="s1" class="switch small off"></div>
                     	</div>
+						<div class="urban-switch blue small s100">
+                    		<div id="s2" class="switch small on s100"></div>
+                    	</div>
 						<div class = "sources s100_label" id ="s100_tax_credit_equity">$8,300,000</div>
 					</div>
 					<div class = "control_container new_source_button">
@@ -542,7 +550,11 @@
 			<div id = "gap_container_50" class="gap_container">
 				<div id = "gap_amount_50" class="gap_amount">0</div>
 				<div class="needed">needed to build</div>
-				<div id = "gap_label_50" class="gap_label"><span class = "gap_apt_label">50 apartments</span><span class="gap_ami_label"><i id = "gap_container_50_ami">30</i>% AMI renters</span></div>
+				<div id = "gap_label_50" class="gap_label">
+				<span class = "gap_apt_label">50 apartments</span>
+				<span class="gap_ami_label"><i id = "gap_container_50_ami">30</i>% AMI renters</span>
+				<span class="gap_credit_label"><i id = "gap_container_50_credit">No</i> tax credits</span>
+				</div>
 			</div>
 			<div id ="balcony_top_50" class="balcony_top balcony">
 				<img src = "images/balcony.png">
@@ -611,7 +623,11 @@
 			<div id = "gap_container_100" class="gap_container">
 				<div id = "gap_amount_100" class="gap_amount">0</div>
 				<div class="needed">needed to build</div>
-				<div id = "gap_label_100" class="gap_label"><span class = "gap_apt_label">100 apartments</span><span class="gap_ami_label"><i id = "gap_container_100_ami">30</i>% AMI renters</span></div>
+				<div id = "gap_label_100" class="gap_label">
+					<span class = "gap_apt_label">100 apartments</span>
+					<span class="gap_ami_label"><i id = "gap_container_100_ami">30</i>% AMI renters</span>
+					<span class="gap_credit_label"><i id = "gap_container_100_credit">With</i> tax credits</span>
+				</div>
 			</div>
 			<div id ="balcony_top_100" class="balcony_top balcony">
 				<img src = "images/balcony.png">
