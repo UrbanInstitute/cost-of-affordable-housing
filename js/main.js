@@ -880,9 +880,16 @@ function updateDefaultsFromDashboard(transition){
 			if(control == "deferred_developer_fee"){
 				if(parseFloat(this.value) < .1){
 					showWarning(control)
-				}else hideWarning(control)
+				}else{
+				 	hideWarning(control)
+				}
 			}else{
-				hideWarning(control)
+				// console.log("hiding", control)
+				// console.log()
+				if(d3.select("#range_average_monthly_rent").node().value < 2){
+					hideWarning(control)	
+				}
+				
 			}
 			for (var i = 0; i<sizes.length; i++){
 				size = sizes[i]
@@ -923,7 +930,7 @@ function updateDefaultsFromDashboard(transition){
 					hideWarning(control)
 				}
 			}
-			if(control == "vacancy_rate" || control == "replacement_reserve_rate"){
+			else if(control == "vacancy_rate" || control == "replacement_reserve_rate"){
 				var amt = parseFloat(this.value)*original[this.id.split("range_")[1]];
 				config[this.id.split("range_")[1]] = amt;
 				countup_val("s50" + "_" + control, amt)
@@ -959,7 +966,7 @@ function showWarning(control, disabled, invalid){
 	hideCredits();
 	var newClass = (typeof(disabled) == "undefined") ? "warning" : "disabled"
 	var msgID;
-
+	// console.log(control)
 	if(typeof(disabled) != "undefined"){ msgID = control + "_disabled"}
 	else if(control == "rent_high"){ msgID = control}
 	else if(typeof(invalid) != "undefined"){ msgID = control + "_invalid"}
@@ -974,12 +981,12 @@ function showWarning(control, disabled, invalid){
 		container = d3.select(d3.select("#range_"+control).node().parentNode)
 	}
 
-
 	d3.select("#mouth")
 		.transition()
 		.duration(100)
 		.style("height","8px")
 	// var container = d3.select(d3.select("#range_"+control).node().parentNode)
+	// console.log(container, newClass)
 	container.classed(newClass,true)
 	if(container.selectAll(".warning_icon")[0].length == 0){
 		if(typeof(disabled) != "undefined"){ msgID = control + "_disabled"}
@@ -991,6 +998,9 @@ function showWarning(control, disabled, invalid){
 		    if ((max===null) || (order > max)) { max = order; }
 		  });
 		var opacity = (SMALL_DESKTOP) ? 0 : 1;
+		// console.log(max)
+		// if(max == null){ max = 0}
+		// 	console.log(max)
 		// d3.select("body").classed("small_desktop", SMALL_DESKTOP)
 		var icon = container
 			.append("div")
@@ -1028,6 +1038,7 @@ function showWarning(control, disabled, invalid){
 		// if(SMALL_DESKTOP){
 
 		// }
+
 		d3.select("#warning_text").text(error_msgs[msgID])
 
 	}
@@ -1042,6 +1053,9 @@ function hideSign(){
 // 	.on("click",hideSign)
 
 function hideWarning(control){
+	if(control == "tax_credit_equity"){
+		// return false
+	}
 	if(control == "noi_label"){
 		container = d3.select(".noi.explainer")
 	}
@@ -1355,6 +1369,7 @@ d3.selectAll(".control")
 
 				}
 				if((this.value>2 && d3.select(this).classed("range")) || (parseFloat(this.value.replace("%",""))>200 && d3.select(this).classed("text"))){
+
 					if(d3.select(".tax_credit_equity.range").node().value != 0){
 						d3.select(".tax_credit_equity.range").attr("data-oldval",d3.select(".tax_credit_equity.range").node().value)
 					}
@@ -1756,6 +1771,7 @@ d3.selectAll(".button_toggle")
 				drawGaps(config, true)
 			}
 			else if(this.id == "fifty_rent"){
+
 				hideWarning("rent_high")
 				if(d3.select("#sixty_ami").classed("on")){
 					config["50"]["average_monthly_rent"] = 487.60 * (.6/.3);
