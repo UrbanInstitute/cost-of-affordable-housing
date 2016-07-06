@@ -1763,6 +1763,13 @@ d3.selectAll(".button_toggle")
 				}
 				drawGaps(config, true)
 			}
+			else if(this.id == "no_credit"){
+					var config = updateDefaultsFromDashboard();
+
+					config["50"]["sources"]["tax_credit_equity"] = 0;
+					config["100"]["sources"]["tax_credit_equity"] = 0;
+					drawGaps(config, true)
+			}
 			else{
 				reset()
 			}
@@ -1813,8 +1820,7 @@ d3.selectAll(".button_toggle")
 					break;
 
 				case "no_credit":
-					config["50"]["sources"]["tax_credit_equity"] = 0;
-					config["100"]["sources"]["tax_credit_equity"] = 0;
+					reset()
 			}
 			drawGaps(config, true)
 		}
@@ -1824,7 +1830,10 @@ d3.selectAll(".button_toggle")
 function reset(){
 	d3.selectAll(".button_toggle").classed("on",false)
 	d3.selectAll(".button_toggle").classed("off",true)
+	d3.select("#no_credit").classed("on",true)
 	d3.selectAll(".disabled").classed("disabled", false)
+	d3.selectAll(".control_container.warning").classed("warning", false)
+
 	d3.selectAll(".warning_icon").remove()
     d3.select("#s1.switch")
         .attr("class", "switch small off")

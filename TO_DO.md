@@ -1,4 +1,5 @@
 - Warning msgs
+
 -mobile
 	credits
 	warning
@@ -10,12 +11,11 @@
 - no question marks to left of boxes
 	swap location with bookmark
 
-- 2 sliders for rent in tool and in text (the 2 different 30%'s)
-- Instead of weak market, vacancy rate and interest rate
+- new income in dashboard
+
 
 - fix double negative
 
 
 
 - restyle toggle?
-- new warning language for more than 30% of income
