@@ -1,4 +1,6 @@
 var error_msgs = {
+	"rent_high": "Families that pay more than 30% of their income towards rent may not have enough money for other living expenses such as food and healthcare.",
+
 	"tax_credit_equity_disabled" : "You've raised rents above an affordable level and no longer quality for tax credit equity.",
 	"noi_label": "No lender would make a loan to a property with negative NOI, and you have insufficient funds to operate the property.",
 	"average_monthly_rent" : "An error message",

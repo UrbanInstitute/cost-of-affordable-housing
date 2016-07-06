@@ -961,10 +961,14 @@ function showWarning(control, disabled, invalid){
 	var msgID;
 
 	if(typeof(disabled) != "undefined"){ msgID = control + "_disabled"}
+	else if(control == "rent_high"){ msgID = control}
 	else if(typeof(invalid) != "undefined"){ msgID = control + "_invalid"}
 	else{ msgID = control}
 	var container;
-	if(control == "noi_label"){
+	if(control == "rent_high"){
+		container = d3.select(".control_container")
+	}
+	else if(control == "noi_label"){
 		container = d3.select(".noi.explainer")
 	}else{
 		container = d3.select(d3.select("#range_"+control).node().parentNode)
@@ -1040,6 +1044,9 @@ function hideSign(){
 function hideWarning(control){
 	if(control == "noi_label"){
 		container = d3.select(".noi.explainer")
+	}
+	else if(control == "rent_high"){
+		container = d3.select(".control_container")
 	}else{
 		container = d3.select(d3.select("#range_"+control).node().parentNode)
 	}
@@ -1066,6 +1073,7 @@ function hideWarning(control){
 	var msgID;
 	var helpID = $(".warning_icon img[data-order=" + max + "]").parent()[0].className.replace("warning_icon","").replace(/\s/g,"")
 	if(helpID == "noi_label"){ msgID = "noi_label"}
+	else if(helpID == "rent_high"){ msgID = "rent_high"}
 	else if(helpID == "tax_credit_equity" && d3.select(".control_container.tax_credit_equity").classed("disabled")){ msgID = "tax_credit_equity_disabled"}
 	else if(d3.select(d3.select("#help_" + helpID).node().parentNode).classed("invalid")){ msgID = helpID+ "_invalid"}
   	else if(d3.select(d3.select("#help_" + helpID).node().parentNode).classed("disabled")){ msgID = helpID+ "_disabled"}
@@ -1721,6 +1729,7 @@ d3.selectAll(".help-button")
 		d3.selectAll(".help-text").remove();
 	})
 d3.select("#reset-button").on("click", reset);
+var RENT_SCALE = .5
 d3.selectAll(".button_toggle")
 	.on("click", function(){
 		if(d3.select(this).classed("on")){
@@ -1736,6 +1745,21 @@ d3.selectAll(".button_toggle")
 			else if(this.id == "interest"){
 				if(d3.select("#vacancy").classed("on")){
 					config["vacancy_rate"] = 0.03;
+				}
+				drawGaps(config, true)
+			}
+			if(this.id == "sixty_ami"){
+				if(d3.select("#fifty_rent").classed("on")){
+					config["50"]["average_monthly_rent"] = 487.60 * (RENT_SCALE/.3);
+					config["100"]["average_monthly_rent"] = 489.35 * (RENT_SCALE/.3);						
+				}
+				drawGaps(config, true)
+			}
+			else if(this.id == "fifty_rent"){
+				hideWarning("rent_high")
+				if(d3.select("#sixty_ami").classed("on")){
+					config["50"]["average_monthly_rent"] = 487.60 * (.6/.3);
+					config["100"]["average_monthly_rent"] = 489.35 * (.6/.3);						
 				}
 				drawGaps(config, true)
 			}
@@ -1766,11 +1790,28 @@ d3.selectAll(".button_toggle")
 					config["interest_rate"] = 0.03;
 					break;
 				case "sixty_ami":
-					config["50"]["average_monthly_rent"] = 975;
-					config["100"]["average_monthly_rent"] = 979;
+					if(d3.select("#fifty_rent").classed("on")){
+						config["50"]["average_monthly_rent"] = 487.60 * (.6/.3) * (RENT_SCALE/.3);
+						config["100"]["average_monthly_rent"] = 489.35 * (.6/.3) * (RENT_SCALE/.3);
+					}else{
+						config["50"]["average_monthly_rent"] = 487.60 * (.6/.3);
+						config["100"]["average_monthly_rent"] = 489.35 * (.6/.3);						
+					}
 					countup_val("gap_container_50_ami",60)
 					countup_val("gap_container_100_ami",60)
 					break;
+				case "fifty_rent":
+				// base: 50 unit 487.60, 100 unit: 489.35
+					showWarning("rent_high")
+					if(d3.select("#sixty_ami").classed("on")){
+						config["50"]["average_monthly_rent"] = 487.60 * (.6/.3) * (RENT_SCALE/.3);
+						config["100"]["average_monthly_rent"] = 489.35 * (.6/.3) * (RENT_SCALE/.3);
+					}else{
+						config["50"]["average_monthly_rent"] = 487.60 * (RENT_SCALE/.3);
+						config["100"]["average_monthly_rent"] = 489.35 * (RENT_SCALE/.3);						
+					}
+					break;
+
 				case "no_credit":
 					config["50"]["sources"]["tax_credit_equity"] = 0;
 					config["100"]["sources"]["tax_credit_equity"] = 0;
