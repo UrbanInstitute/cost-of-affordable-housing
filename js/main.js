@@ -1767,7 +1767,7 @@ d3.selectAll(".button_toggle")
 				}
 				drawGaps(config, true)
 			}
-			if(this.id == "sixty_ami"){
+			else if(this.id == "sixty_ami"){
 				if(d3.select("#fifty_rent").classed("on")){
 					config["50"]["average_monthly_rent"] = 487.60 * (RENT_SCALE/.3);
 					config["100"]["average_monthly_rent"] = 489.35 * (RENT_SCALE/.3);						
