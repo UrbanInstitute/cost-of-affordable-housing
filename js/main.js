@@ -7,6 +7,7 @@ var DEFAULT_CONFIG = {
 		"loan_to_value" : 0.87,
 		"50" : {
 			"average_monthly_rent" : 487.60,
+			// "percent_of_rent": .3,
 			"admin_expenses" :  118462.0,
 			"operating_expenses" :  71818.0,
 			"maintenance_expenses" :  60734.0,
@@ -28,6 +29,7 @@ var DEFAULT_CONFIG = {
 		},
 		"100" : {
 			"average_monthly_rent" : 489.35,
+			// "percent_of_rent": .3,
 			"admin_expenses" :  240083.0,
 			"operating_expenses" :  131906.0,
 			"maintenance_expenses" :  125421.0,
@@ -212,23 +214,6 @@ function drawGap(units, config, transition){
 					return "94px"
 				}
 			})
-		d3.select("#crane")
-			.transition()
-			.duration(1500)
-			.style("right", function(){
-				d3.select(this).style("display","block")
-				if(1-(gap/total_development_cost) < bg_break_50_crane){
-					return -130;
-				}
-				else{
-					return -800
-				}
-			})
-			.each("end", function(){
-				if(1-(gap/total_development_cost) >= bg_break_50_crane){
-					d3.select(this).style("display","none")
-				}
-			})
 		d3.selectAll(".person_50")
 			.transition()
 			.duration(1000)
@@ -236,62 +221,30 @@ function drawGap(units, config, transition){
 				if(1-(gap/total_development_cost) < bg_break_50_crane){ return 0;}
 				else{ return 1;}
 			})
-			
-		// d3.select("#road")
-		// 	.transition()
-		// 	.style("opacity", function(){
-		// 		if(1-(gap/total_development_cost) > bg_break_50_road){ return 1;}
-		// 		else{ return 0;}
-		// 	})
-		// d3.select("#sidewalk")
-		// 	.transition()
-		// 	.style("opacity", function(){
-		// 		if(1-(gap/total_development_cost) > bg_break_50_sidewalk){ return 1;}
-		// 		else{ return 0;}
-		// 	})
-		// d3.select("#grass")
-		// 	.transition()
-		// 	.style("opacity", function(){
-		// 		if(1-(gap/total_development_cost) > bg_break_50_grass){ return 1;}
-		// 		else{ return 0;}
-		// 	})
 	}
+		var r1 = update(50, config, transition)
+		var r2 = update(100, config, transition)
 
-	// if(transition){
-	// 	d3.select("#roof_img_" + units)
-	// 		.transition()
-	// 		.style("bottom", function(){
-	// 			return (scaleDollars(total_development_cost) - roof_height) + "px"
-	// 		})
-	// 		.style("opacity",function(){
-	// 			if(scaleDollars(total_development_cost) - roof_height < break_50_roof){
-	// 				return 0;
-	// 			}else return 1
-	// 		})
-	// 	d3.select("#roof_" + units)
-	// 		.style("opacity",function(){
-	// 			if(scaleDollars(total_development_cost) - roof_height < break_50_roof){
-	// 				return 0;
-	// 			}else return 1
-	// 		})
-	// 		.transition()
-	// 		.style("height", Math.max(0,parseFloat(-scaleDollars(gap) + roof_height)) + "px")
-	// 		.style("bottom", function(){
-	// 			return (scaleDollars(total_development_cost) - roof_height) + "px"
-	// 		})
+		d3.select("#crane")
+			.transition()
+			.duration(1500)
+			.style("right", function(){
+				d3.select(this).style("display","block")
+
+				if(r1.gap <= 0 && r2.gap <= 0){
+					return -800;
+				}
+				else{
+					return -130
+				}
+			})
+			.each("end", function(){
+				if(r1.gap <= 0 && r2.gap <= 0){
+					d3.select(this).style("display","none")
+				}
+			})
 
 
-	// }else{
-	// 	d3.selectAll(".roofs_" + units)
-	// 		.style("bottom", function(){
-	// 			return (scaleDollars(total_development_cost) - roof_height) + "px"
-	// 		})
-	// 		.style("opacity",function(){
-	// 			if(scaleDollars(total_development_cost) - roof_height < break_50_roof){
-	// 				return 0;
-	// 			}else return 1
-	// 		})
-	// }
 	if(transition){
 		d3.select("#total_building_"+units)
 			.transition()
@@ -739,7 +692,7 @@ function countup_val(val_id, new_val){
 	var prefix = (val_id == "ami_label_val" || val_id == "gap_container_50_ami" || val_id == "gap_container_100_ami" || val_id == "print_gap_container_50_ami" || val_id == "print_gap_container_100_ami" || val_id.search("vacancy_rate") != -1 || val_id.search("debt_service_coverage") != -1 || val_id.search("interest_rate") != -1 || val_id.search("capitalization_rate") != -1 || val_id.search("loan_to_value") != -1) ? "" : "$"
 	var suffix = (val_id.search("vacancy_rate") != -1 || val_id.search("interest_rate") != -1 || val_id.search("capitalization_rate") != -1 || val_id.search("loan_to_value") != -1) ? "%" : ""
 	var precision;
-	if(val_id.search("vacancy_rate") != -1 || val_id.search("loan_to_value") != -1) { precision = 1}
+	if(val_id.search("vacancy_rate") != -1 || val_id.search("loan_to_value") != -1 || val_id.search("ami_label_val") != -1) { precision = 1}
 	else if (val_id.search("debt_service_coverage") != -1 || val_id.search("interest_rate") != -1 || val_id.search("capitalization_rate") != -1) { precision = 2}
 	else{ precision = 0}
 
@@ -884,10 +837,18 @@ function updateDefaultsFromDashboard(transition){
 				 	hideWarning(control)
 				}
 			}else{
-				// console.log("hiding", control)
-				// console.log()
+				if(parseFloat(this.value) > 1){
+					showWarning("tax_credit_high")
+				}else{
+					hideWarning("tax_credit_high")
+				}
+
 				if(d3.select("#range_average_monthly_rent").node().value < 2){
-					hideWarning(control)	
+					if(d3.select("#s1").classed("off")){
+						hideWarning("tax_credit_50")	
+					}else if(parseFloat(this.value) <= 1){
+						hideWarning("tax_credit_equity")
+					}
 				}
 				
 			}
@@ -930,9 +891,10 @@ function updateDefaultsFromDashboard(transition){
 					hideWarning(control)
 				}
 			}
-			else if(control == "vacancy_rate" || control == "replacement_reserve_rate"){
+			if(control == "vacancy_rate" || control == "replacement_reserve_rate"){
 				var amt = parseFloat(this.value)*original[this.id.split("range_")[1]];
 				config[this.id.split("range_")[1]] = amt;
+				console.log(control, amt)
 				countup_val("s50" + "_" + control, amt)
 				countup_val("s100" + "_" + control, amt)
 			}
@@ -940,6 +902,9 @@ function updateDefaultsFromDashboard(transition){
 			for (var i = 0; i<sizes.length; i++){
 				size = sizes[i]
 				var amt = parseFloat(this.value)*original[size][control]
+				if(control == "average_monthly_rent"){
+					amt *= parseFloat(d3.select("#range_percent_of_rent").node().value)/.3
+				}
 				if(!isNaN(amt)){
 					config[size][control] = amt
 					countup_val("s" + size +"_" + control, amt)
@@ -966,14 +931,16 @@ function showWarning(control, disabled, invalid){
 	hideCredits();
 	var newClass = (typeof(disabled) == "undefined") ? "warning" : "disabled"
 	var msgID;
-	// console.log(control)
 	if(typeof(disabled) != "undefined"){ msgID = control + "_disabled"}
 	else if(control == "rent_high"){ msgID = control}
 	else if(typeof(invalid) != "undefined"){ msgID = control + "_invalid"}
 	else{ msgID = control}
 	var container;
 	if(control == "rent_high"){
-		container = d3.select(".control_container")
+		container = d3.select("#renter_row_two")
+	}
+	else if(control == "tax_credit_50" || control == "tax_credit_high"){
+		container = d3.select(".control_container.tax_credit_equity")
 	}
 	else if(control == "noi_label"){
 		container = d3.select(".noi.explainer")
@@ -985,10 +952,10 @@ function showWarning(control, disabled, invalid){
 		.transition()
 		.duration(100)
 		.style("height","8px")
-	// var container = d3.select(d3.select("#range_"+control).node().parentNode)
-	// console.log(container, newClass)
 	container.classed(newClass,true)
-	if(container.selectAll(".warning_icon")[0].length == 0){
+	if(container.selectAll(".warning_icon")[0].length == 0 ||
+		(container.classed("tax_credit_equity") && container.selectAll(".warning_icon." + control)[0].length == 0)
+		){
 		if(typeof(disabled) != "undefined"){ msgID = control + "_disabled"}
 		else if(typeof(invalid) != "undefined"){ msgID = control + "_invalid"}
 		else{ msgID = control}
@@ -998,10 +965,6 @@ function showWarning(control, disabled, invalid){
 		    if ((max===null) || (order > max)) { max = order; }
 		  });
 		var opacity = (SMALL_DESKTOP) ? 0 : 1;
-		// console.log(max)
-		// if(max == null){ max = 0}
-		// 	console.log(max)
-		// d3.select("body").classed("small_desktop", SMALL_DESKTOP)
 		var icon = container
 			.append("div")
 			.attr("class","warning_icon " +  control)
@@ -1009,17 +972,16 @@ function showWarning(control, disabled, invalid){
 			.attr("src","images/error.png")
 			.attr("data-order",max+1)
 			.on("mouseover",function(){
+				d3.select(this).attr("src","images/error_hover.png")
 				var hoverID = msgID
 				d3.select("#warning_sign")
 					.style("opacity",1)
 				d3.select("#warning_text")
 					.text(error_msgs[hoverID])
 			})
-			// .on("mouseout", function(){
-			// 	d3.select("#warning_sign")
-			// 		.transition()
-			// 		.style("opacity",1)
-			// })
+			.on("mouseout", function(){
+				d3.select(this).attr("src","images/error.png")
+			})
 		
 		d3.select("#warning_sign")
 				.transition()
@@ -1038,7 +1000,6 @@ function showWarning(control, disabled, invalid){
 		// if(SMALL_DESKTOP){
 
 		// }
-
 		d3.select("#warning_text").text(error_msgs[msgID])
 
 	}
@@ -1053,20 +1014,34 @@ function hideSign(){
 // 	.on("click",hideSign)
 
 function hideWarning(control){
-	if(control == "tax_credit_equity"){
-		// return false
-	}
 	if(control == "noi_label"){
 		container = d3.select(".noi.explainer")
 	}
 	else if(control == "rent_high"){
-		container = d3.select(".control_container")
-	}else{
+		container = d3.select("#renter_row_two")
+	}
+	else if(control == "tax_credit_50" || control == "tax_credit_high"){
+		container = d3.select(".control_container.tax_credit_equity")
+	}
+	else{
 		container = d3.select(d3.select("#range_"+control).node().parentNode)
 	}
-	container.classed("warning",false)
-	container.classed("disabled",false)
-	container.selectAll(".warning_icon").remove()
+	if(!container.classed("tax_credit_equity")){
+		container.classed("warning",false)
+		container.classed("disabled",false)
+		container.selectAll(".warning_icon").remove()
+	}else{
+		if(container.selectAll(".warning_icon")[0].length == 1 && control == "tax_credit_50" && parseFloat(d3.select("#range_tax_credit_equity").node().value) <= 1){
+			container.classed("warning",false)
+		}
+		if(parseFloat(d3.select("#range_tax_credit_equity").node().value) <= 1 && d3.select("#s1").classed("off")){
+			container.classed("warning",false)	
+		}
+		if(container.selectAll(".warning_icon")[0].length >= 1 && control == "tax_credit_equity"){
+			container.classed("disabled",false)
+		}
+		d3.selectAll(".warning_icon." + control).remove()
+	}
 	var max=null;
 	$(".warning_icon img").each(function() {
 		var order = parseInt($(this).data("order"), 10);
@@ -1088,6 +1063,8 @@ function hideWarning(control){
 	var helpID = $(".warning_icon img[data-order=" + max + "]").parent()[0].className.replace("warning_icon","").replace(/\s/g,"")
 	if(helpID == "noi_label"){ msgID = "noi_label"}
 	else if(helpID == "rent_high"){ msgID = "rent_high"}
+	else if(helpID == "tax_credit_50"){ msgID = "tax_credit_50"}
+	else if(helpID == "tax_credit_high"){ msgID = "tax_credit_high"}
 	else if(helpID == "tax_credit_equity" && d3.select(".control_container.tax_credit_equity").classed("disabled")){ msgID = "tax_credit_equity_disabled"}
 	else if(d3.select(d3.select("#help_" + helpID).node().parentNode).classed("invalid")){ msgID = helpID+ "_invalid"}
   	else if(d3.select(d3.select("#help_" + helpID).node().parentNode).classed("disabled")){ msgID = helpID+ "_disabled"}
@@ -1346,11 +1323,18 @@ d3.selectAll(".page-scroll")
 d3.selectAll(".control")
 	.on("input",function(){
 			// hideSign();
+
 			if(d3.select(this).classed("tax_credit_equity")){
 				if(this.value != 0 && this.value != "0.0%"){
 					d3.select(this).attr("data-oldval",parseFloat(this.value.replace("%","")))
 				}
 
+			}
+			if(d3.select(this).classed("percent_of_rent")){
+				d3.select("#percent_of_rent_label i").text(PERCENT_SMALL(this.value))
+				if(this.value > .3){
+					showWarning("rent_high")
+				}else{ hideWarning("rent_high")}
 			}
 			if(d3.select(this).classed("average_monthly_rent")){
 				if(d3.select(this).classed("range")){
@@ -1680,6 +1664,7 @@ d3.select("#s1").on("click", function () {
             .style("background-color","#1696d2")
 
         d3.select("#gap_container_50_credit").text("With")
+        showWarning("tax_credit_50")
 
 
         var config = updateDefaultsFromDashboard();
@@ -1725,6 +1710,25 @@ d3.select("#s2").on("click", function () {
     }
 });
 
+
+d3.selectAll(".rollover")
+	.on("mouseover", function(){
+		var msg = help_msgs[this.id.replace("rollover_","help_")]
+		var right = this.getBoundingClientRect().right
+		var top = this.getBoundingClientRect().top
+		d3.select("#rollover_text")
+			.text(msg)
+			.style("display","block")
+			.style("left",right + 15)
+			.style("top",function(){
+				return top + 10 - this.getBoundingClientRect().height/2
+				
+			})
+	})
+	.on("mouseout", function(){
+		d3.select("#rollover_text")
+			.style("display","none")
+	})
 d3.selectAll(".help-button")
 	.on("mouseover", function(){
 		var msg = help_msgs[this.id]
@@ -1781,7 +1785,7 @@ d3.selectAll(".button_toggle")
 			}
 			else if(this.id == "no_credit"){
 					var config = updateDefaultsFromDashboard();
-
+					d3.select("#gap_container_100_credit").text("No")
 					config["50"]["sources"]["tax_credit_equity"] = 0;
 					config["100"]["sources"]["tax_credit_equity"] = 0;
 					drawGaps(config, true)
@@ -1836,6 +1840,7 @@ d3.selectAll(".button_toggle")
 					break;
 
 				case "no_credit":
+					d3.select("#gap_container_100_credit").text("With")
 					reset()
 			}
 			drawGaps(config, true)
@@ -1849,6 +1854,10 @@ function reset(){
 	d3.select("#no_credit").classed("on",true)
 	d3.selectAll(".disabled").classed("disabled", false)
 	d3.selectAll(".control_container.warning").classed("warning", false)
+	d3.select("#renter_row_two.warning").classed("warning",false)
+	d3.select("#percent_of_rent_label i").text("30%")
+	d3.select("#ami_label_val").text("30")
+
 
 	d3.selectAll(".warning_icon").remove()
     d3.select("#s1.switch")
@@ -1886,6 +1895,17 @@ function reset(){
 	d3.selectAll(".control.range.percent_small")
 		.each(function(){
 			this.value = "1"
+		});
+
+	d3.select("#text_percent_of_rent").attr("value","30%")
+	d3.selectAll("#text_percent_of_rent")
+		.each(function(){
+			this.value = "30%"
+		});
+	d3.select("#range_percent_of_rent").attr("value",".3")
+	d3.select("#range_percent_of_rent")
+		.each(function(){
+			this.value = ".3"
 		});
 	var config = updateDefaultsFromDashboard()
 	countup_val("gap_container_50_ami",30)

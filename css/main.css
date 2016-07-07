@@ -813,15 +813,6 @@ section.step{
 	position: relative;
 }
 
-#ami_label{
-	font-style: italic;
-    text-indent: 91px;
-    font-size: 12px;
-    margin-top: 0px;
-    top: -28px;
-    position: relative;
-}
-
 #click_to_add_sources{
     text-transform: uppercase;
     color: white;
@@ -924,7 +915,7 @@ input.new_source_label{
     top: 13px;
 }
 #debt_marker_100{
-    left: 407px;
+    left: -22px;
     top: 21px;
 }
 .loan_value{
@@ -953,6 +944,21 @@ input.new_source_label{
 	color: #db2b27;
 	font-weight: bold;
 }
+.control_container.warning .multiplier{
+	color: #db2b27;
+}
+.control_container.warning .switch{
+	background-color: #db2b27 !important;
+}
+.control_container.warning .switch:hover{
+	background-color: #a82020 !important;
+}
+.control_container.warning .help-button {
+    background: url('../images/help-button_warning.png');
+}
+.control_container.warning .help-button:hover {
+    background: url('../images/help-button_warning_hover.png');
+}
 .control_container.warning input[type=text]{
 	color: #db2b27;
 	font-weight: bold;
@@ -966,6 +972,29 @@ input.new_source_label{
 .control_container.warning input[type=range]::-ms-thumb {
     background: #db2b27;
 }
+.control_container.warning input[type=range]::-moz-range-track {
+	background: #d7927a;
+}
+.control_container.warning input[type=range]::-ms-fill-lower {
+    background: #d7927a;
+}
+.control_container.warning input[type=range]::-ms-fill-upper {
+    background: #d7927a;
+}
+.control_container.warning input[type=range]:focus::-ms-fill-lower {
+    background: #d7927a;
+}
+.control_container.warning input[type=range]:focus::-ms-fill-upper {
+    background: #d7927a;
+}
+.control_container.warning input[type=range]:focus::-webkit-slider-runnable-track {
+    background: #d7927a;
+}
+.control_container.warning input[type=range]::-webkit-slider-runnable-track {
+    background: #d7927a;
+}
+
+
 .warning_icon{
 	display: inline;
 	position: relative;
@@ -977,6 +1006,17 @@ input.new_source_label{
 	right: -30px;
     top: 31px;
 	position: absolute;
+}
+.warning_icon.tax_credit_equity, .warning_icon.tax_credit_50, .warning_icon.tax_credit_high{
+	float: right;
+    margin-left: 6px;
+    top: 0;
+    left: 0;
+    display: inline-block;
+    position: initial;
+}
+#s100_tax_credit_equity, #s50_tax_credit_equity{
+	position: initial;
 }
 
 /*#warning_sign{
@@ -1055,8 +1095,8 @@ input.new_source_label{
 
 .help-button {
     background: url('../images/help-button.png');
-    width: 15px;
-    height: 15px;
+    width: 16px;
+    height: 16px;
     top: 3px;
     background-size: contain;
     background-repeat: no-repeat;
@@ -1069,8 +1109,8 @@ input.new_source_label{
 }
 .help-button:hover {
     background: url('../images/help-button_hover.png');
-    width: 15px;
-    height: 15px;
+    width: 16px;
+    height: 16px;
     background-size: contain;
     background-repeat: no-repeat;
 }
@@ -1100,12 +1140,18 @@ input.new_source_label{
 	border-width: 14px;
 	margin-top: -14px;
 }
-#help_noi, #help_debt{
-    left: -9px;
-    margin-left: -30px;
-    float: left;
+#help_debt{
+    left: 45px;
+    /* margin-left: 100px; */
+    float: right;
+    top: -3px;
 }
-
+#help_noi{
+    left: -9px;
+    margin-left: -127px;
+    float: left;
+    margin-top: -2px;
+ }
 /***************************************************************************/
 /************************** ROLLOVER TEXT **********************************/
 /***************************************************************************/
@@ -1121,6 +1167,35 @@ input.new_source_label{
 }
 .rollover:hover{
 	background-color: #e7d18f;
+}
+#rollover_text{
+	position: fixed;
+	top: 200px;
+	left: 200px;
+	background: #231f20;
+    /*top: 0px;*/
+    font-style: italic;
+    font-size: 14px;
+    left: 30px;
+    width: 190px;
+    color: white;
+    padding: 17px;
+    display: none;
+}
+
+#rollover_text:after{
+	right: 100%;
+	top: 50%;
+	border: solid transparent;
+	content: " ";
+	height: 0;
+	width: 0;
+	position: absolute;
+	pointer-events: none;
+	border-color: rgba(35, 31, 32, 0);
+	border-right-color: #231f20;
+	border-width: 14px;
+	margin-top: -14px;
 }
 /***************************************************************************/
 /***************************** TWO LINE INPUT ******************************/
@@ -1264,6 +1339,109 @@ input.text.invalid{
 	text-align: center !important;
 	background: #e3e3e3;
 }
+/***************************************************************************/
+/****************************** RENT DASHBOARD *****************************/
+/***************************************************************************/
+
+#text_average_monthly_rent, #text_percent_of_rent{
+	display: none;
+}
+#rent_label_income{
+	clear: left;
+    float: left;
+    font-size: 15px;
+    font-style: italic;
+    margin-top: 15px;
+    margin-left: 20px;
+}
+#range_average_monthly_rent{
+	top: -18px;
+    left: 151px;
+}
+#ami_label{
+	font-style: italic;
+    text-indent: 91px;
+    font-size: 13px;
+    margin-top: 0px;
+    top: -43px;
+    position: relative;
+    pointer-events: none;
+	margin-left: 148px;
+}
+#renter_row_two{
+	height: 39px;
+    width: 440px;
+    display: block;
+}
+#rent_label_percent{
+	clear: left;
+    float: left;
+    font-size: 15px;
+    font-style: italic;
+    margin-top: -10px;
+    margin-left: 20px;
+}
+#range_percent_of_rent{
+	top: -19px;
+    width: 80px;
+    left: 151px;
+}
+#text_percent_of_rent{
+    top: -26px;
+    position: relative;
+    left: 155px;
+}
+#percent_of_rent_label{
+	font-size: 13px;
+    font-style: italic;
+    position: relative;
+    top: -10px;
+    left: 98px;
+}
+.warning_icon.rent_high{
+	position: relative;
+	display: block;
+    top: -27px;
+    left: 261px;
+    cursor: pointer;
+}
+#renter_row_two.warning{
+	color: #db2b27;
+	font-weight: bold;
+}
+#renter_row_two.warning input[type=range]::-webkit-slider-thumb {
+    background: #db2b27;
+}
+#renter_row_two.warning input[type=range]::-moz-range-thumb {
+    background: #db2b27;
+}
+#renter_row_two.warning input[type=range]::-ms-thumb {
+    background: #db2b27;
+}
+
+#renter_row_two.warning input[type=range]::-moz-range-track {
+	background: #d7927a;
+}
+#renter_row_two.warning input[type=range]::-ms-fill-lower {
+    background: #d7927a;
+}
+#renter_row_two.warning input[type=range]::-ms-fill-upper {
+    background: #d7927a;
+}
+#renter_row_two.warning input[type=range]:focus::-ms-fill-lower {
+    background: #d7927a;
+}
+#renter_row_two.warning input[type=range]:focus::-ms-fill-upper {
+    background: #d7927a;
+}
+#renter_row_two.warning input[type=range]:focus::-webkit-slider-runnable-track {
+    background: #d7927a;
+}
+#renter_row_two.warning input[type=range]::-webkit-slider-runnable-track {
+    background: #d7927a;
+}
+
+
 
 /***************************************************************************/
 /********************************* CREDITS *********************************/
@@ -1434,8 +1612,11 @@ input.text.invalid{
 	background-color: #9d9d9d !important;
 	pointer-events: none;
 }
-.switch:hover{ 
+.switch.off:hover{ 
 	background-color: #333 !important;
+}
+.switch.on:hover{ 
+	background-color: #12719e !important;
 }
 .switch.small {
     background-image: url(../images/off-on.png);

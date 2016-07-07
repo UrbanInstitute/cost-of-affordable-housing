@@ -12,7 +12,7 @@ var help_msgs = {
 	"help_loan_to_value" : "The loan amount divided by the property’s value based on the capitalization rate and NOI.",
 	"help_debt" : "Borrowing funds from a financial institution to finance a multifamily housing development. The borrower must repay the loan by a certain date, typically 30 years in the future. The borrower must also pay interest on the loan to compensate the lender. Mortgage debt typically amortizes over time, so that the regular payments include both interest and principal.",
 	"help_deferred_developer_fee" : "The portion of the agreed-upon developer fee that the developer is not paid as a development expense, which instead remains as a loan in the rental project. The deferred developer fee may be recovered from the developer’s share of operating cash flow.  Once the project is complete, the developer will receive a fraction of the cash flow over time, so after the property pays its obligations, from the remaining funds, a portion would go to the developer.",
-	"help_tax_credit_equity" : "Low Income Housing Tax Credit, a federal program to subsidize creation and preservation of affordable rental housing.",
+	"help_tax_credit_equity" : "Low Income Housing Tax Credit, a federal program to subsidize creation and preservation of affordable rental housing. These resources are public dollars awarded through competition and are in short supply.",
 	"help_acquisition_costs" : "Cost to purchase the land and any existing buildings on that land.",
 	"help_construction_costs" : "Costs to build the property, including building permit fees, materials, labor, site preparation, infrastructure and landscaping.",
 	"help_design_fees" : "Interior design, architect and engineering fees.",

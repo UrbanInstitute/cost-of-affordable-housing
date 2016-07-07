@@ -1,4 +1,6 @@
 var error_msgs = {
+	"tax_credit_50" : "These resources are public dollars awarded through competition. They are in short supply, and may not be cost effective for smaller projects.",
+	"tax_credit_high": "These resources are public dollars awarded through competition, and are in short supply. There are public policy limits on how many tax credits can be awarded to an individual property",
 	"rent_high" : "Families that pay more than 30% of their income towards rent may not have enough money for other living expenses such as food and healthcare.",
 	"tax_credit_equity_disabled" : "You've raised rents above an affordable level and no longer quality for tax credit equity.",
 	"noi_label": "No lender would make a loan to a property with negative NOI, and you have insufficient funds to operate the property.",

@@ -108,6 +108,7 @@
 
 <!-- <div id = "roof_50"></div> -->
 <div id = "graphic">
+	<div id = "rollover_text"></div>
 	<div id = "sections">
 		<section class="step" id="scroll-intro">
 			<h1>Title of Project</h1>
@@ -251,13 +252,18 @@
 					</div>
 					<div class = "control_container">
 						<label for="average_monthly_rent">Average Monthly Rent<div class="help-button" id ="help_average_monthly_rent"></div></label>
-						<input type = "range" class = "control percent_small noi average_monthly_rent range" id="range_average_monthly_rent" min="0" max = "4" step=".001" value="1"></input>
-						<span class="multiplier">&times;</span><input type="text" class = "control percent_small noi average_monthly_rent text" id = "text_average_monthly_rent" value="100%"></input>
+						<span id ="rent_label_income">Renter's income:</span><input type = "range" class = "control percent_small noi average_monthly_rent range" id="range_average_monthly_rent" min="0" max = "4" step=".001" value="1"></input>
+						<input type="text" class = "control percent_small noi average_monthly_rent text" id = "text_average_monthly_rent" value="100%"></input>
 						<div class = "noi s50_label" id = "s50_average_monthly_rent">$488</div>
 						<div class = "noi s100_label" id ="s100_average_monthly_rent">$489</div>
 					</div>
 					<div class = "control_container ami_label">
-						<div id ="ami_label">(<span id="ami_label_val">30</span>% AMI)</div>
+						<div id ="ami_label"><span id="ami_label_val">30</span>% AMI</div>
+					</div>
+					<div id = "renter_row_two">
+						<span id ="rent_label_percent">Share spent on rent:</span><input type = "range" class = "control percent_small noi percent_of_rent range" id="range_percent_of_rent" min="0" max = "1" step=".001" value=".3"></input>
+						<input type="text" class = "control percent_small noi percent_of_rent text" id = "text_percent_of_rent" value="30%"></input>
+						<span id = "percent_of_rent_label"><i>30%</i> of income</span>
 					</div>
 
 					<div class = "control_container">
@@ -298,8 +304,8 @@
 						<div class = "noi s100_label" id ="s100_maintenance_expenses">$125,421</div>
 					</div>
 					<div class = "explainer noi">
-						<div class="help-button" id ="help_noi"></div>
 						<div id ="noi_label">NOI</div>
+						<div class="help-button" id ="help_noi"></div>
 						<div class = "noi s50_noi_label" id = "s50_noi">$6,067</div>
 						<div class = "noi s100_noi_label" id ="s100_noi">$18,705 </div>
 						<div id = "noi_explainer">NOI is used, along with the debt sizing controls below, to calculate the maximum loan on a property.</div>
@@ -346,7 +352,6 @@
 						<div class = "noi s100_label" id ="s100_loan_to_value">87.0%</div>
 					</div>
 					<div class = "explainer">
-						<div class="help-button" id ="help_debt"></div>
 						<div id ="debt_label_income" class="loan_income">Max Loan Based on Income</div>
 						<div class = "sources s50_label loan_income" id = "s50_debt_income">$81,894</div>
 						<div class = "sources s100_label loan_income" id ="s100_debt_income">$252,487 </div>
@@ -355,6 +360,7 @@
 						<div class = "sources s100_label loan_value larger" id ="s100_debt_value">$325,297</div>
 						<!-- <img id ="debt_marker_50" class = "debt_marker" src = "images/debt_marker.png"> -->
 						<img id ="debt_marker_100" class = "debt_marker" src = "images/debt_marker.png">
+						<div class="help-button" id ="help_debt"></div>
 						<div id = "noi_explainer">The maximum loan becomes a source in the section below, in the form of debt. The lender grants the smaller of the two possible loans.</div>
 					</div>
 
