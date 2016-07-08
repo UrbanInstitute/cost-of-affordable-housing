@@ -7,8 +7,8 @@ body{
 	outline: 0;
 }
 body p a{
-text-decoration: none;
-color:#1696d2;
+	text-decoration: none;
+	color:#12719e;
 }
 body p a:hover{
   text-decoration: underline;
