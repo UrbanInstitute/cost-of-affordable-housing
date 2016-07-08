@@ -6,6 +6,14 @@ body{
 *:focus{
 	outline: 0;
 }
+body p a{
+text-decoration: none;
+color:#1696d2;
+}
+body p a:hover{
+  text-decoration: underline;
+  color: #000;
+}
 
 /***************************************************************************/
 /***************************** MOBILE BUILDING *****************************/
@@ -1552,6 +1560,14 @@ input.text.invalid{
   background: #1696d2;
   text-decoration: none;
 }
+#disclaimer{
+	display: inline-block;
+    padding-left: 35px;
+    margin-top: 8px;
+    font-size: 13px;
+    font-style: italic;
+    padding-right: 9px;
+}
 
 /********* Close button **********/
 .close_button.credits {
@@ -1607,6 +1623,9 @@ input.text.invalid{
 }
 .urban-switch.small.s100 {
     left: 319px;
+}
+.top_switch{
+	margin-bottom: 50px !important;
 }
 .control_container.disabled .switch{
 	background-color: #9d9d9d !important;
