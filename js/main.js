@@ -976,6 +976,7 @@ function showWarning(control, disabled, invalid){
 				var hoverID = msgID
 				d3.select("#warning_sign")
 					.style("opacity",1)
+					.style("pointer-events","visible")
 				d3.select("#warning_text")
 					.text(error_msgs[hoverID])
 			})
@@ -984,6 +985,7 @@ function showWarning(control, disabled, invalid){
 			})
 		
 		d3.select("#warning_sign")
+				.style("pointer-events","visible")
 				.transition()
 				.style("opacity",1)
 				// .each("start", function(){
@@ -1056,6 +1058,10 @@ function hideWarning(control){
 			d3.select("#warning_sign")
 				.transition()
 				.style("opacity",0)
+				.each("end", function(){
+					d3.select(this)
+						.style("ponter-events","none")
+				})
 		}
 		return false
 	}
@@ -1080,6 +1086,10 @@ function hideWarning(control){
 		d3.select("#warning_sign")
 				.transition()
 				.style("opacity",0)
+				.each("end", function(){
+					d3.select(this)
+						.style("ponter-events","none")
+				})
 	}
 }
 function mouthShouldClose(){
@@ -1550,7 +1560,10 @@ d3.select(".close_button.credits")
 	.on("click", hideCredits)
 d3.select(".close_button.warning")
 	.on("click", function(){
-		d3.select("#warning_sign").transition().style("opacity",0)
+		d3.select("#warning_sign")
+			.style("pointer-events","none")
+			.transition()
+			.style("opacity",0)
 	})
 $(document).keyup(function(e) {
      if (e.keyCode == 27) { // escape key maps to keycode `27`
