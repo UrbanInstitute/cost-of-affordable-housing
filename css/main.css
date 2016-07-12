@@ -1690,6 +1690,12 @@ input.text.invalid{
     margin-bottom: 18px;
 }
 
+#vacancy{
+	background-image: url(../images/off-on_vacancy.png);
+}
+#interest{
+	background-image: url(../images/off-on_interest.png);
+}
 .switch.large {
     background-image: url(../images/off-on.png);
     background-color: #696969;
