@@ -1375,6 +1375,8 @@ d3.selectAll(".control")
 					d3.select(".tax_credit_equity.text").attr("value", "0.0%")
 					d3.select(".tax_credit_equity.range").node().value = 0
 					d3.select(".tax_credit_equity.range").attr("value", 0)
+					d3.select("#gap_container_50_credit").text("No")
+					d3.select("#gap_container_100_credit").text("No")
 					// d3.select(".control_container.tax_credit_equity").classed("disabled", true)
 					showWarning("tax_credit_equity", true)
 				}else{
@@ -1383,6 +1385,12 @@ d3.selectAll(".control")
 					d3.select(".tax_credit_equity.text").attr("value", oldval * 100 + "%")
 					d3.select(".tax_credit_equity.range").node().value = oldval
 					d3.select(".tax_credit_equity.range").attr("value", oldval)
+					d3.select("#gap_container_50_credit").text(function(){
+						return (d3.select("#s1").classed("off")) ? "No" : "With"
+					})
+					d3.select("#gap_container_100_credit").text(function(){
+						return (d3.select("#s2").classed("off")) ? "No" : "With"
+					})
 					// d3.select(".control_container.tax_credit_equity").classed("disabled", false)
 					hideWarning("tax_credit_equity", true)
 
@@ -1874,9 +1882,11 @@ function reset(){
 	d3.select("#renter_row_two.warning").classed("warning",false)
 	d3.select("#percent_of_rent_label i").text("30%")
 	d3.select("#ami_label_val").text("30")
-
-
 	d3.selectAll(".warning_icon").remove()
+
+
+	d3.select("#gap_container_100_credit").text("With")
+	d3.select("#gap_container_50_credit").text("No")
     d3.select("#s1.switch")
         .attr("class", "switch small off")
         .transition()
@@ -1891,6 +1901,7 @@ function reset(){
     config["50"]["sources"]["tax_credit_equity"] = 0
     drawGaps(config, true)
     show1 = 0;
+    show2 = 1;
 
 	d3.selectAll(".control.other_source").attr("value","$0")
 	d3.selectAll(".control.other_source")
