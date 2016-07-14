@@ -273,6 +273,21 @@ display: inline-block;
     width: 22%;
 }
 
+@media(max-width:624px) {
+    #partnership{
+        /*display: none;*/
+        margin-right: 91px !important;
+    }
+    #header-pinned .title{
+        opacity: 0;
+    }
+    #header-pinned .nhc-logo {
+        background: url(../images/nhc_logo_mobile.jpg) no-repeat !important;
+        background-size: 20.9px 26px !important;
+        width: 20.9px !important;
+        right: 67px !important;
+    }
+}
 @media(max-width:767px) {
 .header-links ul li {
         width:28%;

@@ -12,8 +12,9 @@
   <link href='http://fonts.googleapis.com/css?family=Lato:300,400,700,900,300italic,400italic,700italic,900italic' rel='stylesheet' type='text/css'>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <!-- <meta name="viewport" content="width=device-width, initial-scale=1"> -->
-	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
 
     <title>Why isn't there more affordable housing?</title> 
      <meta name="twitter:card" content="summary">
@@ -109,6 +110,15 @@
 <!-- <div id = "roof_50"></div> -->
 <div id = "graphic">
 	<div id = "rollover_text"></div>
+	<div id = "mobile_rollover_text">
+		<svg class="close_button rollover_button">
+		    <circle cx="12" cy="12" r="11" stroke="black" stroke-width="2" fill="white" />
+		    <path stroke="black" stroke-width="4" fill="none" d="M6.25,6.25,17.75,17.75" />
+		    <path stroke="black" stroke-width="4" fill="none" d="M6.25,17.75,17.75,6.25" />
+		</svg>
+		<span></span>
+	</div>	
+
 	<div id = "sections">
 		<section class="step" id="scroll-intro">
 			<h1>Why isn't there more affordable housing?</h1>
@@ -507,6 +517,41 @@
 			<img id = "contractor" src = "images/contractor.png">
 			<img id = "hand" src = "images/hand.png">
 			<div id="credits"></div>
+			<div id="mobile_credits">
+				<svg class="close_button mobile_credits">
+				    <circle cx="12" cy="12" r="11" stroke="black" stroke-width="2" fill="white" />
+				    <path stroke="black" stroke-width="4" fill="none" d="M6.25,6.25,17.75,17.75" />
+				    <path stroke="black" stroke-width="4" fill="none" d="M6.25,17.75,17.75,6.25" />
+				</svg>
+				<div id = "credits_title">Project Credits</div>
+				<div id = "credits_left_col">
+					<div class="credits_h2">Research</div>
+					<div class="credits_h3">Urban Institute</div>
+					<div class = "credits_name"><a href = "http://www.urban.org/author/pamela-blumenthal">Pamela Blumenthal</a><span>Senior Research Associate</span></div>
+					<div class = "credits_name"><a href = "http://www.urban.org/author/reed-jordan">Reed Jordan</a><span>Research Associate II</span></div>
+					<div class="credits_h3">National Housing Conference</div>
+					<div class = "credits_name"><a href = "http://www.nhc.org/#!amy-clark/b3vsj">Amy Clark</a><span>Director of Marketing and Communications</span></div>
+					<div class = "credits_name"><a href = "http://www.nhc.org/#!handelman/ti4vm">Ethan Handelman</a><span>Vice President of Policy and Advocacy</span></div>
+					<div class = "credits_name"><a href = "http://www.nhc.org/#!rking/p7c05">Rebekah King</a><span>Policy Associate </span></div>
+
+				</div>
+				<div id = "credits_right_col">
+					<div class="credits_h2">Feature</div>
+					<div class="credits_h3">Urban Institute</div>
+					<div class = "credits_name"><a href = "http://www.urban.org/author/christina-baird">Christina Baird</a><span>Web Designer</span></div>
+					<div class = "credits_name"><a href = "http://www.urban.org/author/fiona-blackshaw">Fiona Blackshaw</a><span>Senior Production Editor</span></div>
+					<div class = "credits_name"><a href = "http://www.urban.org/author/benjamin-chartoff">Ben Chartoff</a><span>Data Visualization Developer</span></div>
+					<div class = "credits_name"><a href = "http://www.urban.org/author/alexandra-tilsley">Alexandra Tilsley</a><span>Research Writer</span></div>
+					<div class = "credits_name"><a href = "http://www.urban.org/author/john-wehmann">John Wehmann</a><span>Director of Design and Visuals</span></div>
+
+					<div id ="report_button">Read the research</div>
+				</div>
+				<div id = "disclaimer">
+				The Assisted Housing Initiative is a project of the Urban Institute, made possible by support from Housing Authority Insurance, Inc. (HAI, Inc.), to provide fact-based analysis about public and assisted housing. The Urban Institute is a non-profit, nonpartisan research organization and retains independent and exclusive control over substance and quality of any Assisted Housing Initiative products. The views expressed in this and other Assisted Housing Initiative commentaries are those of the authors and should not be attributed to the Urban Institute or HAI, Inc.
+				</div>
+			</div>
+
+
 			<div id="text_credits">
 				<svg class="close_button credits">
 				    <circle cx="12" cy="12" r="11" stroke="black" stroke-width="2" fill="white" />
@@ -743,11 +788,11 @@
 		    <stop offset="50%" stop-color="rgba(203,234,245,1)"/>
 		  </linearGradient> -->
 		  <radialGradient id="Gradient2" cx="50%" cy="50%" r="50%" fx="50%" fy="50%">
-		    <stop offset="0%" stop-color="rgba(203,234,245,1)"/>
-		    <stop offset="30%" stop-color="rgba(203,234,245,.9)"/>
-		    <stop offset="80%" stop-color="rgba(203,234,245,.05)"/>
-		    <stop offset="100%" stop-color="rgba(203,234,245,0)"/>
-		  </linearGradient>
+		    <stop offset="0%" stop-color="rgb(203,234,245)" stop-opacity="1"/>
+		    <stop offset="30%" stop-color="rgb(203,234,245)" stop-opacity=".9"/>
+		    <stop offset="80%" stop-color="rgb(203,234,245)" stop-opacity=".05"/>
+		    <stop offset="100%" stop-color="rgb(203,234,245)" stop-opacity="0"/>
+		  </radialGradient>
 		</defs>
 		<ellipse cx="260" cy="205" rx="760" ry="85" fill="url(#Gradient2)"/>
 	</svg>

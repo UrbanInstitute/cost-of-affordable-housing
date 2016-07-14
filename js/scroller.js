@@ -88,10 +88,18 @@ function scroller() {
    * index.
    *
    */
+  var oldPos = window.pageYOffset;
   function position() {
 
     // console.log(sectionPositions)
     var pos = window.pageYOffset  + 90 - containerStart;
+    if(d3.select("#tablet").style("display") == "block"){
+      if(pos >= oldPos){
+        hideHeader();
+      }else{
+        showHeader();
+      }
+    }
     var sectionIndex = d3.bisect(sectionPositions, pos);
     // console.log(sectionIndex)
     sectionIndex = Math.min(sections.size() - 1, sectionIndex);
@@ -105,6 +113,30 @@ function scroller() {
     var prevTop = sectionPositions[prevIndex];
     var progress = (pos - prevTop) / (sectionPositions[sectionIndex] - prevTop);
     dispatch.progress(currentIndex, progress);
+    oldPos = pos;
+  }
+  function hideHeader(){
+    d3.select("#header-pinned")
+      // .transition()
+      .classed("is-visible",false)
+      .style("top","-100px")
+    d3.select("#subNav")
+      .style("top", "-50px")
+    d3.select("#nav_arrow")
+      .style("top","-20px")
+  }
+
+  function showHeader(){
+      //   d3.select("#header-pinned")
+      // .transition()
+    d3.select("#header-pinned")
+      // .transition()
+      .classed("is-visible",true)
+      .style("top","0px")
+    d3.select("#subNav")
+      .style("top", "49px")
+    d3.select("#nav_arrow")
+      .style("top","80px")
   }
 
   /**

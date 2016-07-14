@@ -8,14 +8,14 @@ function toggle_visibility(id) {
 
 $(function () {
     var shrinkHeader = 200;
-    $(window).scroll(function () {
-        var scroll = getCurrentScroll();
-        if (scroll >= shrinkHeader) {
-            $('#header-pinned').addClass('is-visible');
-        } else {
-            $('#header-pinned').removeClass('is-visible');
-        }
-    });
+    // $(window).scroll(function () {
+    //     var scroll = getCurrentScroll();
+    //     if (scroll >= shrinkHeader) {
+    //         $('#header-pinned').addClass('is-visible');
+    //     } else {
+    //         $('#header-pinned').removeClass('is-visible');
+    //     }
+    // });
 
     function getCurrentScroll() {
         return window.pageYOffset || document.documentElement.scrollTop;

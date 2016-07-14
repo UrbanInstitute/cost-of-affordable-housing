@@ -898,7 +898,6 @@ function updateDefaultsFromDashboard(transition){
 			if(control == "vacancy_rate" || control == "replacement_reserve_rate"){
 				var amt = parseFloat(this.value)*original[this.id.split("range_")[1]];
 				config[this.id.split("range_")[1]] = amt;
-				console.log(control, amt)
 				countup_val("s50" + "_" + control, amt)
 				countup_val("s100" + "_" + control, amt)
 			}
@@ -1493,76 +1492,86 @@ d3.select(".control_container.new_source_button")
 
 d3.selectAll(".navTab.navTab4")
 	.on("click", function(){
-		var small = d3.select("#contractor").style("display") == "none"
+		if(d3.select("#contractor").style("display") == "block"){
+			var small = d3.select("#contractor").style("display") == "none"
 
 
-		if(d3.select("#credits").classed("visible")){ return false}
+			if(d3.select("#credits").classed("visible")){ return false}
 
-		d3.select("#mouth")
-			.transition()
-			.duration(100)
-			.style("height","8px")
+			d3.select("#mouth")
+				.transition()
+				.duration(100)
+				.style("height","8px")
 
-		highlightSection(4)
-		var bottom = 3*(window.innerHeight - 553)/4
-		var right = window.innerHeight - bottom - 553
-		var r = parseFloat(d3.select("#ground_container").node().getBoundingClientRect().width)*.36 + 37
+			highlightSection(4)
+			var bottom = 3*(window.innerHeight - 553)/4
+			var right = window.innerHeight - bottom - 553
+			var r = parseFloat(d3.select("#ground_container").node().getBoundingClientRect().width)*.36 + 37
 
-		d3.select("#credits")
-			.classed("visible", true)
-			.transition()
-			.ease("back")
-			.duration(1200)
-			.style("bottom",bottom)
-			.style("right",right)
-			.style("width","473px")
-			.style("height","553px")
-			.style("transform","rotate(360deg")
+			d3.select("#credits")
+				.classed("visible", true)
+				.transition()
+				.ease("back")
+				.duration(1200)
+				.style("bottom",bottom)
+				.style("right",right)
+				.style("width","473px")
+				.style("height","553px")
+				.style("transform","rotate(360deg")
+				.each("end", function(){
+					d3.select("#hand")
+						.style("z-index","99999")
+				})
 
-		var spinLock = {},
-		    fadeLock = {};
-		d3.select("#text_credits")
-		    .call(spin, 1200)
-		    .call(fade, 1200);
+			var spinLock = {},
+			    fadeLock = {};
+			d3.select("#text_credits")
+			    .call(spin, 1200)
+			    .call(fade, 1200);
 
-		function spin(path, duration) {
-		  d3.select(spinLock).transition()
-		      .duration(duration)
-		      .ease("back")
-		      .tween("style:bottom", function() {
-		        var i = d3.interpolateString("56px", bottom + "px");
-		        return function(t) { path.style("bottom", i(t)); };
-		      })
-		      .tween("style:right", function() {
-		        var i = d3.interpolateString(r + "px", right + "px");
-		        return function(t) { path.style("right", i(t)); };
-		      })
-		      .tween("style:width", function() {
-		        var i = d3.interpolateString("72px", "473px");
-		        return function(t) { path.style("width", i(t)); };
-		      })
-		      .tween("style:height", function() {
-		        var i = d3.interpolateString("53px", "553px");
-		        return function(t) { path.style("height", i(t)); };
-		      })
-		      .tween("style:transform", function() {
-		        var i = d3.interpolateString("rotate(77deg)", "rotate(360deg)");
-		        return function(t) { path.style("transform", i(t)); };
-		      })
-		}
+			function spin(path, duration) {
+			  d3.select(spinLock).transition()
+			      .duration(duration)
+			      .ease("back")
+			      .tween("style:bottom", function() {
+			        var i = d3.interpolateString("56px", bottom + "px");
+			        return function(t) { path.style("bottom", i(t)); };
+			      })
+			      .tween("style:right", function() {
+			        var i = d3.interpolateString(r + "px", right + "px");
+			        return function(t) { path.style("right", i(t)); };
+			      })
+			      .tween("style:width", function() {
+			        var i = d3.interpolateString("72px", "473px");
+			        return function(t) { path.style("width", i(t)); };
+			      })
+			      .tween("style:height", function() {
+			        var i = d3.interpolateString("53px", "553px");
+			        return function(t) { path.style("height", i(t)); };
+			      })
+			      .tween("style:transform", function() {
+			        var i = d3.interpolateString("rotate(77deg)", "rotate(360deg)");
+			        return function(t) { path.style("transform", i(t)); };
+			      })
+			}
 
-		function fade(path, duration) {
-		  d3.select(fadeLock).transition()
-		      .duration(duration)
-		      .delay(700)
-		      .tween("style:opacity", function() {
-		        var i = d3.interpolateNumber(0, 1);
-		        return function(t) { path.style("opacity", i(t)); };
-		      })
-		      .tween("style:box-shadow", function() {
-		        var i = d3.interpolateString("0px 0px 0px #888888", "4px 4px 16px #888888");
-		        return function(t) { path.style("box-shadow", i(t)); };
-		      })
+			function fade(path, duration) {
+			  d3.select(fadeLock).transition()
+			      .duration(duration)
+			      .delay(700)
+			      .tween("style:opacity", function() {
+			        var i = d3.interpolateNumber(0, 1);
+			        return function(t) { path.style("opacity", i(t)); };
+			      })
+			      .tween("style:box-shadow", function() {
+			        var i = d3.interpolateString("0px 0px 0px #888888", "4px 4px 16px #888888");
+			        return function(t) { path.style("box-shadow", i(t)); };
+			      })
+			}
+		}else{
+			d3.select("#mobile_credits")
+				.style("opacity",1)
+				.style("pointer-events","visible")
 		}
 		
 });
@@ -1570,6 +1579,18 @@ d3.selectAll(".navTab.navTab4")
 
 d3.select(".close_button.credits")
 	.on("click", hideCredits)
+d3.select(".close_button.mobile_credits")
+	.on("click", function(){
+		d3.select("#mobile_credits")
+			.style("opacity",0)
+			.style("pointer-events","none")
+	})
+d3.select(".close_button.rollover_button")
+	.on("click", function(){
+		d3.select("#mobile_rollover_text")
+			.style("opacity",0)
+			.style("pointer-events","none")
+	})
 d3.select(".close_button.warning")
 	.on("click", function(){
 		d3.select("#warning_sign")
@@ -1584,6 +1605,7 @@ $(document).keyup(function(e) {
 });
 
 function hideCredits(){
+
 	if(!d3.select("#credits").classed("visible")){ return false}
 	if(d3.selectAll(".warning")[0].length == 0 && d3.selectAll(".disabled")[0].length == 0){
 		d3.select("#mouth")
@@ -1591,6 +1613,8 @@ function hideCredits(){
 			.duration(100)
 			.style("height","0px")
 	}
+	d3.select("#hand")
+		.style("z-index","10000000")	
     // right: calc(36% + 34px);
 	var bottom = 3*(window.innerHeight - 553)/4
 	var right = window.innerHeight - bottom - 553
@@ -1606,6 +1630,8 @@ function hideCredits(){
 		.style("width","72px")
 		.style("height","53px")
 		.style("transform","rotate(77deg")
+
+
 
 	var spinLock = {},
 	    fadeLock = {};
@@ -1738,17 +1764,30 @@ d3.select("#s2").on("click", function () {
 
 d3.selectAll(".rollover")
 	.on("mouseover", function(){
-		var msg = help_msgs[this.id.replace("rollover_","help_")]
-		var right = this.getBoundingClientRect().right
-		var top = this.getBoundingClientRect().top
-		d3.select("#rollover_text")
-			.text(msg)
-			.style("display","block")
-			.style("left",right + 15)
-			.style("top",function(){
-				return top + 10 - this.getBoundingClientRect().height/2
-				
-			})
+		if(TABLET){
+			console.log("mobile")
+			var msg = help_msgs[this.id.replace("rollover_","help_")]
+			var right = this.getBoundingClientRect().right
+			var top = this.getBoundingClientRect().top
+			d3.select("#mobile_rollover_text")
+				.style("opacity",1)
+				.style("pointer-events","visible")	
+				.select("span")
+				.text(msg)
+	
+		}else{
+			var msg = help_msgs[this.id.replace("rollover_","help_")]
+			var right = this.getBoundingClientRect().right
+			var top = this.getBoundingClientRect().top
+			d3.select("#rollover_text")
+				.text(msg)
+				.style("display","block")
+				.style("left",right + 15)
+				.style("top",function(){
+					return top + 10 - this.getBoundingClientRect().height/2
+					
+				})
+		}
 	})
 	.on("mouseout", function(){
 		d3.select("#rollover_text")
@@ -1756,16 +1795,25 @@ d3.selectAll(".rollover")
 	})
 d3.selectAll(".help-button")
 	.on("mouseover", function(){
-		var msg = help_msgs[this.id]
-		d3.select(this)
-			.style("z-index",100)
-			.append("div")
-			.attr("class","help-text")
-			.text(msg)
-		d3.selectAll(".help-text")
-			.style("top",function(){
-				return 6-1*this.getBoundingClientRect().height/2
-			})
+		if(TABLET){
+			var msg = help_msgs[this.id]
+			d3.select("#mobile_rollover_text")
+				.style("opacity",1)
+				.style("pointer-events","visible")	
+				.select("span")
+				.text(msg)
+		}else{
+			var msg = help_msgs[this.id]
+			d3.select(this)
+				.style("z-index",100)
+				.append("div")
+				.attr("class","help-text")
+				.text(msg)
+			d3.selectAll(".help-text")
+				.style("top",function(){
+					return 6-1*this.getBoundingClientRect().height/2
+				})
+		}
 	})
 	.on("mouseout", function(){
 		d3.selectAll(".help-button")
@@ -1949,6 +1997,53 @@ function resizeFeature(){
 	SMALL_DESKTOP = d3.select("#small_desktop").style("display") == "block"
 	MOBILE = d3.select("#mobile").style("display") == "block"
 	TABLET = d3.select("#tablet").style("display") == "block"
+	d3.selectAll("#mobile_fader").remove();
+	var W = window.innerWidth;
+	var H = window.innerHeight;
+	var msvg = d3.select("body")
+		.append("svg")
+		.attr("id","mobile_fader")
+		.attr("height", H/2)
+		.attr("width",W)
+	var grad = msvg.append("defs")
+		.append("linearGradient")
+		.attr("id","mobile_gradient")
+		.attr("x1","0")
+		.attr("x2","0")
+		.attr("y1","0")
+		.attr("y2","1")
+	grad.append("stop")
+		.attr("offset","0%")
+		.attr("stop-color","#cbeaf5")
+		.attr("stop-opacity","0")
+
+	grad.append("stop")
+		.attr("offset","10%")
+		.attr("stop-color","#cbeaf5")
+		.attr("stop-opacity",".9")
+
+	grad.append("stop")
+		.attr("offset","100%")
+		.attr("stop-color","#cbeaf5")
+		.attr("stop-opacity","1")
+
+	msvg.append("rect")
+		.attr("x","0")
+		.attr("y","0")
+		.attr("width",W)
+		.attr("height",H/2)
+		.attr("fill","url(#mobile_gradient)")
+  // <defs>
+  //     <linearGradient id="Gradient2" x1="0" x2="0" y1="0" y2="1">
+  //       <stop offset="0%" stop-color="red"/>
+  //       <stop offset="50%" stop-color="black" stop-opacity="0"/>
+  //       <stop offset="100%" stop-color="blue"/>
+  //     </linearGradient>
+  // </defs>
+		// msvg.append
+		  // <rect x="10" y="120" rx="15" ry="15" width="100" height="100" fill="url(#Gradient2)"/>
+
+	
 
 }
 resizeFeature();

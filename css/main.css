@@ -19,6 +19,57 @@ body p a:hover{
 /***************************** MOBILE BUILDING *****************************/
 /***************************************************************************/
 @media (max-width:484px){
+
+	#person1{
+		left: 69px !important;
+	    bottom: 3px !important;
+	}
+	#person2{
+	    bottom: 21px !important;
+	    left: 51px !important;
+	}
+	#person3{
+		left: 72px !important;
+    	bottom: 32px !important;
+	}
+	#person4{
+	    bottom: 3px !important;
+	    left: 15px !important;
+	}
+	#person5{
+		left: 71px !important;
+	    bottom: 32px !important;
+	}
+	#person6{
+	    bottom: 3px !important;
+	    left: 15px !important;
+	}
+	#person7{
+		left: 69px !important;
+	    bottom: 3px !important;
+	}
+	#person8{
+	    bottom: 2px !important;
+	    left: 71px !important;
+	}
+	#person9{
+	    bottom: 3px !important;
+	    left: 69px !important;
+	}
+	#person10{
+		bottom: 20px !important;
+	    left: 52px !important;
+	}
+
+
+
+	#warning_sign{
+		width: calc(100% - 70px) !important;
+		left: 0px !important;
+	}
+
+
+
 	.total_building{
 		width: 120px !important;
 		left: -10px !important;
@@ -75,8 +126,41 @@ body p a:hover{
      .explainer{
      	/*width: calc(100% - 60px) !important;	*/
      	padding: 10px;
-     	width: calc(100% - 20px) !important;
+     	width: calc(100% - 40px) !important;
      }
+     #noi_label{
+     	width: 68px !important;
+     }
+     #help_noi{
+		margin-left: -39px !important;
+		left: 0px !important;
+     }
+     #s50_debt_income{
+     	display: block !important;
+	    position: relative !important;
+    	left: 20px !important;
+    	top: 5px !important;
+    	margin-bottom: -11px !important;
+     }
+     #s100_debt_income{
+     	display: block;
+    	position: relative;
+    	top: 0px;
+	    left: 120px;
+    }
+    #s50_debt_value{
+    	margin-left: 0px !important;
+    }
+    #debt_marker_100{
+    	display: none !important;
+    }
+    .warning_icon.rent_high{
+    	left: 157px !important;
+    	width: 0px !important;
+    }
+    .noi.explainer .warning_icon {
+    	right: -23px !important;
+    }
 	.s50_label, .s50_noi_label, .s100_noi_label, .s50_blank_label, .s100_blank_label {
 	    margin-left: -20px !important;
 	    font-size: 13px !important;
@@ -109,6 +193,9 @@ body p a:hover{
 	.control_container.ami_label{
 		height: 0px !important;
 	}
+	.warning_icon{
+		margin-left: 20px !important;
+	}
 	#ami_label{
 		text-indent: 19px !important;
 	}
@@ -118,17 +205,27 @@ body p a:hover{
 	}
 	.gap_apt_label{
 	    position: fixed;
-	    bottom: 24px;
+	    bottom: 28px;
 	    padding: 3px;
 	    color: black !important;
 	    margin-left: -14px;
 	}
 	.gap_ami_label{
 	    position: fixed;
-	    bottom: 4px;
+	    bottom: 13px;
 	    padding: 3px;
 	    color: black !important;
 	    margin-left: -14px;
+	}
+	.gap_credit_label{
+  		position: fixed;
+    	bottom: 0px;
+	    color: black !important;
+    	width: 120px;
+    	margin-left: -10px;
+	}
+	.gap_label{
+		float: none !important;
 	}
 	.gap_container{
     	width: 124px !important;
@@ -144,6 +241,28 @@ body p a:hover{
 	.urban-switch.small.s100{
 		left: 208px !important;
 	}
+
+	#renter_row_two{
+		width: 100% !important;
+	}
+	#ami_label{
+		top: -36px !important;
+	    margin-left: 135px !important;
+	}
+	#percent_of_rent_label{
+    	top: 12px !important;
+    	left: 13px !important;
+	}
+	#reset-button{
+		display: none !important;
+	}
+	#path50,#path100,#shrubs50,#shrubs100,#dog,#wheelbarrow{
+		display: none !important;
+	}
+
+
+
+
 
 }
 .mobile_window{
@@ -162,6 +281,22 @@ body p a:hover{
 /********************************* TABLET **********************************/
 /***************************************************************************/
 @media (max-width:943px){
+	#mobile_rollover_text{
+		display: block !important;
+		opacity: 0;
+		pointer-events: none;
+		position: fixed;
+		top: 120px;
+		left: 20px;
+		background: #231f20;
+	    /*top: 0px;*/
+	    font-style: italic;
+	    font-size: 14px;
+	    width: calc(100% - 74px);
+	    color: white;
+	    padding: 17px;
+	    z-index: 999999999;
+	}
      #tablet{
      	display: block !important;
      } 
@@ -204,9 +339,78 @@ body p a:hover{
      	display: block !important;
      }     
 }
+#mobile_credits{
+	display: none;
+}
 @media (max-width:716px){
+	#mobile_credits{
+		display: block !important;
+		opacity: 0;
+		pointer-events: none;
+		width: calc(100% - 20px);
+		position: fixed;
+		left: 10px;
+		top: 10px;
+		background: white;
+		z-index: 999999999999999;
+		padding-bottom: 5px;
+		-webkit-box-shadow: 4px 4px 16px #888888;
+		-moz-box-shadow: 4px 4px 16px #888888;
+		box-shadow: 4px 4px 16px #888888;
+	}
+	#mobile_credits #credits_left_col, #mobile_credits #credits_right_col{
+		width: 100%;
+		margin-left: 5px;
+	}
+	#mobile_credits .credits_name span {
+     	display: inline; 
+	    font-style: italic;
+	    font-size: 13px;
+	    margin-left: 6px;
+	}
+	#mobile_credits .credits_name a {
+	    cursor: pointer;
+	    text-decoration: none;
+	    color: #000;
+	    font-size: 13px;
+	    font-weight: bold;
+	}
+	#mobile_credits .credits_h2{
+		margin-bottom: -9px;
+	}
+	#mobile_credits #disclaimer {
+	    display: inline-block;
+	    padding-left: 15px;
+	    margin-top: 8px;
+	    font-size: 9px;
+	    font-style: italic;
+	    padding-right: 9px;
+    }
+	#mobile_credits #credits_title {
+	    margin-left: 15px;
+	    margin-top: -27px;
+		margin-bottom: 6px;
+    	font-size: 21px;
+	}
+	.close_button.mobile_credits{
+	    height: 35px;
+	    width: 24px;
+	    position: relative;
+	    right: calc(19px - 100%);
+    	top: -6px;
+	}
 	#leftHill,#trees, #crane, #cloud2, #contractor, #mouth_container, #hand, #credits, #text_credits{
 		display: none !important;
+	}
+	#fader{
+		display: none;
+	}
+	#mobile_fader{
+	    position: fixed;
+    	bottom: 0px;
+    	left: 0px;
+    	z-index: 200;
+    	pointer-events: none;
 	}
 }
 @media (max-width:484px){
@@ -256,6 +460,10 @@ body p a:hover{
     color: #d1d2d4;
     background: #231f20;
     z-index: 999;
+    -webkit-transition: top 0.25s linear;
+    -moz-transition: top 0.25s linear;
+    -o-transition: top 0.25s linear;
+    transition: top 0.25s linear;
 }
 .navTab{
 	float: left;
@@ -287,6 +495,10 @@ body p a:hover{
     border-bottom: 9px solid #cee7f2;
     z-index: 1000;
     left: 8%;
+    -webkit-transition: top 0.25s linear;
+    -moz-transition: top 0.25s linear;
+    -o-transition: top 0.25s linear;
+    transition: top 0.25s linear;
 }
 /***************************************************************************/
 /*************************** TEXT STYLES ***********************************/
@@ -1190,6 +1402,9 @@ input.new_source_label{
     padding: 17px;
     display: none;
 }
+#mobile_rollover_text{
+	display: none;
+}
 
 #rollover_text:after{
 	right: 100%;
@@ -1586,6 +1801,13 @@ input.text.invalid{
     height: 34px;
     width: 34px;
 }
+.close_button.rollover_button{
+	float: right;
+    width: 24px;
+    height: 24px;
+    margin-top: -26px;
+    margin-right: -26px;
+}
 .close_button > circle {
 	stroke: #231f20;
     fill: #231f20;
@@ -1593,6 +1815,14 @@ input.text.invalid{
 .close_button > path {
     stroke: #d1d2d4;
 }
+.close_button.rollover_button > circle {
+	stroke: #e7d18f;
+    fill: #e7d18f;
+}
+.close_button.rollover_button > path {
+    stroke: #231f20;
+}
+
 .close_button:hover > circle {
 	stroke: #1696d2;
     fill: #1696d2;
