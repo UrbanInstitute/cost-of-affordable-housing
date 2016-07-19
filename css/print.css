@@ -5,6 +5,9 @@ body{
 input[type=range]{
 	display: none;
 }
+svg{
+	display: none;
+}
 .control_container:not(.new_source) input[type=text]{
 	position: absolute;
     left: 220px;
@@ -35,6 +38,9 @@ input[type=text]{
 .help-button{
 	display: none;
 }
+#reset-button{
+	display: none;
+}
 
 .rollover{
 	display: inline;
@@ -54,7 +60,7 @@ input[type=text]{
 
 #print_credits{
 	display: block;
-	margin-left: 50px;
+	margin-left: 30px;
 }
 .close_button{
 	display: none;
@@ -159,3 +165,40 @@ h1{
 	display: block;
 }
 .page-break { height:0; page-break-after:always; margin:0; border-top:none; }
+
+
+
+.switch.off{
+	background-color: #9d9d9d !important;
+}
+.switch.on{
+	background-color: #000 !important;
+}
+.control_container.ami_label{
+	bottom: -32px !important;
+    position: relative !important;
+    left: -143px !important;
+}
+
+#percent_of_rent_label {
+    top: -8px !important;
+    left: 16px !important;
+}
+.multiplier {
+    left: -58px !important;
+}
+.label_wide {
+    width: 156px !important;
+    margin-right: 40px !important;
+}
+#s1, #s2{
+	left: 24px !important;
+}
+
+#print_gap_container_50_credit, #print_gap_container_100_credit{
+    text-transform: uppercase;
+    font-size: 10pt;
+    margin-top: -13px;
+    margin-bottom: 12px;
+    font-style: italic;
+}

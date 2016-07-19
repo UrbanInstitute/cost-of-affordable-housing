@@ -478,11 +478,11 @@ body p a:hover{
     cursor: pointer;
 }
 .navTab.active{
-	font-weight: bold;
-	color: #1696d2;
+	background-color: #1696d2;
+	color: white;
 }
 .navTab:hover{
-	background-color: #1696d2;
+	background-color: #12719e;
 	color: white;
 }
 #nav_arrow{
@@ -527,6 +527,9 @@ h4{
 h2 span{
     font-weight: normal;
     font-style: italic;
+}
+h2 span.breaker{
+	display: block;
 }
 p{
 	width: 424px;
@@ -677,7 +680,8 @@ section.step{
     margin-top: 5px;
 }
 .needed{
-	    float: left;
+	float: left;
+	clear: both;
     margin-left: 10px;
     font-size: 12px;
     font-style: italic;
@@ -1065,6 +1069,7 @@ section.step{
     padding-right: 4px;
     vertical-align: middle;
     text-align: center;
+    opacity: 0 !important;
 }
 .control_container.invalid .multiplier{
 /*	border: 2px solid #db2b27;
@@ -1540,6 +1545,7 @@ input[type=range]:focus::-ms-fill-upper {
 /********************************* TEXT INPUT ******************************/
 /***************************************************************************/
 input[type=text]{
+	opacity: 0;
 	font-style: italic;
 	pointer-events: none;
     margin-top: 8px;
@@ -1554,6 +1560,9 @@ input[type=text]{
     font-size: 13px;
     background-color: transparent;
     text-align: left;
+}
+.new_source_label, .control.sources.other_source{
+	opacity: 1 !important;
 }
 input.text.invalid{
 	border: 2px solid #db2b27;

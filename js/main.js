@@ -86,7 +86,7 @@ function drawGap(units, config, transition){
 	var gap = resp.gap
 	if(total_development_cost-gap <0){
 		gap = total_development_cost;
-	}else if(gap < 0){
+	}else if(gap <= 0){
 		gap = 0;
 	}
 	if(units==100){
@@ -343,7 +343,35 @@ function drawGap(units, config, transition){
 					return "rgba(38,31,32,1)"
 				}
 			})
-			countup_val("gap_amount_"+units, resp.gap)
+			if(resp.gap <= 0){
+				d3.select("#gap_container_" + units + " .needed")
+					.text("surplus")
+					.style("color","#fdbf11")
+
+				d3.select(".print_label.gap" + units)
+					.text("Surplus")
+					.style("color","#1696d2")
+				d3.select("#print_gap_amount_" + units)
+					.style("color","#1696d2")
+				d3.select("#gap_amount_" + units)
+					.style("color","#fdbf11")
+
+				countup_val("gap_amount_"+units, resp.gap*-1)
+
+			}else{
+				d3.select("#gap_container_" + units + " .needed")
+					.text("deficit")
+					.style("color","#ffffff")
+				d3.select(".print_label.gap" + units)
+					.text("Deficit")
+					.style("color","#000000")
+				d3.select("#print_gap_amount_" + units)
+					.style("color","#000000")
+				d3.select("#gap_amount_" + units)
+					.style("color","#ffffff")
+				countup_val("gap_amount_"+units, resp.gap)
+			}
+
 			countup_val("print_gap_amount_"+units, resp.gap)
 			countup_val("print_cost_amount_"+units, resp.total_development_cost)
 			countup_val("print_sources_amount_"+units, resp.total_sources)
@@ -533,7 +561,34 @@ function drawGap(units, config, transition){
 					return "rgba(35,31,32,1)"
 				}
 			})
-			countup_val("gap_amount_"+units, resp.gap)
+			if(resp.gap <= 0){
+				d3.select("#gap_container_" + units + " .needed")
+					.text("surplus")
+					.style("color","#fdbf11")
+
+				d3.select(".print_label.gap" + units)
+					.text("Surplus")
+					.style("color","#1696d2")
+				d3.select("#print_gap_amount_" + units)
+					.style("color","#1696d2")
+				d3.select("#gap_amount_" + units)
+					.style("color","#fdbf11")
+
+				countup_val("gap_amount_"+units, resp.gap*-1)
+
+			}else{
+				d3.select("#gap_container_" + units + " .needed")
+					.text("deficit")
+					.style("color","#ffffff")
+				d3.select(".print_label.gap" + units)
+					.text("Deficit")
+					.style("color","#000000")
+				d3.select("#print_gap_amount_" + units)
+					.style("color","#000000")
+				d3.select("#gap_amount_" + units)
+					.style("color","#ffffff")
+				countup_val("gap_amount_"+units, resp.gap)
+			}
 			countup_val("print_gap_amount_"+units, resp.gap)
 			countup_val("print_cost_amount_"+units, resp.total_development_cost)
 			countup_val("print_sources_amount_"+units, resp.total_sources)
@@ -1376,6 +1431,9 @@ d3.selectAll(".control")
 					d3.select(".tax_credit_equity.range").attr("value", 0)
 					d3.select("#gap_container_50_credit").text("No")
 					d3.select("#gap_container_100_credit").text("No")
+					d3.select("#print_gap_container_50_credit i").text("No")
+					d3.select("#print_gap_container_100_credit i").text("No")
+
 					// d3.select(".control_container.tax_credit_equity").classed("disabled", true)
 					showWarning("tax_credit_equity", true)
 				}else{
@@ -1388,6 +1446,12 @@ d3.selectAll(".control")
 						return (d3.select("#s1").classed("off")) ? "No" : "With"
 					})
 					d3.select("#gap_container_100_credit").text(function(){
+						return (d3.select("#s2").classed("off")) ? "No" : "With"
+					})
+					d3.select("#print_gap_container_50_credit i").text(function(){
+						return (d3.select("#s1").classed("off")) ? "No" : "With"
+					})
+					d3.select("#print_gap_container_100_credit i").text(function(){
 						return (d3.select("#s2").classed("off")) ? "No" : "With"
 					})
 					// d3.select(".control_container.tax_credit_equity").classed("disabled", false)
@@ -1703,6 +1767,8 @@ d3.select("#s1").on("click", function () {
             .style("background-color","#696969")
 
         d3.select("#gap_container_50_credit").text("No")
+        d3.select("#print_gap_container_50_credit i").text("No")
+
 
         var config = updateDefaultsFromDashboard();
         config["50"]["sources"]["tax_credit_equity"] = 0
@@ -1713,7 +1779,8 @@ d3.select("#s1").on("click", function () {
             .attr("class", "switch small on")
             .transition()
             .style("background-color","#1696d2")
-
+        
+        d3.select("#print_gap_container_50_credit i").text("With")
         d3.select("#gap_container_50_credit").text("With")
         showWarning("tax_credit_50")
 
@@ -1736,6 +1803,7 @@ d3.select("#s2").on("click", function () {
             .transition()
             .style("background-color","#696969")
 
+		d3.select("#print_gap_container_100_credit i").text("No")
         d3.select("#gap_container_100_credit").text("No")
 
         var config = updateDefaultsFromDashboard();
@@ -1748,6 +1816,7 @@ d3.select("#s2").on("click", function () {
             .transition()
             .style("background-color","#1696d2")
 
+        d3.select("#print_gap_container_100_credit i").text("With")
         d3.select("#gap_container_100_credit").text("With")
 
 
@@ -1859,6 +1928,7 @@ d3.selectAll(".button_toggle")
 			else if(this.id == "no_credit"){
 					var config = updateDefaultsFromDashboard();
 					d3.select("#gap_container_100_credit").text("No")
+					d3.select("#print_gap_container_100_credit i").text("No")
 					config["50"]["sources"]["tax_credit_equity"] = 0;
 					config["100"]["sources"]["tax_credit_equity"] = 0;
 					drawGaps(config, true)
@@ -1913,6 +1983,7 @@ d3.selectAll(".button_toggle")
 					break;
 
 				case "no_credit":
+					d3.select("#print_gap_container_100_credit i").text("With")
 					d3.select("#gap_container_100_credit").text("With")
 					reset()
 			}
@@ -1935,6 +2006,8 @@ function reset(){
 
 	d3.select("#gap_container_100_credit").text("With")
 	d3.select("#gap_container_50_credit").text("No")
+	d3.select("#print_gap_container_100_credit i").text("With")
+	d3.select("#print_gap_container_50_credit i").text("No")
     d3.select("#s1.switch")
         .attr("class", "switch small off")
         .transition()
