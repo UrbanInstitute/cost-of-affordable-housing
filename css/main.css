@@ -510,6 +510,10 @@ h1{
 	margin-bottom: 0px;
 	margin-top: 150px;
 }
+h1 span{
+	color: black;
+	font-weight: 500;
+}
 h2{
 	color: black;
 	font-size: 28px;
