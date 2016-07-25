@@ -1903,9 +1903,9 @@ d3.selectAll(".button_toggle")
 			d3.select(this).classed("off", true)
 			var config = updateDefaultsFromDashboard();
 			if(this.id == "vacancy"){
-				if(d3.select("#interest").classed("on")){
-					config["interest_rate"] = 0.03;
-				}
+				// if(d3.select("#interest").classed("on")){
+				// 	config["interest_rate"] = 0.03;
+				// }
 				drawGaps(config, true)
 			}
 			else if(this.id == "interest"){
@@ -1953,9 +1953,9 @@ d3.selectAll(".button_toggle")
 					config["50"]["uses"]["acquisition_costs"] = 0;
 					break;
 				case "vacancy":
-					if(d3.select("#interest").classed("on")){
-						config["interest_rate"] = 0.03;
-					}
+					// if(d3.select("#interest").classed("on")){
+					// 	config["interest_rate"] = 0.03;
+					// }
 					config["vacancy_rate"] = 0.03;
 					break;
 				case "interest":
