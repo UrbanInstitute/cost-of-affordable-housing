@@ -91,6 +91,7 @@ function scroller() {
   var oldPos = window.pageYOffset;
   function position() {
 
+    
     // console.log(sectionPositions)
     var pos = window.pageYOffset  + 90 - containerStart;
     if(d3.select("#tablet").style("display") == "block"){

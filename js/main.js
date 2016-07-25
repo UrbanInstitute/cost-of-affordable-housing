@@ -1045,6 +1045,7 @@ function showWarning(control, disabled, invalid){
 			.on("mouseout", function(){
 				d3.select(this).attr("src","images/error.png")
 			})
+
 		
 		d3.select("#warning_sign")
 				.style("pointer-events","visible")
@@ -1864,9 +1865,13 @@ d3.selectAll(".rollover")
 		}
 	})
 	.on("mouseout", function(){
-		d3.select("#rollover_text")
+		d3.selectAll("#rollover_text")
 			.style("display","none")
+		d3.selectAll("#mobile_rollover_text")
+				.style("opacity",0)
+				.style("pointer-events","none")	
 	})
+
 d3.selectAll(".help-button")
 	.on("mouseover", function(){
 		if(TABLET){
@@ -1893,6 +1898,9 @@ d3.selectAll(".help-button")
 		d3.selectAll(".help-button")
 			.style("z-index",99)
 		d3.selectAll(".help-text").remove();
+		d3.select("#mobile_rollover_text")
+			.style("opacity",0)
+			.style("pointer-events","none")
 	})
 d3.select("#reset-button").on("click", reset);
 var RENT_SCALE = .5
@@ -1918,6 +1926,9 @@ d3.selectAll(".button_toggle")
 				if(d3.select("#fifty_rent").classed("on")){
 					config["50"]["average_monthly_rent"] = 487.60 * (RENT_SCALE/.3);
 					config["100"]["average_monthly_rent"] = 489.35 * (RENT_SCALE/.3);						
+				}else{
+					countup_val("gap_container_50_ami",30)
+					countup_val("gap_container_100_ami",30)
 				}
 				drawGaps(config, true)
 			}
@@ -2152,3 +2163,4 @@ function divMove(e){
   div.style.bottom = window.innerHeight-div.getBoundingClientRect().height*.5-e.clientY + 'px';
   div.style.right = window.innerWidth-div.getBoundingClientRect().width*.5-e.clientX + 'px';
 }
+
