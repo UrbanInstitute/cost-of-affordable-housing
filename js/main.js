@@ -52,7 +52,7 @@ var DEFAULT_CONFIG = {
 var DOLLARS = d3.format("$,.0f")
 var PERCENT = d3.format(".2%")
 var PERCENT_SMALL = d3.format(".1%")
-var TOP_THRESHOLD = 240;
+var TOP_THRESHOLD = 255;
 
 function drawGap(units, config, transition){
 	var scalar = (TABLET) ? 2.1: 1;
