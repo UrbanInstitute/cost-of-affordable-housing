@@ -108,7 +108,7 @@ body p a:hover{
      #noi, #debt_sizing, #uses, #sources{
      	width: calc(100% - 40px) !important;
      }
-     p, h2, h1, h4, #top_instruction{
+     p, h2, h1, h4, #top_instruction, h3{
      	width: calc(100% - 40px) !important;
      }
      .header_wrapper{
@@ -520,6 +520,12 @@ h2{
 	font-weight: bold;
 	margin-bottom: 0px;
 }
+h3{
+	font-size: 22px;
+	font-weight: normal;
+	margin-bottom: 0px;
+	color: black;
+}
 h4{
     margin-left: 60px;
     top: -39px;
@@ -528,7 +534,7 @@ h4{
     width: 424px;
     font-weight: 300;
 }
-h2 span{
+h3 span{
     font-weight: normal;
     font-style: italic;
 }
@@ -547,7 +553,7 @@ p{
     margin-bottom: 23px;
     font-size: 14px;	
 }
-h2, h1{
+h2, h1, h3{
 	width: 424px;
 }
 /***************************************************************************/
@@ -557,7 +563,7 @@ h2, h1{
 	margin-left: 60px;
 	margin-bottom: 80px;
 }
-h1, h2, p{
+h1, h2, p, h3{
 	margin-left: 60px;
 	margin-bottom: 40px;	
 }
