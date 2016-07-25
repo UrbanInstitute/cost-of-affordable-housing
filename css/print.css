@@ -68,8 +68,11 @@ input[type=text]{
 #header-pinned, #subNav{
 	display: none;
 }
-p{
+p, #disclaimer{
 	width: 6.5in;
+}
+#disclaimer{
+	padding-top: 20px;
 }
 .explainer{
     background: transparent;

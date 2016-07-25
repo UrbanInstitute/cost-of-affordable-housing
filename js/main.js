@@ -925,7 +925,7 @@ function updateDefaultsFromDashboard(transition){
 		.each(function(){
 			var control = this.id.split("range_")[1];
 			if(control == "acquisition_costs"){
-				
+
 			}else{
 				if(parseFloat(this.value) < 1 && control != "project_management" && control != "developers_fee" && control != "permanent_financing_fees"){
 					showWarning(control)
@@ -1583,7 +1583,7 @@ d3.selectAll(".navTab.navTab4")
 				.duration(1200)
 				.style("bottom",bottom)
 				.style("right",right)
-				.style("width","473px")
+				.style("width","483px")
 				.style("height","553px")
 				.style("transform","rotate(360deg")
 				.each("end", function(){
@@ -1610,7 +1610,7 @@ d3.selectAll(".navTab.navTab4")
 			        return function(t) { path.style("right", i(t)); };
 			      })
 			      .tween("style:width", function() {
-			        var i = d3.interpolateString("72px", "473px");
+			        var i = d3.interpolateString("72px", "483px");
 			        return function(t) { path.style("width", i(t)); };
 			      })
 			      .tween("style:height", function() {
@@ -1638,6 +1638,7 @@ d3.selectAll(".navTab.navTab4")
 			}
 		}else{
 			d3.select("#mobile_credits")
+				.style("top",window.scrollY+20)
 				.style("opacity",1)
 				.style("pointer-events","visible")
 		}
