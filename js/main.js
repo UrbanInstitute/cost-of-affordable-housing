@@ -924,10 +924,14 @@ function updateDefaultsFromDashboard(transition){
 	d3.selectAll("#uses .range.control")
 		.each(function(){
 			var control = this.id.split("range_")[1];
-			if(parseFloat(this.value) < 1 && control != "project_management" && control != "developers_fee" && control != "permanent_financing_fees"){
-				showWarning(control)
+			if(control == "acquisition_costs"){
+				
 			}else{
-				hideWarning(control)
+				if(parseFloat(this.value) < 1 && control != "project_management" && control != "developers_fee" && control != "permanent_financing_fees"){
+					showWarning(control)
+				}else{
+					hideWarning(control)
+				}
 			}
 			var sizes = ["50","100"]
 			for (var i = 0; i<sizes.length; i++){

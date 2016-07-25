@@ -1751,7 +1751,10 @@ input.text.invalid{
 	margin-top:15px;
 	margin-left:10px;
 	font-size:14px;
-
+}
+#report_button a{
+	text-decoration: none !important;
+	color: white !important;	
 }
 .button_text{
     text-transform: uppercase;
